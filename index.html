@@ -1889,15 +1889,18 @@ async function sendEdited(){
   alert(`✅ Enviados: ${ok}\n❌ Errores: ${err}`);
 }
 
-// ─── FIX #2: BACKGROUND REFRESH + TOAST ──────────────────────────────────────
-let _bgInterval  = null;
-let _bgKnownIds  = new Set();
+// ─── BACKGROUND REFRESH + TOAST ──────────────────────────────────────
+let _bgInterval = null;
+let _lastKnownId = 0; // ✅ Solo guarda el último ID numérico visto
 
 function startBgRefresh(){
   stopBgRefresh();
-  _bgKnownIds = new Set(
-    S.fullData.map(r => String(r['ID']||'').trim()).filter(v => v && v.toLowerCase() !== 'nan')
-  );
+  // Guardar el ID más alto actual como punto de referencia
+  _lastKnownId = S.fullData.reduce((maxId, r) => {
+    const id = parseInt(r['ID'] || '0', 10);
+    return id > maxId ? id : maxId;
+  }, 0);
+  console.log(`[BG Refresh] Iniciado. Último ID conocido: ${_lastKnownId}`);
   _bgInterval = setInterval(_doBgRefresh, 30000);
 }
 
@@ -1912,49 +1915,51 @@ async function _doBgRefresh(){
     if(rows.length < 2) return;
 
     const newFullData = parseOttRows(rows);
-    newFullData.forEach((r,i) => r._idx = i);
+    newFullData.forEach((r, i) => r._idx = i);
 
-    // ✅ SNAPSHOT de IDs ANTES de sobreescribir S.fullData
-    const prevIds = new Set(
-      S.fullData.map(r => String(r['ID']||'').trim()).filter(v => v && v.toLowerCase() !== 'nan')
-    );
-
-    // ✅ Detectar filas NUEVAS comparando contra el snapshot anterior
+    // ✅ Detectar filas con ID mayor al último conocido
     const newRows = newFullData.filter(r => {
-      const id = String(r['ID']||'').trim();
-      return id && id.toLowerCase() !== 'nan' && !prevIds.has(id);
+      const id = parseInt(r['ID'] || '0', 10);
+      return !isNaN(id) && id > _lastKnownId;
     });
 
     // Preservar ediciones actuales por ID
     const editedMap = new Map();
-    for(const idx of S.editedRows) {
+    for(const idx of S.editedRows){
       const oldRow = S.fullData[idx];
       if(oldRow && oldRow['ID']) editedMap.set(oldRow['ID'], oldRow);
     }
 
-    // ✅ AHORA sí sobreescribir S.fullData
+    // Sobreescribir fullData
     S.fullData = newFullData;
 
-    // Restaurar ediciones en los nuevos datos
-    for(const newRow of S.fullData) {
+    // Restaurar ediciones
+    for(const newRow of S.fullData){
       const editedRow = editedMap.get(newRow['ID']);
-      if(editedRow) {
+      if(editedRow){
         Object.assign(newRow, editedRow);
         S.editedRows.add(newRow._idx);
       }
     }
 
-    // Re-aplicar filtros y búsqueda actuales
+    // ✅ Actualizar el último ID conocido al máximo encontrado
+    const maxIdNow = S.fullData.reduce((maxId, r) => {
+      const id = parseInt(r['ID'] || '0', 10);
+      return id > maxId ? id : maxId;
+    }, _lastKnownId);
+    _lastKnownId = maxIdNow;
+
+    // Re-aplicar filtros y búsqueda
     S.viewData = applyStoredFilters(S.fullData);
     const q = (document.getElementById('tdc-search').value||'').trim().toLowerCase();
     if(q) S.viewData = S.viewData.filter(r => Object.values(r).some(v => String(v).toLowerCase().includes(q)));
 
-    // Re-aplicar ordenamiento si existe
-    if(S.sortCol) {
+    // Re-aplicar ordenamiento
+    if(S.sortCol){
       S.viewData.sort((a, b) => {
         let av = a[S.sortCol] !== undefined ? String(a[S.sortCol]) : '';
         let bv = b[S.sortCol] !== undefined ? String(b[S.sortCol]) : '';
-        if(S.sortCol === 'ID') {
+        if(S.sortCol === 'ID'){
           const an = parseInt(av, 10), bn = parseInt(bv, 10);
           if(!isNaN(an) && !isNaN(bn)) return S.sortAsc ? an - bn : bn - an;
         }
@@ -1970,13 +1975,16 @@ async function _doBgRefresh(){
     renderTable();
     updateMetrics(S.viewData);
 
-    // ✅ Mostrar toast SOLO si hay nuevos IDs
+    // ✅ Mostrar toast solo por IDs nuevos
     if(newRows.length > 0){
+      console.log(`[BG Refresh] ${newRows.length} nuevo(s) servicio(s) detectado(s)`);
       newRows.forEach(r => _showNewServiceToast(r));
+    } else {
+      console.log(`[BG Refresh] Sin cambios. Último ID: ${_lastKnownId}`);
     }
 
-  } catch(e) {
-    console.warn('[BG Refresh]', e.message);
+  } catch(e){
+    console.warn('[BG Refresh] Error:', e.message);
   }
 }
 
