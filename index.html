@@ -714,14 +714,9 @@ body.resizing * { cursor: col-resize !important; }
 <!-- ════════════════════ JAVASCRIPT ════════════════════ -->
 <script>
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
-const SHEET_ID   = '1L1IST5Ib6On8Z1i-IOsKYZnj-qKyOys_nGsu2xcAY3k';
-const GID_OTT    = '2022931997';
-const GID_NODOS  = '2051307749';
-const GID_BLOQUES= '2024281399';
-const GID_OTT_CFG= '218089575';
-const EAI_FORM   = 'https://docs.google.com/forms/d/e/1FAIpQLScK-Yhut9k5WfpWMDE-MWvKhSw9xYM6q9mOf_IA8g5ht8MzQA/formResponse';
-const TDC_FORM   = 'https://docs.google.com/forms/d/e/1FAIpQLScTrZ1wDl9RiYcH_OnWIsZpp1HKW0p8ICqTBt9GG-f-LtQ0gA/formResponse';
-const CORS = 'https://corsproxy.io/?';
+let CONFIG_SECURE = null;
+
+const PROXY_URL = 'https://script.google.com/macros/s/AKfycbwnK64ipYjbDiYe4xLQutfo1fvZBL3yZksthONn4YqfPzFacn7JBDekrxMT6PzsymcQ3A/exec';
 
 // ─── PRODUCTS LIST ───────────────────────────────────────────────────────────
 const PRODUCTS_LIST = [
@@ -825,8 +820,9 @@ function openModal(id){ document.getElementById(id).classList.add('open'); }
 function closeModal(id){ document.getElementById(id).classList.remove('open'); }
 
 function sheetUrl(gid){
-  const base=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}&t=${Date.now()}`;
-  return CORS+encodeURIComponent(base);
+  const corsProxy = window.CORS || 'https://corsproxy.io/?';
+  const base=`https://docs.google.com/spreadsheets/d/${window.SHEET_ID}/export?format=csv&gid=${gid}&t=${Date.now()}`;
+  return corsProxy + encodeURIComponent(base);
 }
 
 async function fetchCSV(gid, retries = 3) {
@@ -2060,10 +2056,46 @@ function onResizeMouseUp(){
   document.removeEventListener('mouseup', onResizeMouseUp);
 }
 
+async function loadSecureConfig() {
+  try {
+    console.log('🔄 Cargando configuración segura...');
+    showLoading('Cargando configuración...');
+    
+    const response = await fetch(PROXY_URL);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    
+    CONFIG_SECURE = await response.json();
+    console.log('✅ Configuración cargada correctamente');
+    
+    // Asignar las variables globales
+    window.SHEET_ID = CONFIG_SECURE.SHEET_ID;
+    window.GID_OTT = CONFIG_SECURE.GID_OTT;
+    window.GID_NODOS = CONFIG_SECURE.GID_NODOS;
+    window.GID_BLOQUES = CONFIG_SECURE.GID_BLOQUES;
+    window.GID_OTT_CFG = CONFIG_SECURE.GID_OTT_CFG;
+    window.EAI_FORM = CONFIG_SECURE.EAI_FORM;
+    window.TDC_FORM = CONFIG_SECURE.TDC_FORM;
+    window.CORS = CONFIG_SECURE.CORS_PROXY;
+    
+    hideLoading();
+    
+    // Iniciar la aplicación
+    goView('actor');
+    
+    // Configurar event listeners
+    document.getElementById('login-pass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+    document.getElementById('login-user').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('login-pass').focus(); });
+    
+  } catch (error) {
+    hideLoading();
+    console.error('❌ Error cargando configuración:', error);
+    alert('Error de configuración segura. Por favor, recarga la página.\n\nDetalle: ' + error.message);
+  }
+}
+
 // ─── INIT ─────────────────────────────────────────────────────────────────────
-goView('actor');
-document.getElementById('login-pass').addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
-document.getElementById('login-user').addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('login-pass').focus(); });
+// Iniciar cargando la configuración segura
+loadSecureConfig();
 </script>
 </body>
 </html>
