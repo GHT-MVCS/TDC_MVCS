@@ -183,6 +183,7 @@ textarea{resize:vertical;min-height:80px}
 /* ─── TABLA ── */
 .tdc-table-wrap { flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden; padding: 0 16px; }
 .table-scroll { flex: 1; overflow: auto; border-radius: 12px; background: var(--card); border: 1px solid var(--border); }
+thead { position: sticky; top: 0; z-index: 15; }
 table { border-collapse: collapse; width: 100%; min-width: 100%; }
 thead th {
   background: var(--primary); color: #fff; padding: 12px 16px; font-size: 12px;
@@ -320,14 +321,20 @@ thead th { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-
 .tdc-footer button:hover { transform: translateY(-2px); filter: brightness(1.05); }
 
 /* ════ FIX: todas las vistas en su capa ════ */
+/* ════ FIX: todas las vistas en su capa ════ */
 #view-actor, #view-login, #view-tdc, #view-eai {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   background: var(--bg); z-index: 10;
+  display: none;  /* ← AGREGAR ESTO */
 }
 #view-actor.active, #view-login.active, #view-tdc.active, #view-eai.active {
   display: flex; z-index: 20;
 }
-#view-actor { background: linear-gradient(135deg, #007ACC 0%, #005A9E 100%); }
+/* FORZAR que el actor sea visible inmediatamente incluso sin clase active */
+#view-actor {
+  display: flex !important;  /* ← AGREGAR ESTO */
+  background: linear-gradient(135deg, #007ACC 0%, #005A9E 100%);
+}
 #view-login { background: linear-gradient(135deg, #007ACC 0%, #005A9E 100%); }
 #view-tdc { background: var(--bg); }
 .actor-card, .login-card { position: relative; z-index: 25; }
@@ -619,6 +626,7 @@ body.resizing * { cursor: col-resize !important; }
         </div>
         <button class="btn btn-accent btn-sm" onclick="openFilters()">🔍 Filtros</button>
         <button class="btn btn-outline btn-sm" onclick="leaveTdc()">← Cerrar Sesión</button>
+        <span id="last-update" style="color:rgba(255,255,255,0.7);font-size:10px;font-weight:600;white-space:nowrap;">⏱ Sin actualizar</span>
       </div>
     </div>
     <div id="filter-info-bar" style="padding:0 16px 6px;display:none">
@@ -716,7 +724,7 @@ body.resizing * { cursor: col-resize !important; }
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
 let CONFIG_SECURE = null;
 
-const PROXY_URL = 'https://script.google.com/macros/s/AKfycbwnK64ipYjbDiYe4xLQutfo1fvZBL3yZksthONn4YqfPzFacn7JBDekrxMT6PzsymcQ3A/exec';
+const PROXY_URL = 'https://script.google.com/macros/s/AKfycbwHJdQ-k0NXqSe7bbsElhZcMIV3YgIihF_JzJBYeTnI3Ef5gHzipodG2jJdsZqAXnhKiA/exec';
 
 // ─── PRODUCTS LIST ───────────────────────────────────────────────────────────
 const PRODUCTS_LIST = [
@@ -1389,11 +1397,16 @@ function renderTable(){
       const td = document.createElement('td');
       let val = row[col] !== undefined && row[col] !== null ? String(row[col]) : '';
       if (col === 'FECHA S') {
-        // Formato: "23/04/2026 10:45:00" → "23/04/2026 10:45"
-        if (val && val.includes(' ')) {
-          const [fecha, hora] = val.split(' ');
-          const horaParts = hora.split(':');
-          val = `${fecha} ${horaParts[0]}:${horaParts[1]}`;
+        if (val && val.trim() !== '') {
+          // Intentar extraer fecha y hora del string
+          const partes = val.trim().split(/\s+/); // split por cualquier espacio
+          if (partes.length >= 2) {
+            const fecha = partes[0]; // "22/04/2026"
+            const horaParts = partes[1].split(':');
+            const hora = `${horaParts[0] || '00'}:${horaParts[1] || '00'}`;
+            val = `${fecha} ${hora}`;
+          }
+          // Si solo tiene fecha sin hora, la deja como está
         }
       }
       else if (col === 'FBE' && !isNaN(parseFloat(val))) val = parseFloat(val).toFixed(1);
@@ -1773,10 +1786,12 @@ function openCellEdit(rowIdx, col){
     const ott=row['OTT']||''; const list=S.ottData[ott]?.vehiculos||[];
     html=list.length?buildSelect('cell-val',list,current):`<input id="cell-val" value="${current}" style="width:100%">`;
   }
+  else if(col==='PRODUCTO'){ html=buildSelect('cell-val', PRODUCTS_LIST, current); }
   else if(col==='ESTADO DE VIAJE'){ html=buildSelect('cell-val',['⚪ Programado','🟠 Cargando','🟡 Cargado','🟣 Transito','🟢 Finalizado','🔴 Cancelado'],current); }
   else if(col==='TIPO DE VIAJE'){ html=buildSelect('cell-val',['⏭️ Recorrido','🔁 Ida y Vuelta','🔀 Compartido','📦 CompartidoM','⤴️ Otro'],current); }
   else if(col==='TIPO V'){ html=buildSelect('cell-val',['1 > 30 FBE','2 < 60 FBE','3 < 220 FBE','4 350 FBE'],current); }
   else if(col==='TARIFA'){ html=`<input id="cell-val" type="number" value="${current.replace(/[$.,]/g,'')}" style="width:100%">`; }
+  else if(col==='HORA E'||col==='HORA C'||col==='HORA D'){ html=`<input id="cell-val" type="time" value="${current.substring(0,5)}" style="width:100%">`; }
   else if(col==='ID'){ body.innerHTML=`<p style="color:var(--tl);font-size:13px">El campo ID no es editable.</p>`; openModal('modal-cell-edit'); return; }
   else{ html=`<input id="cell-val" value="${current}" style="width:100%">`; }
   body.innerHTML=`<div class="field-group" style="margin-bottom:0">${html}</div>`;
@@ -1821,11 +1836,17 @@ function openFullEdit(viewIdx){
     else if(col==='OTT'){ input=makeSelect(ottKeys,current); input.onchange=()=>updateConductorVehiculo(); }
     else if(col==='ORIGEN'||col==='DESTINO'){ input=makeSelect(S.nodosList,current); }
     else if(col==='FACTURAR A'){ input=makeSelect(S.facturarList,current); }
+    else if(col==='PRODUCTO'){ input=makeSelect(PRODUCTS_LIST, current); }
     else if(col==='CONDUCTOR'||col==='VEHICULO'){ input=document.createElement('input');input.value=current; }
     else if(col==='ESTADO DE VIAJE'){ input=makeSelect(['⚪ Programado','🟠 Cargando','🟡 Cargado','🟣 Transito','🟢 Finalizado','🔴 Cancelado'],current); }
     else if(col==='TIPO DE VIAJE'){ input=makeSelect(['⏭️ Recorrido','🔁 Ida y Vuelta','🔀 Compartido','📦 CompartidoM','⤴️ Otro'],current); }
     else if(col==='TIPO V'){ input=makeSelect(['1 > 30 FBE','2 < 60 FBE','3 < 220 FBE','4 350 FBE'],current); }
     else if(col==='TARIFA'){ input=document.createElement('input');input.type='number';input.value=current.replace(/[$.,]/g,''); }
+    else if(col==='HORA E'||col==='HORA C'||col==='HORA D'){
+      input=document.createElement('input');
+      input.type='time';
+      input.value=current.substring(0,5); // HH:MM
+    }
     else{ input=document.createElement('input');input.value=current; }
     div.appendChild(input);
     grid.appendChild(div);
@@ -1891,83 +1912,92 @@ async function sendEdited(){
 
 // ─── BACKGROUND REFRESH + TOAST ──────────────────────────────────────
 let _bgInterval = null;
-let _lastKnownId = 0; // ✅ Solo guarda el último ID numérico visto
+let _lastKnownId = 0;
 
-function startBgRefresh(){
+function _updateLastUpdateLabel() {
+  const el = document.getElementById('last-update');
+  if (!el) return;
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2, '0');
+  const m = String(now.getMinutes()).padStart(2, '0');
+  const s = String(now.getSeconds()).padStart(2, '0');
+  el.textContent = `⏱ Actualizado: ${h}:${m}:${s}`;
+}
+
+function startBgRefresh() {
   stopBgRefresh();
-  // Guardar el ID más alto actual como punto de referencia
   _lastKnownId = S.fullData.reduce((maxId, r) => {
     const id = parseInt(r['ID'] || '0', 10);
     return id > maxId ? id : maxId;
   }, 0);
-  console.log(`[BG Refresh] Iniciado. Último ID conocido: ${_lastKnownId}`);
+  console.log(`[BG] Iniciado. Último ID: ${_lastKnownId}`);
+  _updateLastUpdateLabel();
   _bgInterval = setInterval(_doBgRefresh, 30000);
 }
 
-function stopBgRefresh(){
-  if(_bgInterval){ clearInterval(_bgInterval); _bgInterval = null; }
+function stopBgRefresh() {
+  if (_bgInterval) { clearInterval(_bgInterval); _bgInterval = null; }
 }
 
-async function _doBgRefresh(){
-  if(!document.getElementById('view-tdc').classList.contains('active')) return;
+async function _doBgRefresh() {
+  if (!document.getElementById('view-tdc').classList.contains('active')) return;
   try {
-    const rows = await fetchCSV(GID_OTT);
-    if(rows.length < 2) return;
+    const rows = await fetchCSV(window.GID_OTT);
+    if (rows.length < 2) return;
 
     const newFullData = parseOttRows(rows);
     newFullData.forEach((r, i) => r._idx = i);
 
-    // ✅ Detectar filas con ID mayor al último conocido
+    // ✅ Detectar IDs nuevos ANTES de sobreescribir
     const newRows = newFullData.filter(r => {
       const id = parseInt(r['ID'] || '0', 10);
-      return !isNaN(id) && id > _lastKnownId;
+      return !isNaN(id) && id > 0 && id > _lastKnownId;
     });
 
-    // Preservar ediciones actuales por ID
+    // Preservar ediciones
     const editedMap = new Map();
-    for(const idx of S.editedRows){
+    for (const idx of S.editedRows) {
       const oldRow = S.fullData[idx];
-      if(oldRow && oldRow['ID']) editedMap.set(oldRow['ID'], oldRow);
+      if (oldRow && oldRow['ID']) editedMap.set(oldRow['ID'], oldRow);
     }
 
-    // Sobreescribir fullData
+    // Sobreescribir
     S.fullData = newFullData;
 
     // Restaurar ediciones
-    for(const newRow of S.fullData){
+    for (const newRow of S.fullData) {
       const editedRow = editedMap.get(newRow['ID']);
-      if(editedRow){
+      if (editedRow) {
         Object.assign(newRow, editedRow);
         S.editedRows.add(newRow._idx);
       }
     }
 
-    // ✅ Actualizar el último ID conocido al máximo encontrado
-    const maxIdNow = S.fullData.reduce((maxId, r) => {
+    // ✅ Actualizar _lastKnownId al máximo actual
+    _lastKnownId = S.fullData.reduce((maxId, r) => {
       const id = parseInt(r['ID'] || '0', 10);
       return id > maxId ? id : maxId;
     }, _lastKnownId);
-    _lastKnownId = maxIdNow;
 
-    // Re-aplicar filtros y búsqueda
+    // Re-aplicar filtros
     S.viewData = applyStoredFilters(S.fullData);
-    const q = (document.getElementById('tdc-search').value||'').trim().toLowerCase();
-    if(q) S.viewData = S.viewData.filter(r => Object.values(r).some(v => String(v).toLowerCase().includes(q)));
+    const q = (document.getElementById('tdc-search').value || '').trim().toLowerCase();
+    if (q) S.viewData = S.viewData.filter(r => Object.values(r).some(v => String(v).toLowerCase().includes(q)));
 
-    // Re-aplicar ordenamiento
-    if(S.sortCol){
+    // Re-aplicar orden
+    if (S.sortCol) {
       S.viewData.sort((a, b) => {
         let av = a[S.sortCol] !== undefined ? String(a[S.sortCol]) : '';
         let bv = b[S.sortCol] !== undefined ? String(b[S.sortCol]) : '';
-        if(S.sortCol === 'ID'){
+        if (S.sortCol === 'ID') {
           const an = parseInt(av, 10), bn = parseInt(bv, 10);
-          if(!isNaN(an) && !isNaN(bn)) return S.sortAsc ? an - bn : bn - an;
+          if (!isNaN(an) && !isNaN(bn)) return S.sortAsc ? an - bn : bn - an;
         }
         const an = parseFloat(av), bn = parseFloat(bv);
-        if(!isNaN(an) && !isNaN(bn)) return S.sortAsc ? an - bn : bn - an;
+        if (!isNaN(an) && !isNaN(bn)) return S.sortAsc ? an - bn : bn - an;
         av = av.toLowerCase(); bv = bv.toLowerCase();
-        if(av < bv) return S.sortAsc ? -1 : 1;
-        if(av > bv) return S.sortAsc ? 1 : -1;
+        if (av < bv) return S.sortAsc ? -1 : 1;
+        if (av > bv) return S.sortAsc ? 1 : -1;
         return 0;
       });
     }
@@ -1975,33 +2005,81 @@ async function _doBgRefresh(){
     renderTable();
     updateMetrics(S.viewData);
 
-    // ✅ Mostrar toast solo por IDs nuevos
-    if(newRows.length > 0){
-      console.log(`[BG Refresh] ${newRows.length} nuevo(s) servicio(s) detectado(s)`);
+    // ✅ Actualizar label de hora
+    _updateLastUpdateLabel();
+
+    // ✅ Toast solo si hay nuevos
+    if (newRows.length > 0) {
+      console.log(`[BG] ${newRows.length} nuevo(s). IDs: ${newRows.map(r => r['ID']).join(', ')}`);
       newRows.forEach(r => _showNewServiceToast(r));
     } else {
-      console.log(`[BG Refresh] Sin cambios. Último ID: ${_lastKnownId}`);
+      console.log(`[BG] Sin nuevos. Último ID: ${_lastKnownId}`);
     }
 
-  } catch(e){
-    console.warn('[BG Refresh] Error:', e.message);
+  } catch (e) {
+    console.warn('[BG] Error:', e.message);
   }
 }
 
-function _showNewServiceToast(row){
+function _playNotificationSound() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    
+    const o1 = ctx.createOscillator();
+    const g1 = ctx.createGain();
+    o1.connect(g1); g1.connect(ctx.destination);
+    o1.frequency.value = 880;
+    o1.type = 'sine';
+    g1.gain.setValueAtTime(0, ctx.currentTime);
+    g1.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 0.05);
+    g1.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.3);
+    o1.start(ctx.currentTime);
+    o1.stop(ctx.currentTime + 0.3);
+
+    const o2 = ctx.createOscillator();
+    const g2 = ctx.createGain();
+    o2.connect(g2); g2.connect(ctx.destination);
+    o2.frequency.value = 1100;
+    o2.type = 'sine';
+    g2.gain.setValueAtTime(0, ctx.currentTime + 0.25);
+    g2.gain.linearRampToValueAtTime(0.10, ctx.currentTime + 0.30);
+    g2.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.6);
+    o2.start(ctx.currentTime + 0.25);
+    o2.stop(ctx.currentTime + 0.6);
+
+    const o3 = ctx.createOscillator();
+    const g3 = ctx.createGain();
+    o3.connect(g3); g3.connect(ctx.destination);
+    o3.frequency.value = 1320;
+    o3.type = 'sine';
+    g3.gain.setValueAtTime(0, ctx.currentTime + 0.5);
+    g3.gain.linearRampToValueAtTime(0.08, ctx.currentTime + 0.55);
+    g3.gain.linearRampToValueAtTime(0, ctx.currentTime + 1.0);
+    o3.start(ctx.currentTime + 0.5);
+    o3.stop(ctx.currentTime + 1.0);
+
+  } catch(e) {
+    console.warn('[Sound] No se pudo reproducir:', e.message);
+  }
+}
+
+function _showNewServiceToast(row) {
+  _playNotificationSound();
   const cont = document.getElementById('toast-container');
+  if (!cont) return;
   const solicitante = row['SOLICITANTE'] || '—';
   const origen      = row['ORIGEN']      || '—';
   const destino     = row['DESTINO']     || '—';
   const fechaE      = row['FECHA E']     || '—';
   const horaE       = row['HORA E']      || '—';
+  const idRow       = row['ID']          || '—';
 
   const toast = document.createElement('div');
   toast.className = 'ns-toast';
   toast.innerHTML = `
     <div class="ns-toast-header">
       <span class="ns-bell">🔔</span>
-      <span class="ns-toast-title">⚡ Nuevo Servicio</span>
+      <span class="ns-toast-title">⚡ Nuevo Servicio #${idRow}</span>
       <button class="ns-close" onclick="this.closest('.ns-toast').remove()">✕</button>
     </div>
     <div class="ns-toast-body">
@@ -2013,10 +2091,9 @@ function _showNewServiceToast(row){
   `;
   cont.appendChild(toast);
 
-  // Auto-dismiss 7 segundos
   setTimeout(() => {
     toast.classList.add('toast-out');
-    setTimeout(() => { if(toast.parentNode) toast.remove(); }, 380);
+    setTimeout(() => { if (toast.parentNode) toast.remove(); }, 380);
   }, 15000);
 }
 
@@ -2065,40 +2142,49 @@ function onResizeMouseUp(){
 }
 
 async function loadSecureConfig() {
-  try {
-    console.log('🔄 Cargando configuración segura...');
-    showLoading('Cargando configuración...');
-    
-    const response = await fetch(PROXY_URL);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    
-    CONFIG_SECURE = await response.json();
-    console.log('✅ Configuración cargada correctamente');
-    
-    // Asignar las variables globales
-    window.SHEET_ID = CONFIG_SECURE.SHEET_ID;
-    window.GID_OTT = CONFIG_SECURE.GID_OTT;
-    window.GID_NODOS = CONFIG_SECURE.GID_NODOS;
-    window.GID_BLOQUES = CONFIG_SECURE.GID_BLOQUES;
-    window.GID_OTT_CFG = CONFIG_SECURE.GID_OTT_CFG;
-    window.EAI_FORM = CONFIG_SECURE.EAI_FORM;
-    window.TDC_FORM = CONFIG_SECURE.TDC_FORM;
-    window.CORS = CONFIG_SECURE.CORS_PROXY;
-    
-    hideLoading();
-    
-    // Iniciar la aplicación
-    goView('actor');
-    
-    // Configurar event listeners
-    document.getElementById('login-pass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
-    document.getElementById('login-user').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('login-pass').focus(); });
-    
-  } catch (error) {
-    hideLoading();
-    console.error('❌ Error cargando configuración:', error);
-    alert('Error de configuración segura. Por favor, recarga la página.\n\nDetalle: ' + error.message);
-  }
+    try {
+        showLoading('Cargando configuración...');
+        console.log('🔄 Cargando configuración...');
+        
+        const response = await fetch(PROXY_URL + '?t=' + Date.now());
+        
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        
+        const config = await response.json();
+        console.log('✅ Configuración cargada:', config);
+        
+        // Asignar variables globales
+        window.SHEET_ID = config.SHEET_ID;
+        window.GID_OTT = config.GID_OTT;
+        window.GID_NODOS = config.GID_NODOS;
+        window.GID_BLOQUES = config.GID_BLOQUES;
+        window.GID_OTT_CFG = config.GID_OTT_CFG;
+        window.EAI_FORM = config.EAI_FORM;
+        window.TDC_FORM = config.TDC_FORM;
+        window.CORS = config.CORS_PROXY;
+        
+        hideLoading();
+        
+        // IMPORTANTE: Mostrar selector de actor PRIMERO
+        // Asegurar que todas las vistas estén ocultas
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        document.getElementById('view-actor').classList.add('active');
+        
+        console.log('✅ Vista de actor activada');
+        
+        // Configurar event listeners
+        document.getElementById('login-pass').addEventListener('keydown', e => {
+            if (e.key === 'Enter') doLogin();
+        });
+        document.getElementById('login-user').addEventListener('keydown', e => {
+            if (e.key === 'Enter') document.getElementById('login-pass').focus();
+        });
+        
+    } catch (error) {
+        hideLoading();
+        console.error('❌ Error:', error);
+        alert('Error de configuración: ' + error.message);
+    }
 }
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
