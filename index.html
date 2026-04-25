@@ -36,10 +36,32 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .btn-accent:hover{background:var(--accent-h)}
 .btn-danger{background:var(--danger);color:#fff;padding:10px 22px;font-size:13px}
 .btn-danger:hover{background:#d63e63}
-.btn-success{background:var(--success);color:#fff;padding:12px 28px;font-size:14px}
-.btn-success:hover{background:#05b386}
-.btn-outline{background:#fff;color:var(--primary);border:2px solid var(--primary);padding:10px 22px;font-size:13px}
-.btn-outline:hover{background:var(--bg)}
+.btn-success {
+  background: var(--success);
+  color: #fff;
+  padding: 12px 28px;
+  font-size: 14px;
+  border: 2px solid #1a1a2e;
+  box-shadow: 3px 3px 0px #1a1a2e;
+  transition: all 0.15s ease;
+}
+.btn-success:hover {
+  box-shadow: 1px 1px 0px #1a1a2e;
+  transform: translate(2px, 2px);
+}
+.btn-outline {
+  background: #fff;
+  color: #1a1a2e;
+  border: 2px solid #1a1a2e;
+  padding: 10px 22px;
+  font-size: 13px;
+  box-shadow: 3px 3px 0px #1a1a2e;
+  transition: all 0.15s ease;
+}
+.btn-outline:hover {
+  box-shadow: 1px 1px 0px #1a1a2e;
+  transform: translate(2px, 2px);
+}
 .btn-ghost{background:transparent;color:#fff;padding:8px 16px;font-size:13px;border-radius:8px}
 .btn-ghost:hover{background:rgba(255,255,255,.15)}
 .btn-sm{padding:7px 16px;font-size:12px}
@@ -70,7 +92,6 @@ textarea{resize:vertical;min-height:80px}
   justify-content: center;
   background: linear-gradient(135deg, #007ACC 0%, #005A9E 100%);
 }
-
 .actor-card {
   max-width: 460px;
   width: 100%;
@@ -82,85 +103,26 @@ textarea{resize:vertical;min-height:80px}
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 32px;
 }
-
-.actor-card:hover {
-  transform: scale(1.02);
-}
-
-.actor-card .logo {
-  font-size: 26px;
-  font-weight: 800;
-  color: var(--primary);
-  margin-bottom: 8px;
-}
-
-.actor-card h2 {
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.actor-card p {
-  color: var(--tl);
-  font-size: 15px;
-  margin-bottom: 32px;
-}
-
+.actor-card:hover { transform: scale(1.02); }
+.actor-card .logo { font-size: 26px; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+.actor-card h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.actor-card p { color: var(--tl); font-size: 15px; margin-bottom: 32px; }
 .actor-btn {
-  width: 100%;
-  height: 70px;
-  border-radius: 48px;
-  font-size: 17px;
-  font-weight: 700;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  margin-bottom: 6px;
-  position: relative;
-  overflow: hidden;
+  width: 100%; height: 70px; border-radius: 48px; font-size: 17px; font-weight: 700;
+  border: none; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 6px; position: relative; overflow: hidden;
 }
-
 .actor-btn::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  transform: translate(-50%, -50%);
-  transition: width 0.4s, height 0.4s;
+  content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0;
+  border-radius: 50%; background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%); transition: width 0.4s, height 0.4s;
 }
-
-.actor-btn:hover::before {
-  width: 200%;
-  height: 200%;
-}
-
-.actor-btn.eai {
-  background: var(--primary);
-  color: #fff;
-}
-
-.actor-btn.eai:hover {
-  background: var(--primary-h);
-}
-
-.actor-btn.tdc {
-  background: var(--accent);
-  color: #fff;
-}
-
-.actor-btn.tdc:hover {
-  background: var(--accent-h);
-}
-
-.actor-sub {
-  color: var(--tl);
-  font-size: 12px;
-  margin-bottom: 20px;
-}
+.actor-btn:hover::before { width: 200%; height: 200%; }
+.actor-btn.eai { background: var(--primary); color: #fff; }
+.actor-btn.eai:hover { background: var(--primary-h); }
+.actor-btn.tdc { background: var(--accent); color: #fff; }
+.actor-btn.tdc:hover { background: var(--accent-h); }
+.actor-sub { color: var(--tl); font-size: 12px; margin-bottom: 20px; }
 
 /* ── LOGIN VIEW ── */
 #view-login {
@@ -168,92 +130,24 @@ textarea{resize:vertical;min-height:80px}
   justify-content: center;
   background: linear-gradient(135deg, #007ACC 0%, #005A9E 100%);
 }
-
 .login-card {
-  max-width: 440px;
-  width: 100%;
-  position: relative;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 32px;
-  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15);
-  transition: transform 0.2s, box-shadow 0.2s;
-  padding: 32px;
+  max-width: 440px; width: 100%; position: relative;
+  background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+  border-radius: 32px; box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s, box-shadow 0.2s; padding: 32px;
 }
-
-.login-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.2);
-}
-
-.login-back {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  background: transparent;
-  border: none;
-  color: var(--tl);
-  cursor: pointer;
-  font-size: 13px;
-  font-family: var(--font);
-  padding: 6px 10px;
-  border-radius: 8px;
-}
-
-.login-back:hover {
-  background: var(--border);
-}
-
-.login-card .logo {
-  font-size: 36px;
-  margin-bottom: 8px;
-}
-
-.login-card h2 {
-  font-size: 26px;
-  font-weight: 800;
-  margin-bottom: 4px;
-}
-
-.login-card .portal {
-  font-size: 15px;
-  margin-bottom: 28px;
-}
-
-.input-icon-wrap {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 18px;
-}
-
-.input-icon-wrap span {
-  font-size: 20px;
-}
-
-.input-icon-wrap input {
-  flex: 1;
-}
-
-.login-submit {
-  width: 100%;
-  height: 50px;
-  margin-top: 12px;
-}
-
-.forgot {
-  text-align: center;
-  margin-top: 16px;
-  font-size: 12px;
-  color: var(--tl);
-}
-
-.forgot a {
-  color: var(--primary);
-  cursor: pointer;
-  text-decoration: none;
-  font-weight: 600;
-}
+.login-card:hover { transform: translateY(-4px); box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.2); }
+.login-back { position: absolute; top: 16px; left: 16px; background: transparent; border: none; color: var(--tl); cursor: pointer; font-size: 13px; font-family: var(--font); padding: 6px 10px; border-radius: 8px; }
+.login-back:hover { background: var(--border); }
+.login-card .logo { font-size: 36px; margin-bottom: 8px; }
+.login-card h2 { font-size: 26px; font-weight: 800; margin-bottom: 4px; }
+.login-card .portal { font-size: 15px; margin-bottom: 28px; }
+.input-icon-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.input-icon-wrap span { font-size: 20px; }
+.input-icon-wrap input { flex: 1; }
+.login-submit { width: 100%; height: 50px; margin-top: 12px; }
+.forgot { text-align: center; margin-top: 16px; font-size: 12px; color: var(--tl); }
+.forgot a { color: var(--primary); cursor: pointer; text-decoration: none; font-weight: 600; }
 
 /* ── EAI FORM ── */
 #view-eai{overflow:hidden}
@@ -265,331 +159,69 @@ textarea{resize:vertical;min-height:80px}
 .eai-footer{padding:16px 32px;background:var(--card);border-top:1px solid var(--border);display:flex;gap:16px;justify-content:space-between;flex-shrink:0}
 
 /* ── TDC VIEW ── */
-#view-tdc {
-  overflow: hidden;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
+#view-tdc { overflow: hidden; height: 100vh; display: flex; flex-direction: column; }
+.tdc-header { background: var(--primary); flex-shrink: 0; }
+.tdc-header-top { display: flex; align-items: center; padding: 8px 16px; gap: 10px; flex-wrap: wrap; }
+.tdc-title { color: #fff; font-size: 15px; font-weight: 700; flex: 1; min-width: 200px; }
+.tdc-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.search-wrap { display: flex; align-items: center; background: rgba(255,255,255,.2); border-radius: 20px; padding: 4px 12px; gap: 6px; }
+.search-wrap input { background: transparent; border: none; color: #fff; font-family: var(--font); font-size: 13px; width: 160px; outline: none; }
+.search-wrap input::placeholder { color: rgba(255,255,255,.7); }
+.filter-info { color: #fff; font-size: 11px; font-weight: 600; padding: 2px 10px; background: rgba(255,255,255,.15); border-radius: 20px; max-width: 400px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tdc-metrics { display: flex; align-items: center; padding: 6px 16px 10px; flex-wrap: wrap; gap: 16px; background: var(--primary); }
+.metric { color: #fff; font-size: 13px; font-weight: 700; }
+.metric.gold { color: #FFD700; }
 
-.tdc-header {
-  background: var(--primary);
-  flex-shrink: 0;
-}
-
-.tdc-header-top {
-  display: flex;
-  align-items: center;
-  padding: 8px 16px;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.tdc-title {
-  color: #fff;
-  font-size: 15px;
-  font-weight: 700;
-  flex: 1;
-  min-width: 200px;
-}
-
-.tdc-controls {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.search-wrap {
-  display: flex;
-  align-items: center;
-  background: rgba(255,255,255,.2);
-  border-radius: 20px;
-  padding: 4px 12px;
-  gap: 6px;
-}
-
-.search-wrap input {
-  background: transparent;
-  border: none;
-  color: #fff;
-  font-family: var(--font);
-  font-size: 13px;
-  width: 160px;
-  outline: none;
-}
-
-.search-wrap input::placeholder {
-  color: rgba(255,255,255,.7);
-}
-
-.filter-info {
-  color: #fff;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 2px 10px;
-  background: rgba(255,255,255,.15);
-  border-radius: 20px;
-  max-width: 400px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.tdc-metrics {
-  display: flex;
-  align-items: center;
-  padding: 6px 16px 10px;
-  flex-wrap: wrap;
-  gap: 16px;
-  background: var(--primary);
-}
-
-.metric {
-  color: #fff;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.metric.gold {
-  color: #FFD700;
-}
-
-/* ─── CONTENEDOR PRINCIPAL DE LA TABLA ── */
-.tdc-table-wrap {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  overflow: hidden;
-  padding: 0 16px;
-}
-
-.table-scroll {
-  flex: 1;
-  overflow: auto;
-  border-radius: 12px;
-  background: var(--card);
-  border: 1px solid var(--border);
-}
-
-/* ─── TABLA CON AJUSTE AUTOMÁTICO ── */
-table {
-  border-collapse: collapse;
-  width: 100%;
-  min-width: 100%;
-}
-
+/* ─── TABLA ── */
+.tdc-table-wrap { flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden; padding: 0 16px; }
+.table-scroll { flex: 1; overflow: auto; border-radius: 12px; background: var(--card); border: 1px solid var(--border); }
+table { border-collapse: collapse; width: 100%; min-width: 100%; }
 thead th {
-  background: var(--primary);
-  color: #fff;
-  padding: 12px 16px;
-  font-size: 12px;
-  font-weight: 700;
-  white-space: nowrap;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  cursor: pointer;
-  user-select: none;
-  border-right: 1px solid rgba(255,255,255,.2);
-  text-align: left;
-  position: relative;
+  background: var(--primary); color: #fff; padding: 12px 16px; font-size: 12px;
+  font-weight: 700; white-space: nowrap; position: sticky; top: 0; z-index: 10;
+  cursor: pointer; user-select: none; border-right: 1px solid rgba(255,255,255,.2);
+  text-align: left; position: relative;
 }
-
-thead th:last-child {
-  border-right: none;
-}
-
-thead th:hover {
-  background: var(--primary-h);
-}
-
-thead th .sort-arrow {
-  margin-left: 6px;
-  opacity: .7;
-  font-size: 10px;
-}
-
-/* ─── REDIMENSIONAR COLUMNAS ─── */
-thead th .resizer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 8px;
-  height: 100%;
-  cursor: col-resize;
-  background: transparent;
-  z-index: 20;
-}
-
-thead th .resizer:hover {
-  background: rgba(255,255,255,0.3);
-}
-
-/* ─── CELDAS CON WRAP AUTOMÁTICO ─── */
+thead th:last-child { border-right: none; }
+thead th:hover { background: var(--primary-h); }
+thead th .sort-arrow { margin-left: 6px; opacity: .7; font-size: 10px; }
+thead th .resizer { position: absolute; top: 0; right: 0; width: 8px; height: 100%; cursor: col-resize; background: transparent; z-index: 20; }
+thead th .resizer:hover { background: rgba(255,255,255,0.3); }
 tbody td {
-  padding: 10px 12px;
-  font-size: 12px;
-  border-bottom: 1px solid var(--border);
-  vertical-align: top;
-  word-wrap: break-word;
-  word-break: break-word;
-  white-space: normal;
-  max-width: 300px;
-  min-width: 80px;
-  line-height: 1.4;
+  padding: 10px 12px; font-size: 12px; border-bottom: 1px solid var(--border);
+  vertical-align: top; word-wrap: break-word; word-break: break-word;
+  white-space: normal; max-width: 300px; min-width: 80px; line-height: 1.4;
 }
-
-tbody tr:hover td {
-  background: #C4E7FF;
-}
-
-tbody td:first-child {
-  font-weight: 600;
-  background-color: rgba(0,122,204,0.03);
-}
-
-tbody tr.edited td {
-  background: #FFD699 !important;
-}
-
-tbody tr.finalizado td {
-  background: #C8E6C9 !important;
-}
-
-tbody tr.cancelado td {
-  background: #FFCDD2 !important;
-}
-
-/* Botón editar */
-td.edit-btn-cell {
-  text-align: center;
-  vertical-align: middle;
-  white-space: nowrap;
-}
-
+tbody tr:hover td { background: #C4E7FF; }
+tbody td:first-child { font-weight: 600; background-color: rgba(0,122,204,0.03); }
+tbody tr.edited td { background: #FFD699 !important; }
+tbody tr.finalizado td { background: #C8E6C9 !important; }
+tbody tr.cancelado td { background: #FFCDD2 !important; }
+td.edit-btn-cell { text-align: center; vertical-align: middle; white-space: nowrap; }
 .edit-cell-btn {
-  background: var(--primary);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 6px 12px;
+  background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 100%);
+  color: #1a1a2e;
+  border: 1.5px solid #1a1a2e;
+  border-radius: 30px;
+  padding: 6px 16px;
+  font-weight: 700;
   font-size: 11px;
-  cursor: pointer;
-  font-family: var(--font);
-  transition: all 0.2s;
+  letter-spacing: 0.4px;
+  box-shadow: 3px 3px 0px #1a1a2e;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .edit-cell-btn:hover {
-  background: var(--primary-h);
-  transform: scale(1.02);
+  background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4e 100%);
+  color: #ffffff;
+  box-shadow: 1px 1px 0px #1a1a2e;
+  transform: translate(2px, 2px);
 }
-
-/* ─── FOOTER SIEMPRE VISIBLE ── */
-.tdc-footer {
-  padding: 12px 20px;
-  background: var(--card);
-  border-top: 1px solid var(--border);
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-shrink: 0;
-  position: sticky;
-  bottom: 0;
-  z-index: 5;
+.edit-cell-btn:active {
+  box-shadow: none;
+  transform: translate(3px, 3px);
 }
-
-.tdc-footer button {
-  min-width: 180px;
-  height: 44px;
-}
-
-/* ─── RESPONSIVE ── */
-@media(max-width: 768px) {
-  .tdc-header-top {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .tdc-controls {
-    justify-content: space-between;
-  }
-  
-  .search-wrap {
-    flex: 1;
-  }
-  
-  .search-wrap input {
-    width: 100%;
-  }
-  
-  .tdc-metrics {
-    gap: 8px;
-  }
-  
-  .metric {
-    font-size: 11px;
-  }
-  
-  tbody td {
-    max-width: 180px;
-    font-size: 11px;
-    padding: 8px;
-  }
-  
-  .tdc-footer {
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .tdc-footer button {
-    width: 100% !important;
-  }
-  
-  thead th {
-    font-size: 10px;
-    padding: 8px 10px;
-  }
-}
-/* ─── MEJORAS PARA REDIMENSIONAMIENTO ─── */
-thead th {
-  position: relative;
-}
-
-thead th .th-content {
-  display: inline-block;
-  cursor: pointer;
-  padding: 0;
-}
-
-thead th .resizer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 10px;
-  height: 100%;
-  cursor: col-resize;
-  background: transparent;
-  z-index: 20;
-}
-
-thead th .resizer:hover {
-  background: rgba(255,255,255,0.3);
-}
-
-thead th .resizer:active {
-  background: rgba(255,255,255,0.5);
-}
-
-body.resizing {
-  cursor: col-resize !important;
-  user-select: none;
-}
-
-body.resizing * {
-  cursor: col-resize !important;
-}
+.tdc-footer { padding: 12px 20px; background: var(--card); border-top: 1px solid var(--border); display: flex; gap: 16px; justify-content: center; flex-shrink: 0; position: sticky; bottom: 0; z-index: 5; }
+.tdc-footer button { min-width: 180px; height: 44px; }
 
 /* ── STATUS BADGES ── */
 .badge{display:inline-block;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600}
@@ -608,9 +240,14 @@ body.resizing * {
 .modal-header h3{color:#fff;font-size:16px;font-weight:700}
 .modal-close{background:transparent;border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1}
 .modal-body{padding:20px;overflow-y:auto;flex:1}
-.modal-footer{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end}
-
-/* ── FILTER MODAL ── */
+.modal-footer {
+  padding: 14px 20px;
+  border-top: 2px solid #1a1a2e;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  background: #f8fafc;
+}
 #modal-filters .modal{width:440px}
 .filter-field{margin-bottom:16px}
 .filter-field label{font-size:12px;font-weight:700;display:block;margin-bottom:6px}
@@ -618,8 +255,6 @@ body.resizing * {
 .multi-select-display:hover{border-color:var(--primary)}
 .multi-sel-text{font-size:12px;color:var(--tl);flex:1}
 .multi-sel-btn{background:var(--primary);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer;white-space:nowrap}
-
-/* ── MULTI SELECT MODAL ── */
 #modal-multiselect .modal{width:380px}
 .cb-list{display:flex;flex-direction:column;gap:6px}
 .cb-item{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:8px;cursor:pointer;transition:.12s}
@@ -628,254 +263,195 @@ body.resizing * {
 .cb-item span{font-size:13px}
 .cb-actions{display:flex;gap:8px;margin-bottom:12px}
 .cb-actions button{flex:1;padding:6px;font-size:12px;border:1.5px solid var(--border);border-radius:8px;background:#fff;cursor:pointer;font-family:var(--font)}
-
-/* ── EDIT MODAL ── */
 #modal-edit .modal{width:900px;max-width:95vw}
 .edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 24px}
 .edit-field{display:flex;flex-direction:column;gap:5px}
 .edit-field label{font-size:12px;font-weight:600}
-
-/* ── CELL EDIT MODAL ── */
 #modal-cell-edit .modal{width:420px}
-
-/* ── SCROLLBAR ── */
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 ::-webkit-scrollbar-thumb:hover{background:#aaa}
-
-/* ── EXCEL PREVIEW ── */
 #modal-excel .modal{width:95vw;max-width:1400px}
 #modal-excel .modal-body{padding:12px}
 #excel-table-wrap{overflow:auto;max-height:50vh}
 
-/* ── RESPONSIVE ── */
 @media(max-width:600px){
   .field-row{flex-direction:column}
   .tdc-header-top{flex-wrap:wrap;height:auto;padding:10px}
   .edit-grid{grid-template-columns:1fr}
 }
-/* ─── ESTILO MODERNO TIPO IPHONE/GLASSMORPHISM ─── */
 
-/* Tarjeta de login moderna */
-.login-card {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 32px;
-  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.02);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.login-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.2);
-}
-
-/* Tarjeta de actor moderna */
-.actor-card {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 48px;
-  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.actor-card:hover {
-  transform: scale(1.02);
-}
-
-/* Botones modernos */
-.actor-btn {
-  border-radius: 48px;
-  font-weight: 600;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.actor-btn::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  transform: translate(-50%, -50%);
-  transition: width 0.4s, height 0.4s;
-}
-
-.actor-btn:hover::before {
-  width: 200%;
-  height: 200%;
-}
-
-/* Tabla moderna */
-.table-scroll {
-  border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-thead th {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-h) 100%);
-  font-weight: 600;
-  letter-spacing: 0.3px;
-}
-
-tbody td {
-  transition: all 0.2s ease;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-tbody tr:hover td {
-  background: linear-gradient(90deg, #F0F9FF 0%, #E6F4FF 100%);
-  transform: scale(1.003);
-}
-
-/* Botón Editar moderno */
-.edit-cell-btn {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-h) 100%);
-  border-radius: 30px;
-  padding: 6px 16px;
-  font-weight: 600;
-  box-shadow: 0 2px 6px rgba(0, 122, 204, 0.3);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.edit-cell-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0, 122, 204, 0.4);
-}
-
-/* Botones de acción modernos */
-.tdc-footer button {
-  border-radius: 40px;
-  font-weight: 600;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.tdc-footer button:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.05);
-}
-
-/* Métricas modernas */
-.tdc-metrics {
-  background: linear-gradient(135deg, var(--primary) 0%, #0066aa 100%);
-  border-radius: 20px;
-  margin: 0 16px 12px 16px;
-  padding: 12px 20px;
-}
-
-.metric {
-  background: rgba(255, 255, 255, 0.12);
-  padding: 6px 14px;
-  border-radius: 40px;
-  backdrop-filter: blur(4px);
-}
-
-/* Inputs modernos */
-input, select, textarea {
-  border-radius: 16px;
-  transition: all 0.2s ease;
-}
-
-input:focus, select:focus, textarea:focus {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 20px -8px rgba(0, 122, 204, 0.3);
-}
-
-/* Scrollbar moderno */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-h) 100%);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-h);
-}
-
-/* Modal moderno */
-.modal {
-  border-radius: 32px;
-  box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(0px);
-}
-
+/* ─── GLASSMORPHISM MODERNO ─── */
+.login-card { box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.02); }
+.table-scroll { border-radius: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+thead th { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-h) 100%); font-weight: 600; letter-spacing: 0.3px; }
+.edit-cell-btn { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-h) 100%); border-radius: 30px; padding: 6px 16px; font-weight: 600; box-shadow: 0 2px 6px rgba(0, 122, 204, 0.3); }
+.edit-cell-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0, 122, 204, 0.4); }
+.tdc-metrics { background: linear-gradient(135deg, var(--primary) 0%, #0066aa 100%); border-radius: 20px; margin: 0 16px 12px 16px; padding: 12px 20px; }
+.metric { background: rgba(255, 255, 255, 0.12); padding: 6px 14px; border-radius: 40px; backdrop-filter: blur(4px); }
+.modal { border-radius: 32px; box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.3); }
 .modal-header {
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-h) 100%);
   border-radius: 32px 32px 0 0;
+  border-bottom: 2.5px solid #1a1a2e;
 }
+.spin-box { border-radius: 48px; }
+.tdc-footer button { border-radius: 40px; font-weight: 600; }
+.tdc-footer button:hover { transform: translateY(-2px); filter: brightness(1.05); }
 
-/* Efecto hover en filas de tabla */
-tbody tr {
-  transition: all 0.2s ease;
+/* ════ FIX: todas las vistas en su capa ════ */
+#view-actor, #view-login, #view-tdc, #view-eai {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: var(--bg); z-index: 10;
 }
+#view-actor.active, #view-login.active, #view-tdc.active, #view-eai.active {
+  display: flex; z-index: 20;
+}
+#view-actor { background: linear-gradient(135deg, #007ACC 0%, #005A9E 100%); }
+#view-login { background: linear-gradient(135deg, #007ACC 0%, #005A9E 100%); }
+#view-tdc { background: var(--bg); }
+.actor-card, .login-card { position: relative; z-index: 25; }
 
-tbody tr:active {
-  transform: scale(0.998);
-}
-
-/* Animación de carga moderna */
-.spin-box {
-  border-radius: 48px;
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 30px 40px -20px rgba(0, 0, 0, 0.2);
-}
-
-.spinner {
-  border-width: 3px;
-  border-top-color: var(--accent);
-}
-/* Fijar cada vista en su propia capa */
-#view-actor, #view-login, #view-tdc {
+/* ════ NEW SERVICE TOAST ════ */
+#toast-container {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--bg);
-  z-index: 10;
-}
-
-#view-actor.active, #view-login.active, #view-tdc.active {
+  bottom: 80px;
+  right: 20px;
+  z-index: 9998;
   display: flex;
-  z-index: 20;
+  flex-direction: column-reverse;
+  gap: 10px;
+  pointer-events: none;
+  max-width: 320px;
+}
+.ns-toast {
+  background: #fff;
+  border: 2px solid var(--primary);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,122,204,0.25);
+  overflow: hidden;
+  pointer-events: auto;
+  animation: toastIn .4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.ns-toast.toast-out {
+  animation: toastOut .35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+@keyframes toastIn {
+  from { transform: translateX(110%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+@keyframes toastOut {
+  from { transform: translateX(0);    opacity: 1; max-height: 200px; }
+  to   { transform: translateX(110%); opacity: 0; max-height: 0; }
+}
+.ns-toast-header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-h) 100%);
+  padding: 9px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ns-bell {
+  font-size: 16px;
+  display: inline-block;
+  animation: bellRing .5s ease infinite alternate;
+}
+@keyframes bellRing {
+  from { transform: rotate(-18deg); }
+  to   { transform: rotate(18deg);  }
+}
+.ns-toast-title { color: #fff; font-size: 11px; font-weight: 800; flex: 1; letter-spacing: .6px; text-transform: uppercase; }
+.ns-close {
+  background: rgba(255,255,255,.2); border: none; color: #fff;
+  font-size: 14px; cursor: pointer; width: 22px; height: 22px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-family: monospace; font-weight: 700; flex-shrink: 0;
+}
+.ns-close:hover { background: rgba(255,255,255,.4); }
+.ns-toast-body { padding: 10px 13px 6px; }
+.ns-row { font-size: 11.5px; color: var(--text); margin-bottom: 4px; font-weight: 500; line-height: 1.45; }
+.ns-row:last-child { margin-bottom: 6px; }
+.ns-label { color: var(--tl); font-size: 10px; font-weight: 700; display: block; margin-bottom: 1px; text-transform: uppercase; letter-spacing: .4px; }
+.ns-prog-bar {
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+  transform-origin: left;
+  animation: nsProgress 15s linear forwards;
+}
+@keyframes nsProgress {
+  from { width: 100%; }
+  to   { width: 0%;   }
 }
 
-/* Fondo específico para cada vista */
-#view-actor {
-  background: linear-gradient(135deg, #007ACC 0%, #005A9E 100%);
+/* ── RESPONSIVE ── */
+@media(max-width: 768px) {
+  .tdc-header-top { flex-direction: column; align-items: stretch; }
+  .tdc-controls { justify-content: space-between; }
+  .search-wrap { flex: 1; }
+  .search-wrap input { width: 100%; }
+  .tdc-metrics { gap: 8px; }
+  .metric { font-size: 11px; }
+  tbody td { max-width: 180px; font-size: 11px; padding: 8px; }
+  .tdc-footer { flex-direction: column; gap: 8px; }
+  .tdc-footer button { width: 100% !important; }
+  thead th { font-size: 10px; padding: 8px 10px; }
+  #toast-container { right: 10px; bottom: 70px; max-width: calc(100vw - 20px); }
+}
+thead th .th-content { display: inline-block; cursor: pointer; padding: 0; }
+thead th .resizer { position: absolute; top: 0; right: 0; width: 10px; height: 100%; cursor: col-resize; background: transparent; z-index: 20; }
+thead th .resizer:hover { background: rgba(255,255,255,0.3); }
+thead th .resizer:active { background: rgba(255,255,255,0.5); }
+body.resizing { cursor: col-resize !important; user-select: none; }
+body.resizing * { cursor: col-resize !important; }
+/* ... todo tu CSS existente ... */
+
+/* ─── SCROLL HORIZONTAL CON COLOR ─── */
+.table-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--border);
 }
 
-#view-login {
-  background: linear-gradient(135deg, #007ACC 0%, #005A9E 100%);
+.table-scroll::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
 }
 
-#view-tdc {
-  background: var(--bg);
+.table-scroll::-webkit-scrollbar-track {
+  background: var(--border);
+  border-radius: 10px;
 }
 
-/* Asegurar que las tarjetas sean visibles */
-.actor-card, .login-card {
-  position: relative;
-  z-index: 25;
+.table-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-h) 100%);
+  border-radius: 10px;
 }
+
+.table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-h);
+}
+
+/* Para scroll horizontal específico */
+.table-scroll::-webkit-scrollbar-track:horizontal {
+  background: #e0e0e0;
+  border-radius: 10px;
+}
+
+.table-scroll::-webkit-scrollbar-thumb:horizontal {
+  background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+  border-radius: 10px;
+}
+
+.table-scroll::-webkit-scrollbar-thumb:horizontal:hover {
+  background: linear-gradient(90deg, var(--primary-h) 0%, var(--accent-h) 100%);
+}
+
 </style>
 </head>
 <body>
+
+<!-- TOAST CONTAINER -->
+<div id="toast-container"></div>
 
 <!-- LOADING OVERLAY -->
 <div id="overlay">
@@ -886,7 +462,7 @@ tbody tr:active {
   </div>
 </div>
 
-<!-- ════════════════════════════════════ VIEW: ACTOR ════════════════════════════════════ -->
+<!-- ════════════════════ VIEW: ACTOR ════════════════════ -->
 <div id="view-actor" class="view">
   <div class="card actor-card">
     <div class="logo">🚚 MVCS Transporte</div>
@@ -899,7 +475,7 @@ tbody tr:active {
   </div>
 </div>
 
-<!-- ════════════════════════════════════ VIEW: LOGIN ════════════════════════════════════ -->
+<!-- ════════════════════ VIEW: LOGIN ════════════════════ -->
 <div id="view-login" class="view">
   <div class="card login-card">
     <button class="login-back" onclick="goView('actor')">← Volver</button>
@@ -915,7 +491,7 @@ tbody tr:active {
   </div>
 </div>
 
-<!-- ════════════════════════════════════ VIEW: EAI FORM ════════════════════════════════════ -->
+<!-- ════════════════════ VIEW: EAI FORM ════════════════════ -->
 <div id="view-eai" class="view">
   <div class="eai-header">
     <button class="btn btn-ghost" onclick="goView('actor');logoutEai()">← Volver</button>
@@ -923,8 +499,6 @@ tbody tr:active {
     <div style="width:80px"></div>
   </div>
   <div class="eai-body">
-
-    <!-- Sección 1 -->
     <div class="eai-section">
       <div class="section-title">📋 INFORMACIÓN GENERAL</div>
       <div class="field-row">
@@ -937,8 +511,6 @@ tbody tr:active {
         </div>
       </div>
     </div>
-
-    <!-- Sección 2 -->
     <div class="eai-section">
       <div class="section-title">📍 ORIGEN Y DESTINO</div>
       <div class="field-row">
@@ -962,8 +534,6 @@ tbody tr:active {
         <div class="field-group"><label>Contacto Entrega</label><input id="eai-contacto" placeholder="Contacto Entrega"></div>
       </div>
     </div>
-
-    <!-- Sección 3 -->
     <div class="eai-section">
       <div class="section-title">📦 DIMENSIONES Y PESO</div>
       <div class="field-row">
@@ -984,8 +554,6 @@ tbody tr:active {
         </div>
       </div>
     </div>
-
-    <!-- Sección 4 -->
     <div class="eai-section">
       <div class="section-title">📅 PROGRAMACIÓN</div>
       <div class="field-row">
@@ -1005,8 +573,6 @@ tbody tr:active {
         <div class="field-group"></div>
       </div>
     </div>
-
-    <!-- Sección 5 -->
     <div class="eai-section">
       <div class="section-title">📝 OBSERVACIONES</div>
       <textarea id="eai-obs" placeholder="Observaciones (opcional)"></textarea>
@@ -1021,7 +587,7 @@ tbody tr:active {
   </div>
 </div>
 
-<!-- ════════════════════════════════════ VIEW: TDC ════════════════════════════════════ -->
+<!-- ════════════════════ VIEW: TDC ════════════════════ -->
 <div id="view-tdc" class="view">
   <div class="tdc-header">
     <div class="tdc-header-top">
@@ -1033,7 +599,7 @@ tbody tr:active {
           <button class="btn-ghost btn" style="padding:2px 6px;font-size:12px" onclick="clearSearch()">✖</button>
         </div>
         <button class="btn btn-accent btn-sm" onclick="openFilters()">🔍 Filtros</button>
-        <button class="btn btn-outline btn-sm" onclick="goView('actor')">← Cerrar Sesión</button>
+        <button class="btn btn-outline btn-sm" onclick="leaveTdc()">← Cerrar Sesión</button>
       </div>
     </div>
     <div id="filter-info-bar" style="padding:0 16px 6px;display:none">
@@ -1060,15 +626,10 @@ tbody tr:active {
   </div>
 </div>
 
-<!-- ════════════════════════════════════ MODALS ════════════════════════════════════ -->
-
-<!-- FILTER MODAL -->
+<!-- ════════════════════ MODALS ════════════════════ -->
 <div class="modal-bg" id="modal-filters">
   <div class="modal" style="width:450px">
-    <div class="modal-header">
-      <h3>🔍 Filtrar Datos</h3>
-      <button class="modal-close" onclick="closeModal('modal-filters')">×</button>
-    </div>
+    <div class="modal-header"><h3>🔍 Filtrar Datos</h3><button class="modal-close" onclick="closeModal('modal-filters')">×</button></div>
     <div class="modal-body" id="filter-body"></div>
     <div class="modal-footer">
       <button class="btn btn-danger btn-sm" onclick="clearFilters()">🗑️ Limpiar</button>
@@ -1078,13 +639,9 @@ tbody tr:active {
   </div>
 </div>
 
-<!-- MULTI-SELECT MODAL -->
 <div class="modal-bg" id="modal-multiselect">
   <div class="modal" style="width:360px">
-    <div class="modal-header">
-      <h3 id="ms-title">Seleccionar</h3>
-      <button class="modal-close" onclick="closeModal('modal-multiselect')">×</button>
-    </div>
+    <div class="modal-header"><h3 id="ms-title">Seleccionar</h3><button class="modal-close" onclick="closeModal('modal-multiselect')">×</button></div>
     <div class="modal-body">
       <div class="cb-actions">
         <button onclick="msSelectAll()">✓ Todos</button>
@@ -1099,13 +656,9 @@ tbody tr:active {
   </div>
 </div>
 
-<!-- CELL EDIT MODAL -->
 <div class="modal-bg" id="modal-cell-edit">
   <div class="modal" style="width:440px">
-    <div class="modal-header">
-      <h3 id="cell-edit-title">Editar campo</h3>
-      <button class="modal-close" onclick="closeModal('modal-cell-edit')">×</button>
-    </div>
+    <div class="modal-header"><h3 id="cell-edit-title">Editar campo</h3><button class="modal-close" onclick="closeModal('modal-cell-edit')">×</button></div>
     <div class="modal-body" id="cell-edit-body"></div>
     <div class="modal-footer">
       <button class="btn btn-outline btn-sm" onclick="closeModal('modal-cell-edit')">Cancelar</button>
@@ -1114,13 +667,9 @@ tbody tr:active {
   </div>
 </div>
 
-<!-- FULL EDIT MODAL -->
 <div class="modal-bg" id="modal-edit">
   <div class="modal" style="width:920px;max-width:96vw">
-    <div class="modal-header">
-      <h3 id="edit-title">✏️ Editando Orden</h3>
-      <button class="modal-close" onclick="closeModal('modal-edit')">×</button>
-    </div>
+    <div class="modal-header"><h3 id="edit-title">✏️ Editando Orden</h3><button class="modal-close" onclick="closeModal('modal-edit')">×</button></div>
     <div class="modal-body"><div class="edit-grid" id="edit-grid"></div></div>
     <div class="modal-footer">
       <button class="btn btn-outline btn-sm" onclick="closeModal('modal-edit')">❌ Cancelar</button>
@@ -1129,13 +678,9 @@ tbody tr:active {
   </div>
 </div>
 
-<!-- EXCEL PREVIEW MODAL -->
 <div class="modal-bg" id="modal-excel">
   <div class="modal" style="width:95vw;max-width:1400px">
-    <div class="modal-header">
-      <h3>📊 Vista Previa — Datos del Excel</h3>
-      <button class="modal-close" onclick="closeModal('modal-excel')">×</button>
-    </div>
+    <div class="modal-header"><h3>📊 Vista Previa — Datos del Excel</h3><button class="modal-close" onclick="closeModal('modal-excel')">×</button></div>
     <div class="modal-body">
       <div id="excel-table-wrap" style="overflow:auto;max-height:55vh"></div>
       <div style="margin-top:12px;color:var(--tl);font-size:13px">Total: <strong id="excel-count">0</strong> registros</div>
@@ -1147,7 +692,7 @@ tbody tr:active {
   </div>
 </div>
 
-<!-- ════════════════════════════════════ JAVASCRIPT ════════════════════════════════════ -->
+<!-- ════════════════════ JAVASCRIPT ════════════════════ -->
 <script>
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
 const SHEET_ID   = '1L1IST5Ib6On8Z1i-IOsKYZnj-qKyOys_nGsu2xcAY3k';
@@ -1158,6 +703,7 @@ const GID_OTT_CFG= '218089575';
 const EAI_FORM   = 'https://docs.google.com/forms/d/e/1FAIpQLScK-Yhut9k5WfpWMDE-MWvKhSw9xYM6q9mOf_IA8g5ht8MzQA/formResponse';
 const TDC_FORM   = 'https://docs.google.com/forms/d/e/1FAIpQLScTrZ1wDl9RiYcH_OnWIsZpp1HKW0p8ICqTBt9GG-f-LtQ0gA/formResponse';
 const CORS = 'https://corsproxy.io/?';
+
 // ─── PRODUCTS LIST ───────────────────────────────────────────────────────────
 const PRODUCTS_LIST = [
   "Agroquímicos","Materiales De Servicio","Tratamientos","Laboratorio","Fertilizantes",
@@ -1193,14 +739,14 @@ const S = {
   facturarList: [],
   bloquesDict: {},
   ottData: {},
-  fullData: [],       // array of objects (TdC)
-  viewData: [],       // filtered view
-  editedRows: new Set(),
+  fullData: [],
+  viewData: [],
+  editedRows: new Set(),   // almacena _idx (índices en fullData)
   currentFilters: {},
   sortCol: null,
   sortAsc: true,
-  editRowIdx: null,
-  cellEditRowIdx: null,
+  editRowIdx: null,        // _idx en fullData
+  cellEditRowIdx: null,    // _idx en fullData
   cellEditCol: null,
   msField: null,
   msCallback: null,
@@ -1228,12 +774,13 @@ const COL_ICONS = {
   "VEHICULO":"🚚","ORDEN R":"📋","HORA C":"⏰","HORA D":"⏰","TARIFA":"💲",
   "TIPO DE VIAJE":"🚅","ESTADO DE VIAJE":"✅","EDITAR":"✏️"
 };
+// FIX #3: FECHA S ancho aumentado a 160 para mostrar fecha + hora completos
 const COL_WIDTHS = {
-  "ID":60,"FECHA S":100,"SOLICITANTE":125,"ORIGEN":90,"DESTINO":95,
-  "FACTURAR A":125,"PRODUCTO":120,"# PIEZAS":85,"FBE":80,"PESO":85,
-  "FECHA E":100,"HORA E":90,"TIPO V":90,"OTT":85,"CONDUCTOR":135,
-  "VEHICULO":110,"ORDEN R":100,"HORA C":90,"HORA D":90,"TARIFA":90,
-  "TIPO DE VIAJE":115,"ESTADO DE VIAJE":110,"EDITAR":90
+  "ID":70,"FECHA S":160,"SOLICITANTE":130,"ORIGEN":100,"DESTINO":100,
+  "FACTURAR A":130,"PRODUCTO":130,"# PIEZAS":85,"FBE":80,"PESO":85,
+  "FECHA E":105,"HORA E":85,"TIPO V":80,"OTT":90,"CONDUCTOR":140,
+  "VEHICULO":120,"ORDEN R":100,"TARIFA":100,"TIPO DE VIAJE":130,
+  "ESTADO DE VIAJE":130,"HORA C":85,"HORA D":85,"EDITAR":85
 };
 const TDC_COL_MAP = {
   'ID':'entry.1748172575','FECHA S':'entry.489320488','SOLICITANTE':'entry.2000551577',
@@ -1267,21 +814,12 @@ async function fetchCSV(gid, retries = 3) {
   for (let i = 0; i < retries; i++) {
     try {
       const url = sheetUrl(gid);
-      console.log(`Intentando cargar ${gid} (intento ${i+1}/${retries})`);
       const r = await fetch(url);
-      
-      if (!r.ok) {
-        throw new Error(`HTTP ${r.status}`);
-      }
-      
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
       const text = await r.text();
-      console.log(`✅ Cargado GID ${gid}: ${text.length} bytes`);
       return parseCSV(text);
-      
     } catch (error) {
-      console.log(`❌ Intento ${i+1} falló para GID ${gid}: ${error.message}`);
       if (i === retries - 1) throw error;
-      // Esperar 1 segundo antes de reintentar
       await new Promise(resolve => setTimeout(resolve, 1000));
     }
   }
@@ -1303,16 +841,6 @@ function parseCSV(txt){
     rows.push(row);
   }
   return rows;
-}
-
-function csvToObjects(rows){
-  if(rows.length<1) return [];
-  const hdrs=rows[0];
-  return rows.slice(1).map(r=>{
-    const o={};
-    hdrs.forEach((h,i)=>o[h.trim()]=r[i]||'');
-    return o;
-  });
 }
 
 function normCol(s){ return s.trim().toUpperCase().replace(/\s+/g,'_').replace('#','NUM').normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
@@ -1361,111 +889,70 @@ function getRowTag(row){
 // ─── VIEW ROUTING ─────────────────────────────────────────────────────────────
 function goView(name){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  document.getElementById('view-'+name).classList.add('active');
+  const targetView = document.getElementById('view-'+name);
+  if (targetView) targetView.classList.add('active');
 }
 
 // ─── ACTOR & LOGIN ────────────────────────────────────────────────────────────
 function goLogin(profile){
-  S.profile=profile;
-  document.getElementById('login-portal-label').textContent=`Portal ${profile==='OTT'?'TdC':profile}`;
-  document.getElementById('login-portal-label').style.color=profile==='EAI'?'var(--primary)':'var(--accent)';
-  document.getElementById('login-user').value='';
-  document.getElementById('login-pass').value='';
+  S.profile = profile;
+  document.getElementById('login-portal-label').textContent = `Portal ${profile === 'OTT' ? 'TdC' : profile}`;
+  document.getElementById('login-portal-label').style.color = profile === 'EAI' ? 'var(--primary)' : 'var(--accent)';
+  document.getElementById('login-user').value = '';
+  document.getElementById('login-pass').value = '';
   goView('login');
-
 }
-
 
 async function doLogin(){
   const user = document.getElementById('login-user').value.trim().toUpperCase();
   const pass = document.getElementById('login-pass').value.trim();
-  
-  if (!user || !pass) {
-    alert('Ingrese usuario y contraseña');
-    return;
-  }
-  
+  if (!user || !pass) { alert('Ingrese usuario y contraseña'); return; }
   showLoading('Verificando credenciales...');
-  
   try {
-    // Recargar usuarios frescos desde la hoja
     const rows = await fetchCSV(GID_NODOS);
-    
-    // Limpiar diccionarios anteriores
-    S.usersEai = {};
-    S.usersTdc = {};
-    
+    S.usersEai = {}; S.usersTdc = {};
     rows.forEach(r => {
-      // EAI: columnas K(10) y L(11)
       if (r.length > 11) {
         const u = (r[10] || '').trim().toUpperCase();
         const p = (r[11] || '').trim();
-        if (u && p && u !== 'NAN' && u !== 'USUARIO') {
-          S.usersEai[u] = p;
-        }
+        if (u && p && u !== 'NAN' && u !== 'USUARIO' && u !== 'USER-SOLICITANTE') S.usersEai[u] = p;
       }
-      // TdC: columnas M(12) y N(13)
       if (r.length > 13) {
         const u = (r[12] || '').trim().toUpperCase();
         const p = (r[13] || '').trim();
-        if (u && p && u !== 'NAN' && u !== 'USUARIO') {
-          S.usersTdc[u] = p;
-        }
+        if (u && p && u !== 'NAN' && u !== 'USUARIO') S.usersTdc[u] = p;
       }
     });
-    
     hideLoading();
-    
-    // Verificar según el perfil seleccionado
     if (S.profile === 'EAI') {
-      if (S.usersEai[user] === pass) {
-        S.username = user;
-        await openEai(user);
-      } else {
-        alert('Credenciales incorrectas para EAI');
-      }
+      if (S.usersEai[user] && S.usersEai[user] === pass) { S.username = user; await openEai(user); }
+      else alert('Credenciales incorrectas para EAI');
     } else if (S.profile === 'OTT') {
-      if (S.usersTdc[user] === pass) {
-        S.username = user;
-        await openTdc(user);
-      } else {
-        alert('Credenciales incorrectas para TdC');
-      }
-    } else {
-      alert('Perfil no válido');
-    }
-    
-  } catch (error) {
-    hideLoading();
-    alert('Error al verificar credenciales: ' + error.message);
-  }
+      if (S.usersTdc[user] && S.usersTdc[user] === pass) { S.username = user; await openTdc(user); }
+      else alert('Credenciales incorrectas para TdC');
+    } else { alert('Perfil no válido'); }
+  } catch (error) { hideLoading(); alert('Error: ' + error.message); }
 }
 
 // ─── EAI FORM ─────────────────────────────────────────────────────────────────
 async function openEai(username){
-  showLoading('Abriendo formulario...');
-  try{
-    await loadNodosData();
-  }catch(e){}
-  document.getElementById('eai-solicitante').value=username;
-  // Populate dropdowns
+  showLoading('Abriendo formulario EAI...');
+  try{ await loadNodosData(); }catch(e){ console.error("Error loading nodos:", e); }
+  document.getElementById('eai-solicitante').value = username;
   populateDropdown('dd-facturar', S.facturarList);
   populateDropdown('dd-origen',   S.nodosList);
   populateDropdown('dd-destino',  S.nodosList);
   populateDropdown('dd-producto', PRODUCTS_LIST);
-  // Set today's date
-  document.getElementById('eai-fecha').value=new Date().toISOString().slice(0,10);
-  // Clear fields
+  document.getElementById('eai-fecha').value = new Date().toISOString().slice(0,10);
   ['eai-facturar','eai-origen','eai-destino','eai-contacto','eai-piezas','eai-largo',
    'eai-ancho','eai-alto','eai-peso','eai-producto','eai-hora','eai-centro','eai-obs']
-    .forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
-  document.getElementById('eai-zona').selectedIndex=0;
-  document.getElementById('eai-operacion').selectedIndex=0;
-  document.getElementById('eai-recorrido').selectedIndex=0;
+    .forEach(id=>{ const el = document.getElementById(id); if(el) el.value = ''; });
+  document.getElementById('eai-zona').selectedIndex = 0;
+  document.getElementById('eai-operacion').selectedIndex = 0;
+  document.getElementById('eai-recorrido').selectedIndex = 0;
   hideLoading();
   goView('eai');
 }
-
 function logoutEai(){ S.username=''; S.profile=''; }
 
 async function loadNodosData(){
@@ -1473,19 +960,12 @@ async function loadNodosData(){
   const rows=await fetchCSV(GID_NODOS);
   const seen1=new Set(), seen2=new Set();
   rows.forEach((r, idx) => {
-    // Saltar encabezados (fila 0)
     if (idx === 0) return;
     const n=(r[1]||'').trim();
-    if(n && n.toLowerCase()!=='nodos' && !seen1.has(n)){ 
-      S.nodosList.push(n);
-      seen1.add(n); 
-    }
+    if(n && n.toLowerCase()!=='nodos' && !seen1.has(n)){ S.nodosList.push(n); seen1.add(n); }
     if(r.length>9){
       const f=(r[9]||'').trim();
-      if(f && f.toLowerCase()!=='facturar a' && !seen2.has(f)){ 
-        S.facturarList.push(f);
-        seen2.add(f); 
-      }
+      if(f && f.toLowerCase()!=='facturar a' && !seen2.has(f)){ S.facturarList.push(f); seen2.add(f); }
     }
   });
 }
@@ -1515,41 +995,37 @@ async function loadOttData(){
   });
 }
 
-// Dropdown helpers
+// ─── DROPDOWN HELPERS ─────────────────────────────────────────────────────────
 function populateDropdown(ddId, list){
-  const dd=document.getElementById(ddId); if(!dd) return;
+  const dd=document.getElementById(ddId);
+  if(!dd) return;
   dd.innerHTML=list.map(v=>`<div class="dropdown-item" onclick="selectDropdown('${ddId}',this)">${v}</div>`).join('');
 }
-
 function filterDropdown(ddId, query, list){
-  const dd=document.getElementById(ddId); if(!dd) return;
+  const dd=document.getElementById(ddId);
+  if(!dd) return;
   const q=query.toLowerCase();
   const items=q?list.filter(v=>v.toLowerCase().includes(q)):list;
-  dd.innerHTML=items.map(v=>`<div class="dropdown-item" onclick="selectDropdownVal('${ddId}',${JSON.stringify(v)})">${v}</div>`).join('');
+  dd.innerHTML=items.map(v=>`<div class="dropdown-item" onclick="selectDropdownVal('${ddId}','${v}')">${v}</div>`).join('');
   dd.classList.add('open');
 }
-
 function toggleDropdown(ddId){
-  const dd=document.getElementById(ddId); if(!dd) return;
-  dd.classList.toggle('open');
+  const dd=document.getElementById(ddId);
+  if(dd) dd.classList.toggle('open');
 }
-
 function selectDropdown(ddId, el){
   const dd=document.getElementById(ddId);
   const inputId=ddId.replace('dd-','eai-');
   const input=document.getElementById(inputId);
   if(input) input.value=el.textContent;
-  dd.classList.remove('open');
+  if(dd) dd.classList.remove('open');
 }
-
 function selectDropdownVal(ddId, val){
   const inputId=ddId.replace('dd-','eai-');
   const input=document.getElementById(inputId);
   if(input) input.value=val;
   document.getElementById(ddId).classList.remove('open');
 }
-
-// Close dropdowns on outside click
 document.addEventListener('click',e=>{
   if(!e.target.closest('.searchable-wrap')) document.querySelectorAll('.dropdown-list').forEach(d=>d.classList.remove('open'));
 });
@@ -1593,7 +1069,6 @@ async function postForm(url, data){
   await fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:body.toString()});
 }
 
-// ─── EXCEL LOAD ───────────────────────────────────────────────────────────────
 async function loadExcel(input){
   const file=input.files[0]; if(!file) return;
   showLoading('Leyendo Excel...');
@@ -1605,14 +1080,14 @@ async function loadExcel(input){
     if(rows.length<2){ hideLoading(); alert('El archivo está vacío.'); return; }
     const hdrs=rows[0].map(h=>String(h).trim().toLowerCase().replace(/\s+/g,''));
     const expected=[
-      {key:'origen',col:'origen'},             {key:'destino',col:'destino'},
-      {key:'numerodepiezas',col:'piezas'},      {key:'largo',col:'largo'},
-      {key:'ancho',col:'ancho'},               {key:'alto',col:'alto'},
-      {key:'pesokg',col:'peso'},               {key:'facturaa',col:'facturar'},
-      {key:'fechadeentrega',col:'fecha'},       {key:'horadeentrega',col:'hora'},
-      {key:'producto',col:'producto'},          {key:'tipodeoperacion',col:'operacion'},
-      {key:'recorrido',col:'recorrido'},        {key:'observaciones',col:'obs'},
-      {key:'centrodecostos',col:'centro'},      {key:'zonaentrega',col:'zona'},
+      {key:'origen',col:'origen'},{key:'destino',col:'destino'},
+      {key:'numerodepiezas',col:'piezas'},{key:'largo',col:'largo'},
+      {key:'ancho',col:'ancho'},{key:'alto',col:'alto'},
+      {key:'pesokg',col:'peso'},{key:'facturaa',col:'facturar'},
+      {key:'fechadeentrega',col:'fecha'},{key:'horadeentrega',col:'hora'},
+      {key:'producto',col:'producto'},{key:'tipodeoperacion',col:'operacion'},
+      {key:'recorrido',col:'recorrido'},{key:'observaciones',col:'obs'},
+      {key:'centrodecostos',col:'centro'},{key:'zonaentrega',col:'zona'},
       {key:'contactoentrega',col:'contacto'},
     ];
     const colIdx={};
@@ -1624,16 +1099,13 @@ async function loadExcel(input){
     S.excelRows=rows.slice(1).filter(r=>r.some(c=>c!=='')).map(r=>{
       const row={solicitante};
       expected.forEach(e=>{ row[e.col]=colIdx[e.col]!==undefined?String(r[colIdx[e.col]]||''):''; });
-      // Format date
       if(row.fecha&&typeof row.fecha==='string'&&row.fecha.includes('/')){
-        // keep as-is
       } else if(row.fecha&&!isNaN(Number(row.fecha))){
         const d=XLSX.SSF.parse_date_code(Number(row.fecha));
         row.fecha=`${String(d.d).padStart(2,'0')}/${String(d.m).padStart(2,'0')}/${d.y}`;
       }
       return row;
     });
-    // Build preview table
     const cols=['solicitante','origen','destino','piezas','largo','ancho','alto','peso','facturar','fecha','hora','producto','operacion','recorrido','obs','centro','zona','contacto'];
     const labels=['Solicitante','Origen','Destino','Piezas','Largo','Ancho','Alto','Peso','Facturar A','Fecha','Hora','Producto','Tipo Op.','Recorrido','Obs','Centro C','Zona','Contacto'];
     const tableHtml=`<table style="border-collapse:collapse;font-size:12px;width:max-content">
@@ -1642,17 +1114,13 @@ async function loadExcel(input){
     </table>`;
     document.getElementById('excel-table-wrap').innerHTML=tableHtml;
     document.getElementById('excel-count').textContent=S.excelRows.length;
-    hideLoading();
-    openModal('modal-excel');
-  }catch(err){
-    hideLoading(); alert('Error al leer el archivo: '+err.message);
-  }
+    hideLoading(); openModal('modal-excel');
+  }catch(err){ hideLoading(); alert('Error al leer el archivo: '+err.message); }
   input.value='';
 }
 
 async function submitExcel(){
   if(!S.excelRows.length){ alert('No hay datos para enviar.'); return; }
-  // Validate
   for(let i=0;i<S.excelRows.length;i++){
     const r=S.excelRows[i];
     const required=['origen','destino','piezas','largo','ancho','alto','peso','facturar','fecha','hora','producto','operacion','recorrido','centro','zona','contacto'];
@@ -1680,260 +1148,485 @@ async function submitExcel(){
 }
 
 // ─── TDC ─────────────────────────────────────────────────────────────────────
+function parseOttRows(rows){
+  const hdrs = rows[0].map(h => h.trim());
+  
+  const colIndex = {};
+  ALL_COLS.forEach(col => {
+    const idx = hdrs.findIndex(h => h.trim() === col);
+    if (idx !== -1) colIndex[col] = idx;
+  });
+
+  const parsedRows = [];
+  const seenIds = new Set(); // ✅ Evitar IDs duplicados
+  
+  for (let _rowIdx = 1; _rowIdx < rows.length; _rowIdx++) {
+    const r = rows[_rowIdx];
+    
+    const idIdx = colIndex['ID'];
+    if (idIdx === undefined) continue;
+    
+    const idRaw = r[idIdx] !== undefined ? String(r[idIdx]).trim() : '';
+    
+    // ✅ Filtro estricto: debe ser número entero positivo
+    const numericId = parseInt(idRaw, 10);
+    if (
+      !idRaw ||
+      isNaN(numericId) ||
+      numericId <= 0 ||
+      String(numericId) !== idRaw.replace(/\.0+$/, '') // evitar "1.0", "2.0"
+    ) continue;
+    
+    // ✅ Saltar IDs duplicados
+    const idStr = String(numericId);
+    if (seenIds.has(idStr)) continue;
+    seenIds.add(idStr);
+    
+    const row = { _idx: parsedRows.length };
+    row['ID'] = idStr;
+    
+    ALL_COLS.forEach(col => {
+      if (col === 'ID') return;
+      const idx = colIndex[col];
+      let val = (idx !== undefined && r[idx] !== undefined) ? String(r[idx]).trim() : '';
+      
+      // Limpiar valores "nan"
+      if (val.toLowerCase() === 'nan') val = '';
+      
+      // Columnas numéricas
+      if (['# PIEZAS', 'PESO', 'TIPO V'].includes(col)) {
+        const n = parseInt(val.replace(/[^0-9-]/g, ''), 10);
+        val = !isNaN(n) && n > 0 ? String(n) : '';
+      }
+      
+      if (col === 'FBE') {
+        const n = parseFloat(val.replace(/[^0-9.-]/g, ''));
+        val = !isNaN(n) ? String(n) : '';
+      }
+      
+      if (col === 'TARIFA') {
+        const n = parseInt(val.replace(/[^0-9]/g, ''), 10);
+        val = !isNaN(n) && n > 0 ? String(n) : '';
+      }
+      
+      row[col] = val;
+    });
+    
+    if (row['FBE']) row['FBE'] = parseFloat(row['FBE']) || 0;
+    row['ESTADO DE VIAJE'] = formatEstado(row['ESTADO DE VIAJE'] || '');
+    row['TIPO DE VIAJE']   = formatViaje(row['TIPO DE VIAJE'] || '');
+    
+    parsedRows.push(row);
+  }
+  
+  console.log(`✅ Filas válidas cargadas: ${parsedRows.length}`);
+  return parsedRows;
+}
 async function openTdc(username){
   showLoading('Cargando datos TdC...');
   try{
     await Promise.all([loadNodosData(), loadBloquesData(), loadOttData()]);
-    const rows=await fetchCSV(GID_OTT);
-    if(rows.length<2){ hideLoading(); alert('No se pudieron cargar los datos.'); return; }
-    const hdrs=rows[0].map(h=>h.trim());
-    // Build normalized column mapping
-    const normHdrs=hdrs.map(h=>normCol(h));
-    const colMap={};
-    ALL_COLS.forEach(expected=>{
-      const en=normCol(expected);
-      const idx=normHdrs.indexOf(en);
-      if(idx>=0) colMap[expected]=hdrs[idx];
-    });
-    S.fullData=rows.slice(1).map(r=>{
-      const obj={};
-      hdrs.forEach((h,i)=>obj[h]=r[i]||'');
-      // Create normalized row
-      const row={};
-      ALL_COLS.forEach(c=>{ row[c]=colMap[c]?obj[colMap[c]]||'':''; });
-      // Format FBE
-      if(row['FBE']) row['FBE']=parseFloat(String(row['FBE']).replace(',','.'))||0;
-      // Format estados & tipos
-      row['ESTADO DE VIAJE']=formatEstado(row['ESTADO DE VIAJE']);
-      row['TIPO DE VIAJE']=formatViaje(row['TIPO DE VIAJE']);
-      return row;
-    }).filter(r => r['ID'] && r['ID'].toString().trim() !== '' && r['SOLICITANTE'] && r['SOLICITANTE'].toString().trim() !== '');
-    S.viewData=[...S.fullData];
+    const rows = await fetchCSV(GID_OTT);
+    if(rows.length < 2){ hideLoading(); alert('No se pudieron cargar los datos.'); return; }
+
+    S.fullData = parseOttRows(rows);
+    S.fullData.forEach((r, i) => r._idx = i);
+
+    // Crear COPIA para viewData
+    S.viewData = [...S.fullData];
     S.editedRows.clear();
-    S.currentFilters={};
+    S.currentFilters = {};
+    S.sortCol = null;  // Reset ordenamiento
+    S.sortAsc = true;
+    
     goView('tdc');
     renderTable();
     updateMetrics(S.viewData);
+    startBgRefresh();
     hideLoading();
   }catch(e){
     hideLoading(); alert('Error cargando datos: '+e.message);
   }
 }
 
-function closeTdc(){ goView('actor'); }
+function leaveTdc(){
+  stopBgRefresh();
+  goView('actor');
+}
 
-async function refreshTdc(){ openTdc(S.username); }
+async function refreshTdc(){
+  stopBgRefresh();
+  if(!S.username) return;
+  
+  showLoading('Actualizando datos...');
+  try {
+    const rows = await fetchCSV(GID_OTT);
+    if(rows.length < 2) throw new Error('No hay datos');
+    
+    const newFullData = parseOttRows(rows);
+    newFullData.forEach((r, i) => r._idx = i);
+    
+    // Preservar ediciones actuales por ID
+    const editedMap = new Map();
+    for(const idx of S.editedRows) {
+      const oldRow = S.fullData[idx];
+      if(oldRow && oldRow['ID']) editedMap.set(oldRow['ID'], oldRow);
+    }
+    
+    S.fullData = newFullData;
+    
+    // Restaurar ediciones en los nuevos datos
+    for(const newRow of S.fullData) {
+      const editedRow = editedMap.get(newRow['ID']);
+      if(editedRow) {
+        Object.assign(newRow, editedRow);
+        S.editedRows.add(newRow._idx);
+      }
+    }
+    
+    // Re-aplicar filtros y orden
+    S.viewData = applyStoredFilters(S.fullData);
+    const q = document.getElementById('tdc-search').value.trim().toLowerCase();
+    if(q) S.viewData = S.viewData.filter(r => Object.values(r).some(v => String(v).toLowerCase().includes(q)));
+    
+    // Re-aplicar ordenamiento si existe
+    if(S.sortCol) {
+      const sorted = [...S.viewData];
+      sorted.sort((a, b) => {
+        let av = a[S.sortCol] !== undefined ? String(a[S.sortCol]) : '';
+        let bv = b[S.sortCol] !== undefined ? String(b[S.sortCol]) : '';
+        if(S.sortCol === 'ID') {
+          const an = parseInt(av, 10), bn = parseInt(bv, 10);
+          if(!isNaN(an) && !isNaN(bn)) return S.sortAsc ? an - bn : bn - an;
+        }
+        const an = parseFloat(av), bn = parseFloat(bv);
+        if(!isNaN(an) && !isNaN(bn)) return S.sortAsc ? an - bn : bn - an;
+        av = av.toLowerCase(); bv = bv.toLowerCase();
+        if(av < bv) return S.sortAsc ? -1 : 1;
+        if(av > bv) return S.sortAsc ? 1 : -1;
+        return 0;
+      });
+      S.viewData = sorted;
+    }
+    
+    renderTable();
+    updateMetrics(S.viewData);
+    hideLoading();
+    alert(`✅ Datos actualizados. ${S.viewData.length} registros mostrados.`);
+  } catch(e) {
+    hideLoading();
+    alert('Error al actualizar: ' + e.message);
+  }
+}
 
-// ─── TABLE RENDER ─────────────────────────────────────────────────────────────
-function renderTable() {
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+function renderTable(){
   const thead = document.getElementById('tdc-thead');
   const tbody = document.getElementById('tdc-tbody');
-  // Mover EDITAR al PRINCIPIO
   const cols = ['EDITAR', ...VIS_COLS];
-  
-  // Renderizar encabezados
+
   thead.innerHTML = `<tr>${cols.map(c => {
     const ic = COL_ICONS[c] || '';
     const arrow = S.sortCol === c ? (S.sortAsc ? '▲' : '▼') : '';
-    const width = COL_WIDTHS[c] ? `${COL_WIDTHS[c]}px` : 'auto';
-    return `<th style="min-width:${width}; width:${width}; position: relative;" data-col="${c}">
-      <span class="th-content" ondblclick="sortBy('${c}')" style="cursor: pointer; display: inline-block;">
+    const width = COL_WIDTHS[c] || 120;
+    return `<th style="min-width:${width}px;width:${width}px;position:relative;" data-col="${c}">
+      <span class="th-content" style="cursor:pointer;display:inline-block;">
         ${ic} ${c} <span class="sort-arrow">${arrow}</span>
       </span>
       <div class="resizer" data-col="${c}"></div>
     </th>`;
   }).join('')}</tr>`;
-  
-  // Renderizar cuerpo
+
   tbody.innerHTML = '';
-  
-  if (S.viewData.length === 0) {
+
+  if (!S.viewData || S.viewData.length === 0) {
     const tr = document.createElement('tr');
     const td = document.createElement('td');
     td.colSpan = cols.length;
     td.textContent = '📋 No hay datos disponibles';
-    td.style.textAlign = 'center';
-    td.style.padding = '40px';
-    td.style.color = 'var(--tl)';
-    tr.appendChild(td);
+    td.style.cssText = 'text-align:center;padding:40px;color:var(--tl)';
+    tr.appendChild(td); 
     tbody.appendChild(tr);
+    initResizeHandlers();
     return;
   }
-  
-  S.viewData.forEach((row, vi) => {
-    const origIdx = S.fullData.indexOf(row);
+
+  S.viewData.forEach((row, viewIdx) => {
     const tr = document.createElement('tr');
-    
-    if (S.editedRows.has(origIdx)) {
+    const isEdited = S.editedRows.has(row._idx);
+    if (isEdited) {
       tr.classList.add('edited');
     } else {
       const tag = getRowTag(row);
       if (tag) tr.classList.add(tag);
     }
-    
-    tr.setAttribute('data-idx', origIdx);
-    
-    // PRIMERO: Botón editar
+
     const tdEdit = document.createElement('td');
     tdEdit.className = 'edit-btn-cell';
     const btn = document.createElement('button');
     btn.className = 'edit-cell-btn';
     btn.textContent = '✏️ Editar';
-    btn.onclick = () => openFullEdit(origIdx);
+    btn.onclick = () => openFullEdit(viewIdx);
     tdEdit.appendChild(btn);
     tr.appendChild(tdEdit);
-    
-    // LUEGO: El resto de columnas
+
     VIS_COLS.forEach(col => {
       const td = document.createElement('td');
-      let val = row[col] || '';
-      
-      if (col === 'FBE') {
-        val = typeof val === 'number' ? val.toFixed(1) : val;
-      } else if (col === 'TARIFA') {
-        val = formatTarifa(val);
-      } else if (col === 'TIPO V') {
-        try { val = String(parseInt(val)); } catch(e) {}
+      let val = row[col] !== undefined && row[col] !== null ? String(row[col]) : '';
+      if (col === 'FECHA S') {
+        // Formato: "23/04/2026 10:45:00" → "23/04/2026 10:45"
+        if (val && val.includes(' ')) {
+          const [fecha, hora] = val.split(' ');
+          const horaParts = hora.split(':');
+          val = `${fecha} ${horaParts[0]}:${horaParts[1]}`;
+        }
       }
+      else if (col === 'FBE' && !isNaN(parseFloat(val))) val = parseFloat(val).toFixed(1);
+      else if (col === 'TARIFA') val = formatTarifa(val);
+      else if (col === 'TIPO V') { const n = parseInt(val); val = !isNaN(n) ? String(n) : val; }
+      td.textContent = val || '';
+      td.title = val || '';
+      td.style.minWidth = (COL_WIDTHS[col] || 80) + 'px';
       
-      td.textContent = val;
-      td.title = val;
-      td.ondblclick = () => openCellEdit(origIdx, col);
+      // AGREGAR DOBLE CLICK PARA EDITAR CELDA
+      td.ondblclick = (function(viewIdx, colName) {
+        return function() { 
+          const rowRealIdx = S.viewData[viewIdx]._idx;
+          openCellEdit(rowRealIdx, colName); 
+        };
+      })(viewIdx, col);
+      
       tr.appendChild(td);
     });
-    
     tbody.appendChild(tr);
   });
-  
-  // Re-inicializar los manejadores de redimensionamiento
+
+  document.querySelectorAll('#tdc-thead .th-content').forEach(el => {
+    el.removeEventListener('click', handleSortClick);
+    el.addEventListener('click', handleSortClick);
+  });
   initResizeHandlers();
 }
-// ─── REDIMENSIONAMIENTO DE COLUMNAS (SIN INTERFERIR CON ORDEN) ───
-let currentColResize = null;
-let startXResize = 0;
-let startWidthResize = 0;
 
-function initResizeHandlers() {
-  const resizers = document.querySelectorAll('#tdc-thead th .resizer');
-  resizers.forEach(resizer => {
-    resizer.removeEventListener('mousedown', onResizeMouseDown);
-    resizer.addEventListener('mousedown', onResizeMouseDown);
-  });
-}
-
-function onResizeMouseDown(e) {
+function handleSortClick(e){
   e.stopPropagation();
-  e.preventDefault();
-  
-  currentColResize = e.target.closest('th');
-  if (!currentColResize) return;
-  
-  const colName = currentColResize.getAttribute('data-col');
-  if (!colName) return;
-  
-  startXResize = e.pageX;
-  startWidthResize = currentColResize.offsetWidth;
-  
-  document.body.classList.add('resizing');
-  document.addEventListener('mousemove', onResizeMouseMove);
-  document.addEventListener('mouseup', onResizeMouseUp);
-}
-
-function onResizeMouseMove(e) {
-  if (!currentColResize) return;
-  
-  const dx = e.pageX - startXResize;
-  const newWidth = Math.max(60, Math.min(400, startWidthResize + dx));
-  const colName = currentColResize.getAttribute('data-col');
-  
-  if (colName) {
-    COL_WIDTHS[colName] = newWidth;
-    currentColResize.style.width = newWidth + 'px';
-    currentColResize.style.minWidth = newWidth + 'px';
-    
-    // Actualizar todas las celdas de esta columna
-    const colIndex = [...VIS_COLS, 'EDITAR'].indexOf(colName);
-    if (colIndex !== -1) {
-      const rows = document.querySelectorAll('#tdc-tbody tr');
-      rows.forEach(row => {
-        const cell = row.cells[colIndex];
-        if (cell) {
-          cell.style.width = newWidth + 'px';
-          cell.style.minWidth = newWidth + 'px';
-          cell.style.maxWidth = newWidth + 'px';
-        }
-      });
-    }
-  }
-}
-
-function onResizeMouseUp() {
-  currentColResize = null;
-  document.body.classList.remove('resizing');
-  document.removeEventListener('mousemove', onResizeMouseMove);
-  document.removeEventListener('mouseup', onResizeMouseUp);
+  const span = e.target.closest('.th-content');
+  if (!span) return;
+  const th = span.closest('th');
+  if (!th) return;
+  const col = th.getAttribute('data-col');
+  if (col && col !== 'EDITAR') sortBy(col);
 }
 
 function updateMetrics(data){
-  document.getElementById('m-servicios').textContent=data.length;
-  const ottSet=new Set(data.map(r=>(r['OTT']||'').trim()).filter(v=>v&&v!=='nan'));
-  const vehSet=new Set(data.map(r=>(r['VEHICULO']||'').trim()).filter(v=>v&&v!=='nan'));
-  document.getElementById('m-ott').textContent=ottSet.size;
-  document.getElementById('m-veh').textContent=vehSet.size;
-  const costo=data.reduce((s,r)=>s+extractTarifaNum(r['TARIFA']),0);
-  document.getElementById('m-costo').textContent=`$${costo.toLocaleString('es-CO').replace(/,/g,'.')}`;
-  const fbe=data.reduce((s,r)=>s+(parseFloat(r['FBE'])||0),0);
-  document.getElementById('m-fbe').textContent=fbe.toLocaleString('es-CO',{maximumFractionDigits:0});
+  document.getElementById('m-servicios').textContent = data.length;
+  const ottSet = new Set(data.map(r=>(r['OTT']||'').trim()).filter(v=>v&&v!=='nan'));
+  const vehSet = new Set(data.map(r=>(r['VEHICULO']||'').trim()).filter(v=>v&&v!=='nan'));
+  document.getElementById('m-ott').textContent = ottSet.size;
+  document.getElementById('m-veh').textContent = vehSet.size;
+  const costo = data.reduce((s,r)=>s+extractTarifaNum(r['TARIFA']),0);
+  document.getElementById('m-costo').textContent = `$${costo.toLocaleString('es-CO').replace(/,/g,'.')}`;
+  const fbe = data.reduce((s,r)=>s+(parseFloat(r['FBE'])||0),0);
+  document.getElementById('m-fbe').textContent = fbe.toLocaleString('es-CO',{maximumFractionDigits:0});
 }
-
-// ─── SORT ─────────────────────────────────────────────────────────────────────
 function sortBy(col){
-  if(col==='EDITAR') return;
-  if(S.sortCol===col) S.sortAsc=!S.sortAsc; else{S.sortCol=col;S.sortAsc=true;}
-  S.viewData.sort((a,b)=>{
-    let av=String(a[col]||'').toLowerCase(), bv=String(b[col]||'').toLowerCase();
-    const an=parseFloat(av), bn=parseFloat(bv);
-    if(!isNaN(an)&&!isNaN(bn)) return S.sortAsc?an-bn:bn-an;
-    return S.sortAsc?av.localeCompare(bv):bv.localeCompare(av);
+  if (col === 'EDITAR') return;
+  
+  if (S.sortCol === col) {
+    S.sortAsc = !S.sortAsc;
+  } else {
+    S.sortCol = col;
+    S.sortAsc = true;
+  }
+  
+  if (!S.viewData || S.viewData.length === 0) return;
+  
+  S.viewData.sort((a, b) => {
+    let av = a[col];
+    let bv = b[col];
+    
+    // Función para validar si un valor es realmente numérico
+    function isRealNumber(val) {
+      if (val === undefined || val === null || val === '') return false;
+      const num = parseFloat(String(val).replace(/[^0-9.-]/g, ''));
+      return !isNaN(num) && isFinite(num);
+    }
+    
+    // Función para extraer número válido
+    function getNumber(val) {
+      if (val === undefined || val === null || val === '') return NaN;
+      return parseFloat(String(val).replace(/[^0-9.-]/g, ''));
+    }
+    
+    const aIsEmpty = av === undefined || av === null || av === '';
+    const bIsEmpty = bv === undefined || bv === null || bv === '';
+    if (aIsEmpty && bIsEmpty) return 0;
+    if (aIsEmpty) return 1;
+    if (bIsEmpty) return -1;
+    
+    // ID - estrictamente numérico, solo comparar si ambos son números válidos
+    if (col === 'ID') {
+      const numA = getNumber(av);
+      const numB = getNumber(bv);
+      
+      // Si alguno no es número válido, va al final
+      if (isNaN(numA) && isNaN(numB)) return 0;
+      if (isNaN(numA)) return 1;
+      if (isNaN(numB)) return -1;
+      
+      return S.sortAsc ? numA - numB : numB - numA;
+    }
+    
+    // # PIEZAS, FBE, PESO - estrictamente numérico
+    if (col === '# PIEZAS' || col === 'FBE' || col === 'PESO') {
+      const numA = getNumber(av);
+      const numB = getNumber(bv);
+      
+      if (isNaN(numA) && isNaN(numB)) return 0;
+      if (isNaN(numA)) return 1;
+      if (isNaN(numB)) return -1;
+      
+      return S.sortAsc ? numA - numB : numB - numA;
+    }
+    
+    // TARIFA
+    if (col === 'TARIFA') {
+      const numA = getNumber(av);
+      const numB = getNumber(bv);
+      
+      if (isNaN(numA) && isNaN(numB)) return 0;
+      if (isNaN(numA)) return 1;
+      if (isNaN(numB)) return -1;
+      
+      return S.sortAsc ? numA - numB : numB - numA;
+    }
+    
+    // TIPO V
+    if (col === 'TIPO V') {
+      const numA = getNumber(av);
+      const numB = getNumber(bv);
+      
+      if (isNaN(numA) && isNaN(numB)) return 0;
+      if (isNaN(numA)) return 1;
+      if (isNaN(numB)) return -1;
+      
+      return S.sortAsc ? numA - numB : numB - numA;
+    }
+    
+    // FECHA S - formato "24/04/2026 17:40:59"
+    if (col === 'FECHA S') {
+      function parseFechaS(fechaStr) {
+        const parts = String(fechaStr).split(' ');
+        if (parts.length < 1) return NaN;
+        const dateParts = parts[0].split('/');
+        if (dateParts.length !== 3) return NaN;
+        let hora = 0, min = 0, seg = 0;
+        if (parts.length > 1) {
+          const timeParts = parts[1].split(':');
+          hora = parseInt(timeParts[0]) || 0;
+          min = parseInt(timeParts[1]) || 0;
+          seg = parseInt(timeParts[2]) || 0;
+        }
+        return new Date(
+          parseInt(dateParts[2]), 
+          parseInt(dateParts[1]) - 1, 
+          parseInt(dateParts[0]),
+          hora, min, seg
+        ).getTime();
+      }
+      const timeA = parseFechaS(av);
+      const timeB = parseFechaS(bv);
+      if (isNaN(timeA)) return 1;
+      if (isNaN(timeB)) return -1;
+      return S.sortAsc ? timeA - timeB : timeB - timeA;
+    }
+    
+    // FECHA E - formato "dd/MM/yyyy"
+    if (col === 'FECHA E') {
+      function parseFechaE(fechaStr) {
+        const parts = String(fechaStr).split('/');
+        if (parts.length !== 3) return NaN;
+        return new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0])).getTime();
+      }
+      const timeA = parseFechaE(av);
+      const timeB = parseFechaE(bv);
+      if (isNaN(timeA)) return 1;
+      if (isNaN(timeB)) return -1;
+      return S.sortAsc ? timeA - timeB : timeB - timeA;
+    }
+    
+    // HORAS
+    if (col === 'HORA E' || col === 'HORA C' || col === 'HORA D') {
+      function parseHora(horaStr) {
+        const parts = String(horaStr).split(':');
+        if (parts.length < 2) return NaN;
+        return (parseInt(parts[0]) || 0) * 3600 + (parseInt(parts[1]) || 0) * 60 + (parseInt(parts[2]) || 0);
+      }
+      const secsA = parseHora(av);
+      const secsB = parseHora(bv);
+      if (isNaN(secsA)) return 1;
+      if (isNaN(secsB)) return -1;
+      return S.sortAsc ? secsA - secsB : secsB - secsA;
+    }
+    
+    // Para valores numéricos en general
+    const numA = getNumber(av);
+    const numB = getNumber(bv);
+    if (!isNaN(numA) && !isNaN(numB)) {
+      return S.sortAsc ? numA - numB : numB - numA;
+    }
+    
+    // Texto normal
+    const strA = String(av).toLowerCase().trim();
+    const strB = String(bv).toLowerCase().trim();
+    if (strA < strB) return S.sortAsc ? -1 : 1;
+    if (strA > strB) return S.sortAsc ? 1 : -1;
+    return 0;
   });
+  
   renderTable();
 }
 
-// ─── QUICK SEARCH ─────────────────────────────────────────────────────────────
 function quickSearch(q){
-  const lq=q.toLowerCase().trim();
-  if(!lq){ S.viewData=applyStoredFilters(S.fullData); }
-  else{
-    const base=applyStoredFilters(S.fullData);
-    S.viewData=base.filter(r=>Object.values(r).some(v=>String(v).toLowerCase().includes(lq)));
+  const lq = q.toLowerCase().trim();
+  if (!lq) S.viewData = applyStoredFilters(S.fullData);
+  else {
+    const base = applyStoredFilters(S.fullData);
+    S.viewData = base.filter(r=>Object.values(r).some(v=>String(v).toLowerCase().includes(lq)));
   }
   renderTable(); updateMetrics(S.viewData);
 }
-
 function clearSearch(){ document.getElementById('tdc-search').value=''; quickSearch(''); }
 
 // ─── FILTERS ─────────────────────────────────────────────────────────────────
 const FILTER_FIELDS=[
-  {key:'BLOQUE',      label:'BLOQUE'},
-  {key:'FECHA_E',     label:'FECHA ENTREGA'},
-  {key:'FECHA_S',     label:'FECHA SOLICITUD'},
-  {key:'SOLICITANTE', label:'SOLICITANTE'},
-  {key:'FACTURAR_A',  label:'FACTURAR A'},
-  {key:'PRODUCTO',    label:'PRODUCTO'},
-  {key:'ORIGEN',      label:'ORIGEN'},
-  {key:'DESTINO',     label:'DESTINO'},
-  {key:'RECORRIDO',   label:'RECORRIDO'},
-  {key:'OTT',         label:'OTT'},
-  {key:'CONDUCTOR',   label:'CONDUCTOR'},
-  {key:'VEHICULO',    label:'VEHICULO'},
-  {key:'ESTADO DE VIAJE', label:'ESTADO DE VIAJE'},
+  {key:'BLOQUE',label:'BLOQUE'},{key:'FECHA_E',label:'FECHA ENTREGA'},
+  {key:'FECHA_S',label:'FECHA SOLICITUD'},{key:'SOLICITANTE',label:'SOLICITANTE'},
+  {key:'FACTURAR_A',label:'FACTURAR A'},{key:'PRODUCTO',label:'PRODUCTO'},
+  {key:'ORIGEN',label:'ORIGEN'},{key:'DESTINO',label:'DESTINO'},
+  {key:'RECORRIDO',label:'RECORRIDO'},{key:'OTT',label:'OTT'},
+  {key:'CONDUCTOR',label:'CONDUCTOR'},{key:'VEHICULO',label:'VEHICULO'},
+  {key:'ESTADO DE VIAJE',label:'ESTADO DE VIAJE'},
 ];
 
 function getOptionsForField(field){
-  const data=S.fullData;
+  const data = S.fullData;
   if(field==='BLOQUE') return Object.keys(S.bloquesDict).sort();
-  if(field==='FECHA_E') return [...new Set(data.map(r=>(r['FECHA E']||'').trim()).filter(v=>v&&v!=='nan'))].sort();
-  if(field==='FECHA_S') return [...new Set(data.map(r=>(r['FECHA S']||'').trim()).filter(v=>v&&v!=='nan'))].sort();
+  if(field==='FECHA_E') {
+    return [...new Set(data.map(r=>{
+      const val = r['FECHA E'] || '';
+      if (/^\d{2}\/\d{2}\/\d{4}/.test(val)) return val;
+      return null;
+    }).filter(v=>v && v!=='nan'))].sort();
+  }
+  if(field==='FECHA_S') {
+    return [...new Set(data.map(r=>{
+      const val = r['FECHA S'] || '';
+      const fechaOnly = val.substring(0, 10);
+      if (/^\d{2}\/\d{2}\/\d{4}/.test(fechaOnly)) return fechaOnly;
+      return null;
+    }).filter(v=>v && v!=='nan'))].sort();
+  }
   if(field==='SOLICITANTE') return [...new Set(data.map(r=>(r['SOLICITANTE']||'').split('-')[0].trim()).filter(v=>v))].sort();
   if(field==='FACTURAR_A') return [...new Set(data.map(r=>(r['FACTURAR A']||'').trim()).filter(v=>v&&v!=='nan'))].sort();
   const colMap={'PRODUCTO':'PRODUCTO','ORIGEN':'ORIGEN','DESTINO':'DESTINO','RECORRIDO':'RECORRIDO','OTT':'OTT','CONDUCTOR':'CONDUCTOR','VEHICULO':'VEHICULO','ESTADO DE VIAJE':'ESTADO DE VIAJE'};
@@ -1942,14 +1635,14 @@ function getOptionsForField(field){
 }
 
 function openFilters(){
-  const body=document.getElementById('filter-body');
-  body.innerHTML='';
+  const body = document.getElementById('filter-body');
+  body.innerHTML = '';
   FILTER_FIELDS.forEach(({key,label})=>{
-    const saved=S.currentFilters[key]||'';
-    const cnt=saved?saved.split(',').filter(v=>v).length:0;
-    const div=document.createElement('div');
-    div.className='filter-field';
-    div.innerHTML=`<label>${label}</label>
+    const saved = S.currentFilters[key]||'';
+    const cnt = saved ? saved.split(',').filter(v=>v).length : 0;
+    const div = document.createElement('div');
+    div.className = 'filter-field';
+    div.innerHTML = `<label>${label}</label>
       <div class="multi-select-display" onclick="openMultiSelect('${key}','${label}')">
         <span class="multi-sel-text" id="ftext-${key}">${cnt?`${cnt} seleccionado(s)`:'Ninguno seleccionado'}</span>
         <button class="multi-sel-btn">📋 Elegir</button>
@@ -1960,35 +1653,31 @@ function openFilters(){
 }
 
 function openMultiSelect(field, label){
-  S.msField=field;
-  document.getElementById('ms-title').textContent=`Seleccionar ${label}`;
-  const options=getOptionsForField(field);
-  const saved=new Set((S.currentFilters[field]||'').split(',').filter(v=>v));
-  const list=document.getElementById('ms-list');
-  list.innerHTML=options.map(opt=>`
+  S.msField = field;
+  document.getElementById('ms-title').textContent = `Seleccionar ${label}`;
+  const options = getOptionsForField(field);
+  const saved = new Set((S.currentFilters[field]||'').split(',').filter(v=>v));
+  document.getElementById('ms-list').innerHTML = options.map(opt=>`
     <label class="cb-item">
       <input type="checkbox" value="${opt}" ${saved.has(opt)?'checked':''}>
       <span>${opt}</span>
     </label>`).join('');
   openModal('modal-multiselect');
 }
-
 function msSelectAll(){ document.querySelectorAll('#ms-list input[type=checkbox]').forEach(cb=>cb.checked=true); }
 function msDeselectAll(){ document.querySelectorAll('#ms-list input[type=checkbox]').forEach(cb=>cb.checked=false); }
-
 function msApply(){
-  const selected=[...document.querySelectorAll('#ms-list input[type=checkbox]:checked')].map(cb=>cb.value);
-  S.currentFilters[S.msField]=selected.join(',');
-  const cnt=selected.length;
-  const ftxt=document.getElementById(`ftext-${S.msField}`);
-  if(ftxt) ftxt.textContent=cnt?`${cnt} seleccionado(s)`:'Ninguno seleccionado';
+  const selected = [...document.querySelectorAll('#ms-list input[type=checkbox]:checked')].map(cb=>cb.value);
+  S.currentFilters[S.msField] = selected.join(',');
+  const ftxt = document.getElementById(`ftext-${S.msField}`);
+  if(ftxt) ftxt.textContent = selected.length ? `${selected.length} seleccionado(s)` : 'Ninguno seleccionado';
   closeModal('modal-multiselect');
 }
 
 function applyFilters(){
-  S.viewData=applyStoredFilters(S.fullData);
-  const q=document.getElementById('tdc-search').value.trim().toLowerCase();
-  if(q) S.viewData=S.viewData.filter(r=>Object.values(r).some(v=>String(v).toLowerCase().includes(q)));
+  S.viewData = applyStoredFilters(S.fullData);
+  const q = document.getElementById('tdc-search').value.trim().toLowerCase();
+  if(q) S.viewData = S.viewData.filter(r=>Object.values(r).some(v=>String(v).toLowerCase().includes(q)));
   renderTable(); updateMetrics(S.viewData);
   closeModal('modal-filters');
   updateFilterInfoBar();
@@ -1996,62 +1685,67 @@ function applyFilters(){
 }
 
 function applyStoredFilters(data){
-  let filtered=[...data];
-  for(const [field,value] of Object.entries(S.currentFilters)){
+  let filtered = [...data];
+  for(const [field, value] of Object.entries(S.currentFilters)){
     if(!value) continue;
-    const vals=value.split(',').filter(v=>v);
+    const vals = value.split(',').filter(v=>v);
     if(!vals.length) continue;
+    
     if(field==='BLOQUE'){
-      const allPref=vals.flatMap(bl=>S.bloquesDict[bl]||[]).map(p=>p.trim().toUpperCase());
-      if(allPref.length) filtered=filtered.filter(r=>{
-        const prefix=(r['SOLICITANTE']||'').split('-')[0].trim().toUpperCase();
-        return allPref.includes(prefix);
-      });
+      const allPref = vals.flatMap(bl=>S.bloquesDict[bl]||[]).map(p=>p.trim().toUpperCase());
+      if(allPref.length) {
+        filtered = filtered.filter(r=>{
+          const prefix = (r['SOLICITANTE']||'').split('-')[0].trim().toUpperCase();
+          return allPref.includes(prefix);
+        });
+      }
     } else if(field==='FECHA_E'){
-      filtered=filtered.filter(r=>vals.some(v=>String(r['FECHA E']||'').includes(v)));
+      filtered = filtered.filter(r=>vals.some(v=>String(r['FECHA E']||'').includes(v)));
     } else if(field==='FECHA_S'){
-      filtered=filtered.filter(r=>vals.some(v=>String(r['FECHA S']||'').includes(v)));
+      filtered = filtered.filter(r=>vals.some(v=>String(r['FECHA S']||'').includes(v)));
     } else if(field==='FACTURAR_A'){
-      filtered=filtered.filter(r=>vals.some(v=>String(r['FACTURAR A']||'').toLowerCase().includes(v.toLowerCase())));
+      filtered = filtered.filter(r=>vals.some(v=>String(r['FACTURAR A']||'').toLowerCase().includes(v.toLowerCase())));
     } else if(field==='SOLICITANTE'){
-      filtered=filtered.filter(r=>vals.some(v=>(r['SOLICITANTE']||'').split('-')[0].trim().toUpperCase()===v.toUpperCase()));
+      filtered = filtered.filter(r=>vals.some(v=>(r['SOLICITANTE']||'').split('-')[0].trim().toUpperCase()===v.toUpperCase()));
     } else if(field in {PRODUCTO:1,ORIGEN:1,DESTINO:1,RECORRIDO:1,OTT:1,CONDUCTOR:1,VEHICULO:1}){
-      filtered=filtered.filter(r=>vals.some(v=>String(r[field]||'').toLowerCase().includes(v.toLowerCase())));
+      filtered = filtered.filter(r=>vals.some(v=>String(r[field]||'').toLowerCase().includes(v.toLowerCase())));
     } else if(field==='ESTADO DE VIAJE'){
-      filtered=filtered.filter(r=>vals.some(v=>String(r['ESTADO DE VIAJE']||'').toLowerCase().includes(v.toLowerCase())));
+      filtered = filtered.filter(r=>vals.some(v=>String(r['ESTADO DE VIAJE']||'').toLowerCase().includes(v.toLowerCase())));
     }
   }
   return filtered;
 }
 
 function clearFilters(){
-  S.currentFilters={};
+  S.currentFilters = {};
   FILTER_FIELDS.forEach(({key})=>{ const el=document.getElementById(`ftext-${key}`); if(el) el.textContent='Ninguno seleccionado'; });
-  S.viewData=[...S.fullData];
+  S.viewData = [...S.fullData];
   renderTable(); updateMetrics(S.viewData);
   updateFilterInfoBar();
   closeModal('modal-filters');
 }
 
 function updateFilterInfoBar(){
-  const parts=[];
-  const labels={'BLOQUE':'Bloque','FECHA_E':'F.Entrega','FECHA_S':'F.Solicitud','SOLICITANTE':'Solicitante','FACTURAR_A':'Facturar a','PRODUCTO':'Producto','ORIGEN':'Origen','DESTINO':'Destino','OTT':'OTT','ESTADO DE VIAJE':'Estado'};
+  const parts = [];
+  const labels = {'BLOQUE':'Bloque','FECHA_E':'F.Entrega','FECHA_S':'F.Solicitud','SOLICITANTE':'Solicitante','FACTURAR_A':'Facturar a','PRODUCTO':'Producto','ORIGEN':'Origen','DESTINO':'Destino','OTT':'OTT','ESTADO DE VIAJE':'Estado'};
   for(const [k,v] of Object.entries(S.currentFilters)){
     if(v){ const cnt=v.split(',').filter(x=>x).length; parts.push(`${labels[k]||k}: ${cnt}`); }
   }
-  const bar=document.getElementById('filter-info-bar');
-  const txt=document.getElementById('filter-info-text');
+  const bar = document.getElementById('filter-info-bar');
+  const txt = document.getElementById('filter-info-text');
   if(parts.length){ bar.style.display='block'; txt.textContent=parts.join(' | '); }
-  else{ bar.style.display='none'; }
+  else { bar.style.display='none'; }
 }
 
-// ─── CELL EDIT ────────────────────────────────────────────────────────────────
+// ─── CELL / FULL EDIT ────────────────────────────────────────────────────────
 function openCellEdit(rowIdx, col){
-  S.cellEditRowIdx=rowIdx; S.cellEditCol=col;
-  document.getElementById('cell-edit-title').textContent=`Editar ${col}`;
-  const row=S.fullData[rowIdx]; const current=row[col]||'';
-  const body=document.getElementById('cell-edit-body');
-  const ottKeys=Object.keys(S.ottData);
+  S.cellEditRowIdx = rowIdx; 
+  S.cellEditCol = col;
+  document.getElementById('cell-edit-title').textContent = `Editar ${col}`;
+  const row = S.fullData[rowIdx];  // rowIdx viene del _idx real
+  const current = row[col] || '';
+  const body = document.getElementById('cell-edit-body');
+  const ottKeys = Object.keys(S.ottData);
   let html='';
   if(col==='OTT'){ html=buildSelect('cell-val',ottKeys,current); }
   else if(col==='ORIGEN'||col==='DESTINO'){ html=buildSelect('cell-val',S.nodosList,current); }
@@ -2079,44 +1773,40 @@ function buildSelect(id, options, selected){
 }
 
 function saveCellEdit(){
-  const el=document.getElementById('cell-val'); if(!el) return;
-  let val=el.value;
-  if(S.cellEditCol==='TIPO V') val=val.split(' ')[0];
-  const row=S.fullData[S.cellEditRowIdx];
-  row[S.cellEditCol]=val;
-  // If OTT changed, clear conductor/vehiculo
+  const el = document.getElementById('cell-val'); if(!el) return;
+  let val = el.value;
+  if(S.cellEditCol==='TIPO V') val = val.split(' ')[0];
+  const row = S.fullData[S.cellEditRowIdx];
+  row[S.cellEditCol] = val;
   if(S.cellEditCol==='OTT'){ row['CONDUCTOR']=''; row['VEHICULO']=''; }
   S.editedRows.add(S.cellEditRowIdx);
-  // Update view data
-  const vi=S.viewData.indexOf(row); // should be there
   closeModal('modal-cell-edit');
   renderTable(); updateMetrics(S.viewData);
 }
 
-// ─── FULL EDIT ────────────────────────────────────────────────────────────────
-function openFullEdit(rowIdx){
-  S.editRowIdx=rowIdx;
-  const row=S.fullData[rowIdx];
-  document.getElementById('edit-title').textContent=`✏️ Editando — ${row['SOLICITANTE']||''} | ${row['ORIGEN']||''} → ${row['DESTINO']||''}`;
-  const grid=document.getElementById('edit-grid');
-  grid.innerHTML='';
-  ALL_COLS.forEach(col=>{
-    const current=String(row[col]||'');
-    const div=document.createElement('div');
-    div.className='edit-field';
-    div.setAttribute('data-col',col);
-    const label=document.createElement('label');
-    label.textContent=col;
+// FIX #1: openFullEdit recibe el índice en viewData, resuelve _idx para fullData
+function openFullEdit(viewIdx){
+  const row = S.viewData[viewIdx];
+  S.editRowIdx = row._idx;   // índice real en fullData
+ document.getElementById('edit-title').textContent = 
+  `✏️ Editando — ${row['SOLICITANTE']||''} | ${row['ORIGEN']||''} → ${row['DESTINO']||''} | 📅 ${row['FECHA E']||'Sin fecha'}`;
+  const grid = document.getElementById('edit-grid');
+  grid.innerHTML = '';
+  ALL_COLS.forEach(col => {
+    const current = String(row[col]||'');
+    const div = document.createElement('div');
+    div.className = 'edit-field';
+    div.setAttribute('data-col', col);
+    const label = document.createElement('label');
+    label.textContent = col;
     div.appendChild(label);
     let input;
-    const ottKeys=Object.keys(S.ottData);
+    const ottKeys = Object.keys(S.ottData);
     if(col==='ID'){ input=document.createElement('input');input.value=current;input.readOnly=true;input.style.background='var(--bg)'; }
     else if(col==='OTT'){ input=makeSelect(ottKeys,current); input.onchange=()=>updateConductorVehiculo(); }
     else if(col==='ORIGEN'||col==='DESTINO'){ input=makeSelect(S.nodosList,current); }
     else if(col==='FACTURAR A'){ input=makeSelect(S.facturarList,current); }
-    else if(col==='CONDUCTOR'||col==='VEHICULO'){
-      input=document.createElement('input');input.value=current;
-    }
+    else if(col==='CONDUCTOR'||col==='VEHICULO'){ input=document.createElement('input');input.value=current; }
     else if(col==='ESTADO DE VIAJE'){ input=makeSelect(['⚪ Programado','🟠 Cargando','🟡 Cargado','🟣 Transito','🟢 Finalizado','🔴 Cancelado'],current); }
     else if(col==='TIPO DE VIAJE'){ input=makeSelect(['⏭️ Recorrido','🔁 Ida y Vuelta','🔀 Compartido','📦 CompartidoM','⤴️ Otro'],current); }
     else if(col==='TIPO V'){ input=makeSelect(['1 > 30 FBE','2 < 60 FBE','3 < 220 FBE','4 350 FBE'],current); }
@@ -2125,64 +1815,56 @@ function openFullEdit(rowIdx){
     div.appendChild(input);
     grid.appendChild(div);
   });
+
   function updateConductorVehiculo(){
-    const ottSel=grid.querySelector('[data-col="OTT"] select');
+    const ottSel = grid.querySelector('[data-col="OTT"] select');
     if(!ottSel) return;
-    const ott=ottSel.value;
-    const conductores=S.ottData[ott]?.conductores||[];
-    const vehiculos=S.ottData[ott]?.vehiculos||[];
-    const cDiv=grid.querySelector('[data-col="CONDUCTOR"]');
-    const vDiv=grid.querySelector('[data-col="VEHICULO"]');
-    if(cDiv){
-      const old=cDiv.querySelector('input,select');
-      const newEl=conductores.length?makeSelect(conductores,''):Object.assign(document.createElement('input'),{value:''});
-      cDiv.replaceChild(newEl,old);
-    }
-    if(vDiv){
-      const old=vDiv.querySelector('input,select');
-      const newEl=vehiculos.length?makeSelect(vehiculos,''):Object.assign(document.createElement('input'),{value:''});
-      vDiv.replaceChild(newEl,old);
-    }
+    const ott = ottSel.value;
+    const conductores = S.ottData[ott]?.conductores||[];
+    const vehiculos   = S.ottData[ott]?.vehiculos||[];
+    const cDiv = grid.querySelector('[data-col="CONDUCTOR"]');
+    const vDiv = grid.querySelector('[data-col="VEHICULO"]');
+    if(cDiv){ const old=cDiv.querySelector('input,select'); const n=conductores.length?makeSelect(conductores,''):Object.assign(document.createElement('input'),{value:''}); cDiv.replaceChild(n,old); }
+    if(vDiv){ const old=vDiv.querySelector('input,select'); const n=vehiculos.length?makeSelect(vehiculos,''):Object.assign(document.createElement('input'),{value:''}); vDiv.replaceChild(n,old); }
   }
   openModal('modal-edit');
 }
 
-function makeSelect(options,selected){
-  const sel=document.createElement('select');
+function makeSelect(options, selected){
+  const sel = document.createElement('select');
   options.forEach(o=>{ const opt=document.createElement('option'); opt.value=o; opt.textContent=o; if(o===selected) opt.selected=true; sel.appendChild(opt); });
   return sel;
 }
 
 function saveFullEdit(){
-  const grid=document.getElementById('edit-grid');
-  const row=S.fullData[S.editRowIdx];
-  ALL_COLS.forEach(col=>{
-    const div=grid.querySelector(`[data-col="${col}"]`); if(!div) return;
-    const el=div.querySelector('input,select,textarea'); if(!el) return;
-    let val=el.value||'';
-    if(col==='TIPO V') val=val.split(' ')[0];
-    row[col]=val;
+  const grid = document.getElementById('edit-grid');
+  const row  = S.fullData[S.editRowIdx];  // FIX #1: usa _idx correcto
+  ALL_COLS.forEach(col => {
+    const div = grid.querySelector(`[data-col="${col}"]`); if(!div) return;
+    const el = div.querySelector('input,select,textarea'); if(!el) return;
+    let val = el.value||'';
+    if(col==='TIPO V') val = val.split(' ')[0];
+    row[col] = val;
   });
-  row['ESTADO DE VIAJE']=formatEstado(row['ESTADO DE VIAJE']);
-  row['TIPO DE VIAJE']=formatViaje(row['TIPO DE VIAJE']);
+  row['ESTADO DE VIAJE'] = formatEstado(row['ESTADO DE VIAJE']);
+  row['TIPO DE VIAJE']   = formatViaje(row['TIPO DE VIAJE']);
   S.editedRows.add(S.editRowIdx);
   closeModal('modal-edit');
   renderTable(); updateMetrics(S.viewData);
 }
 
-// ─── SEND EDITED ─────────────────────────────────────────────────────────────
 async function sendEdited(){
   if(!S.editedRows.size){ alert('No hay filas editadas para enviar.'); return; }
   showLoading(`Enviando ${S.editedRows.size} filas...`);
-  let ok=0,err=0;
+  let ok=0, err=0;
   for(const idx of S.editedRows){
-    const row=S.fullData[idx];
-    const data={};
+    const row = S.fullData[idx];
+    const data = {};
     for(const [col,entry] of Object.entries(TDC_COL_MAP)){
-      let val=String(row[col]||'');
-      if(col==='TARIFA') val=String(extractTarifaNum(val));
-      if(col==='FBE') val=String(parseFloat(val)||0).replace('.',',');
-      data[entry]=val;
+      let val = String(row[col]||'');
+      if(col==='TARIFA') val = String(extractTarifaNum(val));
+      if(col==='FBE')    val = String(parseFloat(val)||0).replace('.',',');
+      data[entry] = val;
     }
     try{ await postForm(TDC_FORM,data); ok++; }catch(e){ err++; }
   }
@@ -2192,12 +1874,177 @@ async function sendEdited(){
   alert(`✅ Enviados: ${ok}\n❌ Errores: ${err}`);
 }
 
+// ─── FIX #2: BACKGROUND REFRESH + TOAST ──────────────────────────────────────
+let _bgInterval  = null;
+let _bgKnownIds  = new Set();
+
+function startBgRefresh(){
+  stopBgRefresh();
+  _bgKnownIds = new Set(
+    S.fullData.map(r => String(r['ID']||'').trim()).filter(v => v && v.toLowerCase() !== 'nan')
+  );
+  _bgInterval = setInterval(_doBgRefresh, 30000);
+}
+
+function stopBgRefresh(){
+  if(_bgInterval){ clearInterval(_bgInterval); _bgInterval = null; }
+}
+
+async function _doBgRefresh(){
+  if(!document.getElementById('view-tdc').classList.contains('active')) return;
+  try {
+    const rows = await fetchCSV(GID_OTT);
+    if(rows.length < 2) return;
+
+    const newFullData = parseOttRows(rows);
+    newFullData.forEach((r,i) => r._idx = i);
+
+    // ✅ SNAPSHOT de IDs ANTES de sobreescribir S.fullData
+    const prevIds = new Set(
+      S.fullData.map(r => String(r['ID']||'').trim()).filter(v => v && v.toLowerCase() !== 'nan')
+    );
+
+    // ✅ Detectar filas NUEVAS comparando contra el snapshot anterior
+    const newRows = newFullData.filter(r => {
+      const id = String(r['ID']||'').trim();
+      return id && id.toLowerCase() !== 'nan' && !prevIds.has(id);
+    });
+
+    // Preservar ediciones actuales por ID
+    const editedMap = new Map();
+    for(const idx of S.editedRows) {
+      const oldRow = S.fullData[idx];
+      if(oldRow && oldRow['ID']) editedMap.set(oldRow['ID'], oldRow);
+    }
+
+    // ✅ AHORA sí sobreescribir S.fullData
+    S.fullData = newFullData;
+
+    // Restaurar ediciones en los nuevos datos
+    for(const newRow of S.fullData) {
+      const editedRow = editedMap.get(newRow['ID']);
+      if(editedRow) {
+        Object.assign(newRow, editedRow);
+        S.editedRows.add(newRow._idx);
+      }
+    }
+
+    // Re-aplicar filtros y búsqueda actuales
+    S.viewData = applyStoredFilters(S.fullData);
+    const q = (document.getElementById('tdc-search').value||'').trim().toLowerCase();
+    if(q) S.viewData = S.viewData.filter(r => Object.values(r).some(v => String(v).toLowerCase().includes(q)));
+
+    // Re-aplicar ordenamiento si existe
+    if(S.sortCol) {
+      S.viewData.sort((a, b) => {
+        let av = a[S.sortCol] !== undefined ? String(a[S.sortCol]) : '';
+        let bv = b[S.sortCol] !== undefined ? String(b[S.sortCol]) : '';
+        if(S.sortCol === 'ID') {
+          const an = parseInt(av, 10), bn = parseInt(bv, 10);
+          if(!isNaN(an) && !isNaN(bn)) return S.sortAsc ? an - bn : bn - an;
+        }
+        const an = parseFloat(av), bn = parseFloat(bv);
+        if(!isNaN(an) && !isNaN(bn)) return S.sortAsc ? an - bn : bn - an;
+        av = av.toLowerCase(); bv = bv.toLowerCase();
+        if(av < bv) return S.sortAsc ? -1 : 1;
+        if(av > bv) return S.sortAsc ? 1 : -1;
+        return 0;
+      });
+    }
+
+    renderTable();
+    updateMetrics(S.viewData);
+
+    // ✅ Mostrar toast SOLO si hay nuevos IDs
+    if(newRows.length > 0){
+      newRows.forEach(r => _showNewServiceToast(r));
+    }
+
+  } catch(e) {
+    console.warn('[BG Refresh]', e.message);
+  }
+}
+
+function _showNewServiceToast(row){
+  const cont = document.getElementById('toast-container');
+  const solicitante = row['SOLICITANTE'] || '—';
+  const origen      = row['ORIGEN']      || '—';
+  const destino     = row['DESTINO']     || '—';
+  const fechaE      = row['FECHA E']     || '—';
+  const horaE       = row['HORA E']      || '—';
+
+  const toast = document.createElement('div');
+  toast.className = 'ns-toast';
+  toast.innerHTML = `
+    <div class="ns-toast-header">
+      <span class="ns-bell">🔔</span>
+      <span class="ns-toast-title">⚡ Nuevo Servicio</span>
+      <button class="ns-close" onclick="this.closest('.ns-toast').remove()">✕</button>
+    </div>
+    <div class="ns-toast-body">
+      <div class="ns-row"><span class="ns-label">Solicitante</span>${solicitante}</div>
+      <div class="ns-row"><span class="ns-label">Ruta</span>${origen} → ${destino}</div>
+      <div class="ns-row"><span class="ns-label">Entrega</span>${fechaE} &nbsp;|&nbsp; ${horaE}</div>
+    </div>
+    <div class="ns-prog-bar"></div>
+  `;
+  cont.appendChild(toast);
+
+  // Auto-dismiss 7 segundos
+  setTimeout(() => {
+    toast.classList.add('toast-out');
+    setTimeout(() => { if(toast.parentNode) toast.remove(); }, 380);
+  }, 15000);
+}
+
+// ─── RESIZE ───────────────────────────────────────────────────────────────────
+let currentColResize = null, startXResize = 0, startWidthResize = 0;
+
+function initResizeHandlers(){
+  document.querySelectorAll('#tdc-thead th .resizer').forEach(r=>{
+    r.removeEventListener('mousedown', onResizeMouseDown);
+    r.addEventListener('mousedown', onResizeMouseDown);
+  });
+}
+function onResizeMouseDown(e){
+  e.stopPropagation(); e.preventDefault();
+  currentColResize = e.target.closest('th');
+  if(!currentColResize) return;
+  startXResize = e.pageX;
+  startWidthResize = currentColResize.offsetWidth;
+  document.body.classList.add('resizing');
+  document.addEventListener('mousemove', onResizeMouseMove);
+  document.addEventListener('mouseup', onResizeMouseUp);
+}
+function onResizeMouseMove(e){
+  if(!currentColResize) return;
+  const dx = e.pageX - startXResize;
+  const nw = Math.max(60, Math.min(400, startWidthResize + dx));
+  const colName = currentColResize.getAttribute('data-col');
+  if(colName){
+    COL_WIDTHS[colName] = nw;
+    currentColResize.style.width = nw+'px';
+    currentColResize.style.minWidth = nw+'px';
+    const colIndex = ['EDITAR',...VIS_COLS].indexOf(colName);
+    if(colIndex !== -1){
+      document.querySelectorAll('#tdc-tbody tr').forEach(row=>{
+        const cell = row.cells[colIndex];
+        if(cell){ cell.style.width=nw+'px'; cell.style.minWidth=nw+'px'; cell.style.maxWidth=nw+'px'; }
+      });
+    }
+  }
+}
+function onResizeMouseUp(){
+  currentColResize = null;
+  document.body.classList.remove('resizing');
+  document.removeEventListener('mousemove', onResizeMouseMove);
+  document.removeEventListener('mouseup', onResizeMouseUp);
+}
+
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 goView('actor');
-
-// Keyboard: Enter on login
-document.getElementById('login-pass').addEventListener('keydown',e=>{ if(e.key==='Enter') doLogin(); });
-document.getElementById('login-user').addEventListener('keydown',e=>{ if(e.key==='Enter') document.getElementById('login-pass').focus(); });
+document.getElementById('login-pass').addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
+document.getElementById('login-user').addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('login-pass').focus(); });
 </script>
 </body>
 </html>
