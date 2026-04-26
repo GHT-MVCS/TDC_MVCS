@@ -1235,7 +1235,7 @@ function parseOttRows(rows){
       row[col] = val;
     });
     
-    if (row['FBE']) row['FBE'] = parseFloat(row['FBE']) || 0;
+    if (row['FBE']) row['FBE'] = Math.round(parseFloat(row['FBE'])) || 0;
     row['ESTADO DE VIAJE'] = formatEstado(row['ESTADO DE VIAJE'] || '');
     row['TIPO DE VIAJE']   = formatViaje(row['TIPO DE VIAJE'] || '');
     
@@ -1409,7 +1409,7 @@ function renderTable(){
           // Si solo tiene fecha sin hora, la deja como está
         }
       }
-      else if (col === 'FBE' && !isNaN(parseFloat(val))) val = parseFloat(val).toFixed(1);
+      else if (col === 'FBE' && !isNaN(parseFloat(val))) val = String(Math.round(parseFloat(val)));
       else if (col === 'TARIFA') val = formatTarifa(val);
       else if (col === 'TIPO V') { const n = parseInt(val); val = !isNaN(n) ? String(n) : val; }
       td.textContent = val || '';
@@ -1899,7 +1899,7 @@ async function sendEdited(){
     for(const [col,entry] of Object.entries(TDC_COL_MAP)){
       let val = String(row[col]||'');
       if(col==='TARIFA') val = String(extractTarifaNum(val));
-      if(col==='FBE')    val = String(parseFloat(val)||0).replace('.',',');
+      if(col==='FBE') val = String(Math.round(parseFloat(val)||0));
       data[entry] = val;
     }
     try{ await postForm(TDC_FORM,data); ok++; }catch(e){ err++; }
