@@ -275,7 +275,7 @@ td.edit-btn-cell { text-align: center; vertical-align: middle; white-space: nowr
 .multi-select-display:hover{border-color:var(--primary)}
 .multi-sel-text{font-size:12px;color:var(--tl);flex:1}
 .multi-sel-btn{background:var(--primary);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer;white-space:nowrap}
-#modal-multiselect .modal{width:380px}
+#modal-multiselect .modal{width:min(620px,96vw)}
 .cb-list{display:flex;flex-direction:column;gap:6px}
 .cb-item{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:8px;cursor:pointer;transition:.12s}
 .cb-item:hover{background:var(--bg)}
@@ -283,6 +283,26 @@ td.edit-btn-cell { text-align: center; vertical-align: middle; white-space: nowr
 .cb-item span{font-size:13px}
 .cb-actions{display:flex;gap:8px;margin-bottom:12px}
 .cb-actions button{flex:1;padding:6px;font-size:12px;border:1.5px solid var(--border);border-radius:8px;background:#fff;cursor:pointer;font-family:var(--font)}
+.single-select-wrap{display:flex;flex-direction:column;gap:8px}
+.single-select-wrap select{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-family:var(--font);font-size:13px;background:#fff;outline:none}
+.single-select-wrap select:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,122,204,.12)}
+.date-filter-tools{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.date-filter-search{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:9px 12px;font-family:var(--font);font-size:13px;outline:none}
+.date-filter-search:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,122,204,.12)}
+.date-filter-hint{font-size:11px;color:var(--tl);line-height:1.35}
+.date-groups{display:flex;flex-direction:column;gap:8px}
+.month-group{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff}
+.month-header{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border:none;background:#f8fafc;cursor:pointer;font-family:var(--font);text-align:left}
+.month-header:hover{background:#eef6ff}
+.month-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--text)}
+.month-toggle{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--primary);color:#fff;font-size:14px;line-height:1;flex-shrink:0}
+.month-count{font-size:11px;color:var(--tl);font-weight:600;white-space:nowrap}
+.month-days{display:none;padding:8px 8px 10px;max-height:240px;overflow:auto;border-top:1px solid var(--border);background:#fff}
+.month-group.open .month-days{display:flex;flex-direction:column;gap:4px}
+.day-item{padding:6px 8px}
+.day-item span{font-size:12px}
+#modal-multiselect .cb-item.hidden-by-search,
+#modal-multiselect .month-group.hidden-by-search{display:none}
 #modal-edit .modal{width:900px;max-width:95vw}
 .edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 24px}
 .edit-field{display:flex;flex-direction:column;gap:5px}
@@ -670,7 +690,7 @@ body.resizing * { cursor: col-resize !important; }
   <div class="modal" style="width:360px">
     <div class="modal-header"><h3 id="ms-title">Seleccionar</h3><button class="modal-close" onclick="closeModal('modal-multiselect')">×</button></div>
     <div class="modal-body">
-      <div class="cb-actions">
+      <div class="cb-actions" id="ms-actions">
         <button onclick="msSelectAll()">✓ Todos</button>
         <button onclick="msDeselectAll()">✗ Ninguno</button>
       </div>
@@ -1627,6 +1647,156 @@ function quickSearch(q){
 function clearSearch(){ document.getElementById('tdc-search').value=''; quickSearch(''); }
 
 // ─── FILTERS ─────────────────────────────────────────────────────────────────
+const MONTH_NAMES_ES = [
+  'enero','febrero','marzo','abril','mayo','junio',
+  'julio','agosto','septiembre','octubre','noviembre','diciembre'
+];
+const DATE_FILTER_FIELDS = new Set(['FECHA_E','FECHA_S']);
+
+function parseDateParts(value){
+  const text = String(value || '').trim();
+  if (!text) return null;
+
+  let match = text.match(/(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})/);
+  if (match) {
+    return {
+      day: String(match[1]).padStart(2, '0'),
+      month: String(match[2]).padStart(2, '0'),
+      year: match[3],
+    };
+  }
+
+  match = text.match(/(\d{4})[\/-](\d{1,2})[\/-](\d{1,2})/);
+  if (match) {
+    return {
+      day: String(match[3]).padStart(2, '0'),
+      month: String(match[2]).padStart(2, '0'),
+      year: match[1],
+    };
+  }
+
+  return null;
+}
+
+function dateKey(parts){
+  return `${parts.year}-${parts.month}-${parts.day}`;
+}
+
+function dateDisplay(parts){
+  return `${parts.day}/${parts.month}/${parts.year}`;
+}
+
+function monthLabel(month, year){
+  const idx = parseInt(month, 10) - 1;
+  const name = MONTH_NAMES_ES[idx] || month;
+  return `${name.charAt(0).toUpperCase()}${name.slice(1)} ${year}`;
+}
+
+function getDateFilterGroups(field){
+  const sourceCol = field === 'FECHA_E' ? 'FECHA E' : 'FECHA S';
+  const grouped = new Map();
+
+  S.fullData.forEach(row => {
+    const parsed = parseDateParts(row[sourceCol]);
+    if (!parsed) return;
+
+    const dayValue = dateDisplay(parsed);
+    const monthKey = `${parsed.year}-${parsed.month}`;
+    if (!grouped.has(monthKey)) {
+      grouped.set(monthKey, {
+        key: monthKey,
+        label: monthLabel(parsed.month, parsed.year),
+        days: new Map(),
+      });
+    }
+
+    grouped.get(monthKey).days.set(dayValue, dayValue);
+  });
+
+  return [...grouped.values()]
+    .sort((a, b) => a.key.localeCompare(b.key))
+    .map(group => {
+      const days = [...group.days.values()].sort((a, b) => {
+        const pa = parseDateParts(a);
+        const pb = parseDateParts(b);
+        const dateA = new Date(parseInt(pa.year, 10), parseInt(pa.month, 10) - 1, parseInt(pa.day, 10)).getTime();
+        const dateB = new Date(parseInt(pb.year, 10), parseInt(pb.month, 10) - 1, parseInt(pb.day, 10)).getTime();
+        return dateA - dateB;
+      });
+      return { ...group, days };
+    });
+}
+
+function renderDateFilter(field, label, saved){
+  const groups = getDateFilterGroups(field);
+  const safeField = field;
+  return `
+    <div class="date-filter-tools">
+      <input
+        id="date-search-${safeField}"
+        class="date-filter-search"
+        type="text"
+        inputmode="numeric"
+        placeholder="Escribe un día o fecha"
+        oninput="filterDateOptions('${safeField}', this.value)">
+      <div class="date-filter-hint">Busca por día, mes o fecha completa. Ejemplo: 15, abril, 15/04/2026.</div>
+    </div>
+    <div class="date-groups" id="date-groups-${safeField}">
+      ${groups.map(group => `
+        <div class="month-group" data-month="${group.key}" data-label="${group.label.toLowerCase()}">
+          <button type="button" class="month-header" onclick="toggleMonthGroup('${safeField}', '${group.key}')">
+            <span class="month-title">
+              <span class="month-toggle" id="month-toggle-${safeField}-${group.key}">+</span>
+              <span>${group.label}</span>
+            </span>
+            <span class="month-count">${group.days.length} día(s)</span>
+          </button>
+          <div class="month-days" id="month-days-${safeField}-${group.key}">
+            ${group.days.map(day => `
+              <label class="cb-item day-item" data-search="${day.toLowerCase()} ${group.label.toLowerCase()}">
+                <input type="checkbox" value="${day}" ${saved.has(day) ? 'checked' : ''}>
+                <span>${day}</span>
+              </label>
+            `).join('')}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function toggleMonthGroup(field, monthKey){
+  const group = document.querySelector(`#date-groups-${field} .month-group[data-month="${monthKey}"]`);
+  if (!group) return;
+
+  group.classList.toggle('open');
+  const toggle = document.getElementById(`month-toggle-${field}-${monthKey}`);
+  if (toggle) toggle.textContent = group.classList.contains('open') ? '−' : '+';
+}
+
+function filterDateOptions(field, query){
+  const root = document.getElementById(`date-groups-${field}`);
+  if (!root) return;
+
+  const q = String(query || '').trim().toLowerCase();
+  root.querySelectorAll('.month-group').forEach(group => {
+    let visibleCount = 0;
+    group.querySelectorAll('.day-item').forEach(item => {
+      const haystack = item.getAttribute('data-search') || '';
+      const show = !q || haystack.includes(q);
+      item.classList.toggle('hidden-by-search', !show);
+      if (show) visibleCount++;
+    });
+
+    group.classList.toggle('hidden-by-search', visibleCount === 0);
+    if (q && visibleCount > 0) group.classList.add('open');
+    if (!q) group.classList.remove('hidden-by-search');
+
+    const toggle = document.getElementById(`month-toggle-${field}-${group.dataset.month}`);
+    if (toggle) toggle.textContent = group.classList.contains('open') ? '−' : '+';
+  });
+}
+
 const FILTER_FIELDS=[
   {key:'BLOQUE',label:'BLOQUE'},{key:'FECHA_E',label:'FECHA ENTREGA'},
   {key:'FECHA_S',label:'FECHA SOLICITUD'},{key:'SOLICITANTE',label:'SOLICITANTE'},
@@ -1636,6 +1806,15 @@ const FILTER_FIELDS=[
   {key:'CONDUCTOR',label:'CONDUCTOR'},{key:'VEHICULO',label:'VEHICULO'},
   {key:'ESTADO DE VIAJE',label:'ESTADO DE VIAJE'},
 ];
+
+function getFilterDisplayText(field, selectedValue){
+  if (DATE_FILTER_FIELDS.has(field)) {
+    const count = selectedValue ? selectedValue.split(',').filter(v=>v).length : 0;
+    return count ? `${count} seleccionado(s)` : 'Ninguno seleccionado';
+  }
+  const count = selectedValue ? selectedValue.split(',').filter(v=>v).length : 0;
+  return count ? `${count} seleccionado(s)` : 'Ninguno seleccionado';
+}
 
 function getOptionsForField(field){
   const data = S.fullData;
@@ -1667,12 +1846,11 @@ function openFilters(){
   body.innerHTML = '';
   FILTER_FIELDS.forEach(({key,label})=>{
     const saved = S.currentFilters[key]||'';
-    const cnt = saved ? saved.split(',').filter(v=>v).length : 0;
     const div = document.createElement('div');
     div.className = 'filter-field';
     div.innerHTML = `<label>${label}</label>
       <div class="multi-select-display" onclick="openMultiSelect('${key}','${label}')">
-        <span class="multi-sel-text" id="ftext-${key}">${cnt?`${cnt} seleccionado(s)`:'Ninguno seleccionado'}</span>
+        <span class="multi-sel-text" id="ftext-${key}">${getFilterDisplayText(key, saved)}</span>
         <button class="multi-sel-btn">📋 Elegir</button>
       </div>`;
     body.appendChild(div);
@@ -1683,13 +1861,27 @@ function openFilters(){
 function openMultiSelect(field, label){
   S.msField = field;
   document.getElementById('ms-title').textContent = `Seleccionar ${label}`;
-  const options = getOptionsForField(field);
   const saved = new Set((S.currentFilters[field]||'').split(',').filter(v=>v));
-  document.getElementById('ms-list').innerHTML = options.map(opt=>`
-    <label class="cb-item">
-      <input type="checkbox" value="${opt}" ${saved.has(opt)?'checked':''}>
-      <span>${opt}</span>
-    </label>`).join('');
+  const msList = document.getElementById('ms-list');
+  const msActions = document.getElementById('ms-actions');
+
+  if (DATE_FILTER_FIELDS.has(field)) {
+    if (msActions) msActions.style.display = 'flex';
+    msList.innerHTML = renderDateFilter(field, label, saved);
+    const search = document.getElementById(`date-search-${field}`);
+    if (search) {
+      search.value = '';
+      setTimeout(() => search.focus(), 0);
+    }
+  } else {
+    if (msActions) msActions.style.display = 'flex';
+    const options = getOptionsForField(field);
+    msList.innerHTML = options.map(opt=>`
+      <label class="cb-item">
+        <input type="checkbox" value="${opt}" ${saved.has(opt)?'checked':''}>
+        <span>${opt}</span>
+      </label>`).join('');
+  }
   openModal('modal-multiselect');
 }
 function msSelectAll(){ document.querySelectorAll('#ms-list input[type=checkbox]').forEach(cb=>cb.checked=true); }
@@ -1698,7 +1890,7 @@ function msApply(){
   const selected = [...document.querySelectorAll('#ms-list input[type=checkbox]:checked')].map(cb=>cb.value);
   S.currentFilters[S.msField] = selected.join(',');
   const ftxt = document.getElementById(`ftext-${S.msField}`);
-  if(ftxt) ftxt.textContent = selected.length ? `${selected.length} seleccionado(s)` : 'Ninguno seleccionado';
+  if(ftxt) ftxt.textContent = getFilterDisplayText(S.msField, S.currentFilters[S.msField] || '');
   closeModal('modal-multiselect');
 }
 
@@ -1757,7 +1949,7 @@ function updateFilterInfoBar(){
   const parts = [];
   const labels = {'BLOQUE':'Bloque','FECHA_E':'F.Entrega','FECHA_S':'F.Solicitud','SOLICITANTE':'Solicitante','FACTURAR_A':'Facturar a','PRODUCTO':'Producto','ORIGEN':'Origen','DESTINO':'Destino','OTT':'OTT','ESTADO DE VIAJE':'Estado'};
   for(const [k,v] of Object.entries(S.currentFilters)){
-    if(v){ const cnt=v.split(',').filter(x=>x).length; parts.push(`${labels[k]||k}: ${cnt}`); }
+    if(v){ parts.push(`${labels[k]||k}: ${v.split(',').filter(x=>x).length}`); }
   }
   const bar = document.getElementById('filter-info-bar');
   const txt = document.getElementById('filter-info-text');
