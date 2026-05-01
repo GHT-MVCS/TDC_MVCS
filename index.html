@@ -1920,10 +1920,22 @@ function applyStoredFilters(data){
         });
       }
     } else if(field==='FECHA_E'){
-      filtered = filtered.filter(r=>vals.some(v=>String(r['FECHA E']||'').includes(v)));
+      filtered = filtered.filter(r => {
+        const parsed = parseDateParts(r['FECHA E'] || '');
+        if (!parsed) return false;
+        const normalized = dateDisplay(parsed); // "01/05/2026"
+        return vals.some(v => normalized === v);
+        });
     } else if(field==='FECHA_S'){
-      filtered = filtered.filter(r=>vals.some(v=>String(r['FECHA S']||'').includes(v)));
-    } else if(field==='FACTURAR_A'){
+      filtered = filtered.filter(r => {
+        const raw = (r['FECHA S'] || '').split(' ')[0]; // solo la parte de fecha
+        const parsed = parseDateParts(raw);
+        if (!parsed) return false;
+        const normalized = dateDisplay(parsed);
+        return vals.some(v => normalized === v);
+      });
+    }  
+      else if(field==='FACTURAR_A'){
       filtered = filtered.filter(r=>vals.some(v=>String(r['FACTURAR A']||'').toLowerCase().includes(v.toLowerCase())));
     } else if(field==='SOLICITANTE'){
       filtered = filtered.filter(r=>vals.some(v=>(r['SOLICITANTE']||'').split('-')[0].trim().toUpperCase()===v.toUpperCase()));
