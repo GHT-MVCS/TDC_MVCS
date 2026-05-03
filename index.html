@@ -78,6 +78,13 @@ input[readonly]{background:var(--bg);cursor:default}
 textarea{resize:vertical;min-height:80px}
 .searchable-wrap{position:relative}
 .searchable-wrap input{cursor:pointer}
+.eai-date-wrap{display:flex;flex-direction:column;gap:8px}
+.eai-date-trigger{width:100%;justify-content:flex-start}
+.eai-date-display{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;background:#fff;font-family:var(--font);font-size:13px;color:var(--text);}
+.eai-date-picker{position:absolute;top:0;left:0;opacity:0;pointer-events:auto;width:1px;height:1px;border:0;padding:0;margin:0}
+.eai-date-wrap{display:flex;flex-direction:column;gap:8px}
+.eai-date-trigger{width:100%;justify-content:flex-start}
+.eai-date-picker{position:absolute;top:0;left:0;opacity:0;pointer-events:auto;width:1px;height:1px;border:0;padding:0;margin:0}
 .dropdown-list{position:absolute;top:100%;left:0;right:0;background:#fff;border:1.5px solid var(--primary);border-radius:10px;z-index:500;max-height:220px;overflow-y:auto;display:none;box-shadow:0 8px 24px rgba(0,0,0,.12)}
 .dropdown-list.open{display:block}
 .dropdown-item{padding:9px 14px;font-size:13px;cursor:pointer;transition:.12s}
@@ -594,7 +601,7 @@ body.resizing * { cursor: col-resize !important; }
         <div class="field-group"><label>⚖️ Peso (KG)</label><input id="eai-peso" type="number" min="0" placeholder="Peso KG"></div>
         <div class="field-group"><label>📦 Producto</label>
           <div class="searchable-wrap">
-            <input id="eai-producto" placeholder="Seleccione o escriba..." autocomplete="off" oninput="filterDropdown('dd-producto',this.value,PRODUCTS_LIST)">
+            <input id="eai-producto" placeholder="Seleccione o escriba..." autocomplete="off" onfocus="toggleDropdown('dd-producto')" onclick="toggleDropdown('dd-producto')" oninput="filterDropdown('dd-producto',this.value,S.productosList)" onblur="validateEaiProducto()">
             <div class="dropdown-list" id="dd-producto"></div>
           </div>
         </div>
@@ -603,7 +610,13 @@ body.resizing * { cursor: col-resize !important; }
     <div class="eai-section">
       <div class="section-title">📅 PROGRAMACIÓN</div>
       <div class="field-row">
-        <div class="field-group"><label>📆 Fecha</label><input id="eai-fecha" type="date"></div>
+        <div class="field-group">
+          <label>📆 Fecha</label>
+          <div class="eai-date-wrap">
+            <button id="eai-fecha-btn" type="button" class="btn btn-outline eai-date-trigger">📆 Seleccionar fecha</button>
+            <input id="eai-fecha-picker" class="eai-date-picker" type="date" inputmode="none" autocomplete="off">
+          </div>
+        </div>
         <div class="field-group"><label>⏰ Hora (HH:MM 24h)</label><input id="eai-hora" type="time" placeholder="HH:MM"></div>
       </div>
       <div class="field-row">
@@ -745,6 +758,7 @@ body.resizing * { cursor: col-resize !important; }
 let CONFIG_SECURE = null;
 
 const PROXY_URL = 'https://script.google.com/macros/s/AKfycbwHJdQ-k0NXqSe7bbsElhZcMIV3YgIihF_JzJBYeTnI3Ef5gHzipodG2jJdsZqAXnhKiA/exec';
+const GID_PRODUCTOS = 2051307749;
 
 // ─── PRODUCTS LIST ───────────────────────────────────────────────────────────
 const PRODUCTS_LIST = [
@@ -779,6 +793,7 @@ const S = {
   usersTdc: {},
   nodosList: [],
   facturarList: [],
+  productosList: [...PRODUCTS_LIST],
   bloquesDict: {},
   ottData: {},
   fullData: [],
@@ -793,6 +808,7 @@ const S = {
   msField: null,
   msCallback: null,
   excelRows: [],
+  productosLoaded: false,
 };
 
 // ─── COLUMNS ─────────────────────────────────────────────────────────────────
@@ -978,15 +994,113 @@ async function doLogin(){
 }
 
 // ─── EAI FORM ─────────────────────────────────────────────────────────────────
+function getLocalIsoDate(){
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function formatLocalDisplayDate(isoDate){
+  if (!isoDate) return '📆 Seleccionar fecha';
+  const [year, month, day] = isoDate.split('-');
+  return `📆 ${day}/${month}/${year}`;
+}
+
 async function openEai(username){
   showLoading('Abriendo formulario EAI...');
   try{ await loadNodosData(); }catch(e){ console.error("Error loading nodos:", e); }
   document.getElementById('eai-solicitante').value = username;
+  await loadProductosData();
   populateDropdown('dd-facturar', S.facturarList);
   populateDropdown('dd-origen',   S.nodosList);
   populateDropdown('dd-destino',  S.nodosList);
-  populateDropdown('dd-producto', PRODUCTS_LIST);
-  document.getElementById('eai-fecha').value = new Date().toISOString().slice(0,10);
+  populateDropdown('dd-producto', S.productosList);
+  const fechaPicker = document.getElementById('eai-fecha-picker');
+  const fechaBtn = document.getElementById('eai-fecha-btn');
+  const today = getLocalIsoDate();
+  
+  fechaPicker.min = today;
+  fechaPicker.max = '2099-12-31';
+  fechaPicker.value = today;
+  if (fechaBtn) fechaBtn.textContent = formatLocalDisplayDate(today);
+  
+  if (!fechaPicker.dataset.eaiFechaEvents) {
+    const handleFechaChange = () => {
+      if (fechaPicker.value && fechaPicker.value < today) {
+        fechaPicker.value = today;
+      }
+      const displayVal = fechaPicker.value || today;
+      if (fechaBtn) fechaBtn.textContent = formatLocalDisplayDate(displayVal);
+    };
+    
+    fechaPicker.addEventListener('change', handleFechaChange);
+    fechaPicker.addEventListener('input', handleFechaChange);
+    // Bloquear edición manual: teclado, antes-de-input, pegado y drop
+    fechaPicker.addEventListener('keydown', e => e.preventDefault());
+    fechaPicker.addEventListener('beforeinput', e => e.preventDefault());
+    fechaPicker.addEventListener('paste', e => e.preventDefault());
+    fechaPicker.addEventListener('drop', e => e.preventDefault());
+
+    if (fechaBtn) {
+      fechaBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        // Move picker to body and position fixed under the button so native popup anchors there
+        const rect = fechaBtn.getBoundingClientRect();
+        const left = rect.left;
+        const top = rect.top + rect.height + 6; // 6px gap
+        const oldParent = fechaPicker.parentNode;
+        const nextSibling = fechaPicker.nextSibling;
+        document.body.appendChild(fechaPicker);
+        const oldStyles = {
+          position: fechaPicker.style.position || '',
+          left: fechaPicker.style.left || '',
+          top: fechaPicker.style.top || '',
+          width: fechaPicker.style.width || '',
+          height: fechaPicker.style.height || '',
+          opacity: fechaPicker.style.opacity || '',
+          zIndex: fechaPicker.style.zIndex || ''
+        };
+        fechaPicker.style.position = 'fixed';
+        fechaPicker.style.left = `${left}px`;
+        fechaPicker.style.top = `${top}px`;
+        fechaPicker.style.width = `${Math.max(rect.width, 120)}px`;
+        fechaPicker.style.height = `${rect.height}px`;
+        fechaPicker.style.opacity = '0';
+        fechaPicker.style.zIndex = '2147483647';
+        try{ fechaPicker.focus(); }catch(err){}
+        if (fechaPicker.showPicker) fechaPicker.showPicker(); else fechaPicker.click();
+        const cleanup = () => {
+          // restore into original place
+          if (nextSibling) oldParent.insertBefore(fechaPicker, nextSibling); else oldParent.appendChild(fechaPicker);
+          fechaPicker.style.position = oldStyles.position;
+          fechaPicker.style.left = oldStyles.left;
+          fechaPicker.style.top = oldStyles.top;
+          fechaPicker.style.width = oldStyles.width;
+          fechaPicker.style.height = oldStyles.height;
+          fechaPicker.style.opacity = oldStyles.opacity;
+          fechaPicker.style.zIndex = oldStyles.zIndex;
+          fechaPicker.removeEventListener('blur', onBlur);
+        };
+        const onBlur = () => { setTimeout(cleanup, 50); };
+        fechaPicker.addEventListener('blur', onBlur);
+      });
+    }
+    
+    fechaPicker.dataset.eaiFechaEvents = '1';
+    // Watchdog: for browsers that allow bypassing, enforce min periodically
+    if (fechaPicker._watcher) clearInterval(fechaPicker._watcher);
+    fechaPicker._watcher = setInterval(()=>{
+      try{
+        if (fechaPicker.value && fechaPicker.value < today) {
+          fechaPicker.value = today;
+          handleFechaChange();
+        }
+      }catch(e){}
+    }, 300);
+  }
   ['eai-facturar','eai-origen','eai-destino','eai-contacto','eai-piezas','eai-largo',
    'eai-ancho','eai-alto','eai-peso','eai-producto','eai-hora','eai-centro','eai-obs']
     .forEach(id=>{ const el = document.getElementById(id); if(el) el.value = ''; });
@@ -1011,6 +1125,24 @@ async function loadNodosData(){
       if(f && f.toLowerCase()!=='facturar a' && !seen2.has(f)){ S.facturarList.push(f); seen2.add(f); }
     }
   });
+}
+
+async function loadProductosData(){
+  if (S.productosLoaded) return;
+  const rows = await fetchCSV(GID_PRODUCTOS);
+  const seen = new Set();
+  const productos = [];
+  rows.forEach((r, idx) => {
+    if (idx === 0) return;
+    const valor = (r[14] || '').trim();
+    if (!valor || valor.toLowerCase() === 'producto' || valor.toLowerCase() === 'nan' || seen.has(valor)) return;
+    seen.add(valor);
+    productos.push(valor);
+  });
+  if (productos.length) {
+    S.productosList = productos;
+  }
+  S.productosLoaded = true;
 }
 
 async function loadBloquesData(){
@@ -1069,12 +1201,34 @@ function selectDropdownVal(ddId, val){
   if(input) input.value=val;
   document.getElementById(ddId).classList.remove('open');
 }
+function validateEaiProducto(){
+  const input = document.getElementById('eai-producto');
+  if(!input) return;
+  const value = input.value.trim();
+  if(!value) return;
+  const valid = S.productosList.some(v => v === value);
+  if(!valid){
+    alert('Seleccione un producto de la lista.');
+    input.value = '';
+  }
+}
 document.addEventListener('click',e=>{
   if(!e.target.closest('.searchable-wrap')) document.querySelectorAll('.dropdown-list').forEach(d=>d.classList.remove('open'));
 });
 
 function submitEai(){
   const g=id=>document.getElementById(id).value.trim();
+  const producto = g('eai-producto');
+  if(producto && !S.productosList.includes(producto)){
+    alert('Seleccione un producto válido de la lista.');
+    return;
+  }
+  const fechaHoy = getLocalIsoDate();
+  const fechaSeleccionada = g('eai-fecha');
+  if (!fechaSeleccionada || fechaSeleccionada < fechaHoy) {
+    alert('La fecha no puede ser anterior a hoy.');
+    return;
+  }
   const data={
     'entry.1614149962':g('eai-origen'),    'entry.1149387470':g('eai-destino'),
     'entry.1210615535':g('eai-piezas'),    'entry.1308421780':g('eai-largo'),
@@ -1268,7 +1422,7 @@ function parseOttRows(rows){
 async function openTdc(username){
   showLoading('Cargando datos TdC...');
   try{
-    await Promise.all([loadNodosData(), loadBloquesData(), loadOttData()]);
+    await Promise.all([loadNodosData(), loadProductosData(), loadBloquesData(), loadOttData()]);
     const rows = await fetchCSV(GID_OTT);
     if(rows.length < 2){ hideLoading(); alert('No se pudieron cargar los datos.'); return; }
 
@@ -1990,7 +2144,7 @@ function openCellEdit(rowIdx, col){
     const ott=row['OTT']||''; const list=S.ottData[ott]?.vehiculos||[];
     html=list.length?buildSelect('cell-val',list,current):`<input id="cell-val" value="${current}" style="width:100%">`;
   }
-  else if(col==='PRODUCTO'){ html=buildSelect('cell-val', PRODUCTS_LIST, current); }
+  else if(col==='PRODUCTO'){ html=buildSelect('cell-val', S.productosList, current); }
   else if(col==='ESTADO DE VIAJE'){ html=buildSelect('cell-val',['⚪ Programado','🟠 Cargando','🟡 Cargado','🟣 Transito','🟢 Finalizado','🔴 Cancelado'],current); }
   else if(col==='TIPO DE VIAJE'){ html=buildSelect('cell-val',['⏭️ Recorrido','🔁 Ida y Vuelta','🔀 Compartido','📦 CompartidoM','⤴️ Otro'],current); }
   else if(col==='TIPO V'){ html=buildSelect('cell-val',['1 > 30 FBE','2 < 60 FBE','3 < 220 FBE','4 350 FBE'],current); }
@@ -2040,7 +2194,7 @@ function openFullEdit(viewIdx){
     else if(col==='OTT'){ input=makeSelect(ottKeys,current); input.onchange=()=>updateConductorVehiculo(); }
     else if(col==='ORIGEN'||col==='DESTINO'){ input=makeSelect(S.nodosList,current); }
     else if(col==='FACTURAR A'){ input=makeSelect(S.facturarList,current); }
-    else if(col==='PRODUCTO'){ input=makeSelect(PRODUCTS_LIST, current); }
+    else if(col==='PRODUCTO'){ input=makeSelect(S.productosList, current); }
     else if(col==='CONDUCTOR'||col==='VEHICULO'){ input=document.createElement('input');input.value=current; }
     else if(col==='ESTADO DE VIAJE'){ input=makeSelect(['⚪ Programado','🟠 Cargando','🟡 Cargado','🟣 Transito','🟢 Finalizado','🔴 Cancelado'],current); }
     else if(col==='TIPO DE VIAJE'){ input=makeSelect(['⏭️ Recorrido','🔁 Ida y Vuelta','🔀 Compartido','📦 CompartidoM','⤴️ Otro'],current); }
