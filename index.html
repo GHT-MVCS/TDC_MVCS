@@ -1403,7 +1403,16 @@ function parseOttRows(rows){
       
       if (col === 'TARIFA') {
         const n = parseInt(val.replace(/[^0-9]/g, ''), 10);
-        val = !isNaN(n) && n > 0 ? String(n) : '';
+        // Si tiene número válido, normalizamos a la cadena numérica.
+        // Si no es numérico (ej. "NO EN MATRIZ"), preservamos el texto
+        // para que se muestre en la tabla pero no afecte la suma.
+        if (!isNaN(n) && n > 0) {
+          val = String(n);
+        } else {
+          // conservar valor original (ya viene como String(r[idx]).trim())
+          // si es 'nan' ya fue limpiado anteriormente.
+          // Dejamos val tal cual para mostrar textos como 'NO EN MATRIZ'.
+        }
       }
       
       row[col] = val;
