@@ -558,7 +558,7 @@ body.resizing * { cursor: col-resize !important; }
         <div class="field-group"><label>Solicitante</label><input id="eai-solicitante" readonly></div>
         <div class="field-group"><label>Facturar a</label>
           <div class="searchable-wrap">
-            <input id="eai-facturar" placeholder="Seleccione..." autocomplete="off" onclick="toggleDropdown('dd-facturar')">
+            <input id="eai-facturar" placeholder="Seleccione..." autocomplete="off" onclick="toggleDropdown('dd-facturar')" onfocus="filterDropdown('dd-facturar',this.value,S.facturarList)" oninput="filterDropdown('dd-facturar',this.value,S.facturarList)">
             <div class="dropdown-list" id="dd-facturar"></div>
           </div>
         </div>
@@ -569,13 +569,13 @@ body.resizing * { cursor: col-resize !important; }
       <div class="field-row">
         <div class="field-group"><label>Origen</label>
           <div class="searchable-wrap">
-            <input id="eai-origen" placeholder="Seleccione..." autocomplete="off" onclick="toggleDropdown('dd-origen')">
+            <input id="eai-origen" placeholder="Seleccione..." autocomplete="off" onclick="toggleDropdown('dd-origen')" onfocus="filterDropdown('dd-origen',this.value,S.nodosList)" oninput="filterDropdown('dd-origen',this.value,S.nodosList)">
             <div class="dropdown-list" id="dd-origen"></div>
           </div>
         </div>
         <div class="field-group"><label>Destino</label>
           <div class="searchable-wrap">
-            <input id="eai-destino" placeholder="Seleccione..." autocomplete="off" onclick="toggleDropdown('dd-destino')">
+            <input id="eai-destino" placeholder="Seleccione..." autocomplete="off" onclick="toggleDropdown('dd-destino')" onfocus="filterDropdown('dd-destino',this.value,S.nodosList)" oninput="filterDropdown('dd-destino',this.value,S.nodosList)">
             <div class="dropdown-list" id="dd-destino"></div>
           </div>
         </div>
@@ -1224,7 +1224,7 @@ function submitEai(){
     return;
   }
   const fechaHoy = getLocalIsoDate();
-  const fechaSeleccionada = g('eai-fecha');
+  const fechaSeleccionada = g('eai-fecha-picker');
   if (!fechaSeleccionada || fechaSeleccionada < fechaHoy) {
     alert('La fecha no puede ser anterior a hoy.');
     return;
@@ -1234,7 +1234,7 @@ function submitEai(){
     'entry.1210615535':g('eai-piezas'),    'entry.1308421780':g('eai-largo'),
     'entry.1041589969':g('eai-ancho'),     'entry.1627458259':g('eai-alto'),
     'entry.965388804':g('eai-peso'),       'entry.171523111':g('eai-facturar'),
-    'entry.549200527':g('eai-fecha').split('-').reverse().join('/'),
+    'entry.549200527':fechaSeleccionada.split('-').reverse().join('/'),
     'entry.1414612728':g('eai-hora'),      'entry.313371845':g('eai-obs'),
     'entry.812453122':g('eai-recorrido'),  'entry.1143339555':g('eai-producto'),
     'entry.346967191':g('eai-operacion'),  'entry.1472049215':g('eai-centro'),
