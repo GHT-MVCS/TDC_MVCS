@@ -188,28 +188,37 @@ textarea{resize:vertical;min-height:80px}
 .tdc-metrics { display: flex; align-items: center; padding: 6px 16px 10px; flex-wrap: wrap; gap: 16px; background: var(--primary); }
 .metric { color: #fff; font-size: 13px; font-weight: 700; }
 .metric.gold { color: #FFD700; }
+.metric-action{cursor:pointer;transition:transform .15s ease,opacity .15s ease}
+.metric-action:hover{transform:translateY(-1px);opacity:.92}
 
 /* ─── TABLA ── */
 .tdc-table-wrap { flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden; padding: 0 16px; }
-.table-scroll { flex: 1; overflow: auto; border-radius: 12px; background: var(--card); border: 1px solid var(--border); }
+.table-scroll { flex: 1; overflow: auto; border-radius: 16px; background: var(--card); border: 1px solid var(--border); }
 thead { position: sticky; top: 0; z-index: 15; }
-table { border-collapse: collapse; width: 100%; min-width: 100%; table-layout: fixed; }
+table { border-collapse: separate; border-spacing: 0 5px; width: 100%; min-width: 100%; table-layout: fixed; }
 thead th {
   background: var(--primary); color: #fff; padding: 12px 16px; font-size: 12px;
   font-weight: 700; white-space: nowrap; position: sticky; top: 0; z-index: 10;
-  cursor: pointer; user-select: none; border-right: 1px solid rgba(255,255,255,.2);
+  cursor: pointer; user-select: none; border-right: 1px solid rgba(0,0,0,.18);
   text-align: left; position: relative;
 }
-thead th:last-child { border-right: none; }
+thead th:first-child { border-top-left-radius: 12px; border-bottom-left-radius: 12px; }
+thead th:last-child { border-right: none; border-top-right-radius: 12px; border-bottom-right-radius: 12px; }
 thead th:hover { background: var(--primary-h); }
 thead th .sort-arrow { margin-left: 6px; opacity: .7; font-size: 10px; }
 thead th .resizer { position: absolute; top: 0; right: 0; width: 8px; height: 100%; cursor: col-resize; background: transparent; z-index: 20; }
 thead th .resizer:hover { background: rgba(255,255,255,0.3); }
 tbody td {
-  padding: 10px 12px; font-size: 12px; border-bottom: 1px solid var(--border);
+  padding: 10px 12px; font-size: 12px;
+  border-top: 1px dashed rgba(0,0,0,.14);
+  border-bottom: 1px dashed rgba(0,0,0,.14);
+  border-right: 1px dashed rgba(0,0,0,.14);
+  background: #fff;
   vertical-align: top; word-wrap: break-word; word-break: break-word;
   white-space: normal; overflow-wrap: anywhere; line-height: 1.4;
 }
+tbody td:first-child { border-left: 1px dashed rgba(0,0,0,.14); border-top-left-radius: 12px; border-bottom-left-radius: 12px; }
+tbody td:last-child { border-right: 1px dashed rgba(0,0,0,.14); border-top-right-radius: 12px; border-bottom-right-radius: 12px; }
 tbody tr:hover td { background: #C4E7FF; }
 tbody td:first-child { font-weight: 600; background-color: rgba(0,122,204,0.03); }
 tbody tr.edited td { background: #FFD699 !important; }
@@ -269,6 +278,7 @@ td.edit-btn-cell { text-align: center; vertical-align: middle; white-space: nowr
 .modal-header h3{color:#fff;font-size:16px;font-weight:700}
 .modal-close{background:transparent;border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1}
 .modal-body{padding:20px;overflow-y:auto;flex:1}
+#modal-balance-ott .modal-body{padding:12px}
 .modal-footer {
   padding: 14px 20px;
   border-top: 2px solid #1a1a2e;
@@ -324,6 +334,34 @@ td.edit-btn-cell { text-align: center; vertical-align: middle; white-space: nowr
 #modal-excel .modal{width:95vw;max-width:1400px}
 #modal-excel .modal-body{padding:12px}
 #excel-table-wrap{overflow:auto;max-height:50vh}
+#modal-balance-ott .modal{width:min(1220px,96vw)}
+.balance-wrap{display:flex;flex-direction:column;gap:12px}
+.balance-summary-row{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:-6px}
+.balance-summary{display:flex;flex-wrap:wrap;gap:10px;flex:1;min-width:0}
+.balance-chip{background:#fff;border:2px solid #111;border-radius:12px;padding:8px 10px;min-width:132px;box-shadow:2px 2px 0 #111}
+.balance-chip strong{display:block;font-size:15px;color:var(--text);margin-top:2px}
+.balance-chip span{font-size:10px;color:var(--tl);text-transform:uppercase;letter-spacing:.4px;font-weight:800}
+.balance-filter-wrap{display:flex;flex-direction:column;gap:6px;min-width:260px;flex:0 0 260px}
+.balance-filter-wrap label{font-size:10px;color:var(--tl);text-transform:uppercase;letter-spacing:.4px;font-weight:800}
+.balance-filter-wrap select{width:100%;border:2px solid #111;border-radius:12px;padding:9px 12px;font-family:var(--font);font-size:12px;background:#fff;box-shadow:2px 2px 0 #111;outline:none}
+.balance-chart-card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:10px 12px;box-shadow:0 8px 24px rgba(15,23,42,.06)}
+.balance-chart-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.balance-chart-head h4{font-size:15px;color:var(--text)}
+.balance-chart-head p{font-size:12px;color:var(--tl);line-height:1.4;max-width:560px}
+.balance-chart-scroll{overflow-x:auto;overflow-y:hidden;padding-bottom:10px;max-width:100%;scrollbar-width:thin;scrollbar-color:#007ACC #DDEBFB}
+.balance-chart-scroll::-webkit-scrollbar{height:10px}
+.balance-chart-scroll::-webkit-scrollbar-track{background:#DDEBFB;border-radius:999px}
+.balance-chart-scroll::-webkit-scrollbar-thumb{background:#007ACC;border-radius:999px}
+.balance-chart-scroll::-webkit-scrollbar-thumb:hover{background:#005A9E}
+.balance-chart-inner{min-width:100%;width:max-content}
+.balance-axis-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--tl);margin-top:8px}
+.balance-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--tl)}
+.balance-legend-item{display:flex;align-items:center;gap:6px}
+.balance-dot,.balance-line-swatch{display:inline-block;vertical-align:middle}
+.balance-dot{width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.balance-line-swatch{width:18px;height:2px;background:#ef476f;position:relative}
+.balance-line-swatch::after{content:'';position:absolute;right:-1px;top:-2px;width:6px;height:6px;border-radius:50%;background:#ef476f}
+.balance-empty{padding:36px 18px;text-align:center;color:var(--tl);font-size:13px}
 
 @media(max-width:600px){
   .field-row{flex-direction:column}
@@ -678,6 +716,7 @@ body.resizing * { cursor: col-resize !important; }
       <span class="metric gold">🛒 Costo: <span id="m-costo">$0</span></span>
       <span class="metric">💰 FBE: <span id="m-fbe">0</span></span>
       <span class="metric">Pend Asig: <span id="m-pend-asig">🧑‍✈️ C: 0% | 🚚V: 0% | 💵T: 0%</span></span>
+      <span class="metric metric-action" id="m-balance-ott" role="button" tabindex="0" onclick="openBalanceOttModal()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openBalanceOttModal();}">Balance OTT: 0.0%</span>
     </div>
   </div>
   <div class="tdc-table-wrap">
@@ -760,6 +799,48 @@ body.resizing * { cursor: col-resize !important; }
   </div>
 </div>
 
+<div class="modal-bg" id="modal-balance-ott">
+  <div class="modal">
+    <div class="modal-header"><h3>Balance OTT</h3><button class="modal-close" onclick="closeModal('modal-balance-ott')">×</button></div>
+    <div class="modal-body">
+      <div class="balance-wrap">
+        <div class="balance-summary-row">
+          <div class="balance-summary" id="balance-summary"></div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <div class="balance-filter-wrap">
+              <label for="balance-periodo-filter">📅 Período</label>
+              <select id="balance-periodo-filter" onchange="applyBalanceOttFilter()"><option value="mes">📅 Mes en curso</option><option value="semana">📅 Última semana</option><option value="año">📅 Año en curso</option><option value="todos">📋 Todos los registros</option></select>
+            </div>
+            <div class="balance-filter-wrap">
+              <label for="balance-recorrido-filter">🔎 Filtrar por RECORRIDO</label>
+              <select id="balance-recorrido-filter" onchange="applyBalanceOttFilter()"></select>
+            </div>
+          </div>
+        </div>
+        <div class="balance-chart-card">
+          <div class="balance-chart-head">
+            <div>
+              <h4>Equidad: Facturación vs Vehículos</h4>
+              <p>Compara el % de facturación del OTT contra su % de vehículos. La línea roja (Δ) conecta ambas barras y muestra la diferencia: si es vertical (Δ ≈ 0%), hay equidad; si es diagonal, el OTT está desbalanceado.</p>
+            </div>
+            <div class="balance-legend">
+              <span class="balance-legend-item"><span class="balance-dot" style="background:#007ACC"></span> % Facturación</span>
+              <span class="balance-legend-item"><span class="balance-dot" style="background:#06D6A0"></span> % Vehículos</span>
+              <span class="balance-legend-item"><span class="balance-dot" style="background:#ef476f"></span> Δ = Desvío de equidad</span>
+            </div>
+          </div>
+          <div class="balance-chart-scroll">
+            <div class="balance-chart-inner" id="balance-chart"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline btn-sm" onclick="closeModal('modal-balance-ott')">Cerrar</button>
+    </div>
+  </div>
+</div>
+
 <!-- ════════════════════ JAVASCRIPT ════════════════════ -->
 <script>
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
@@ -810,6 +891,10 @@ const S = {
   currentFilters: {},
   sortCol: null,
   sortAsc: true,
+  balanceOttData: null,
+  balanceOttRows: [],
+  balanceOttRecorrido: '',
+  balanceOttPeriodo: 'mes',
   editRowIdx: null,        // _idx en fullData
   cellEditRowIdx: null,    // _idx en fullData
   cellEditCol: null,
@@ -927,6 +1012,290 @@ function extractTarifaNum(v){
   const s=String(v).replace(/[$\s.]/g,'').split(',')[0];
   const m=s.match(/\d+/);
   return m?parseInt(m[0]):0;
+}
+
+function escapeHtml(v){
+  return String(v ?? '').replace(/[&<>"]|'/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+}
+
+function formatMoney(v){
+  return `$${Math.round(v || 0).toLocaleString('es-CO').replace(/,/g,'.')}`;
+}
+
+function getLocalIsoDate(){
+  const now = new Date();
+  return now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+}
+
+function getBalanceOttPeriodRange(){
+  const hoy = new Date();
+  const periodo = S.balanceOttPeriodo || 'todos';
+  if (periodo === 'todos') return { start: null, end: null };
+  
+  const toYYYYMMDD = (d) => {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return y + m + day;
+  };
+  
+  if (periodo === 'semana') {
+    const hace7 = new Date(hoy);
+    hace7.setDate(hace7.getDate() - 6);
+    return { start: toYYYYMMDD(hace7), end: toYYYYMMDD(hoy) };
+  }
+  if (periodo === 'mes') {
+    const primero = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
+    return { start: toYYYYMMDD(primero), end: toYYYYMMDD(hoy) };
+  }
+  if (periodo === 'año') {
+    const primero = new Date(hoy.getFullYear(), 0, 1);
+    return { start: toYYYYMMDD(primero), end: toYYYYMMDD(hoy) };
+  }
+  return { start: null, end: null };
+}
+
+function getBalanceOttRows(){
+  const allRows = S.fullData || S.viewData || [];
+  if (!allRows.length) return [];
+  
+  const filteredByStatus = allRows.filter(row => {
+    const estado = String(row['ESTADO DE VIAJE'] || '').toLowerCase();
+    return !estado.includes('cancelado');
+  });
+  
+  const range = getBalanceOttPeriodRange();
+  if (range.start === null || range.end === null) return filteredByStatus;
+  const start = parseInt(range.start, 10);
+  const end = parseInt(range.end, 10);
+  return filteredByStatus.filter(row => {
+    const fechaStr = String(row['FECHA E'] || '').trim();
+    if (!fechaStr) return false;
+    const parts = fechaStr.split('/');
+    if (parts.length !== 3) return false;
+    const dd = parts[0].padStart(2, '0');
+    const mm = parts[1].padStart(2, '0');
+    const yyyy = parts[2].trim();
+    const fecha = parseInt(yyyy + mm + dd, 10);
+    return fecha >= start && fecha <= end;
+  });
+}
+
+function getBalanceOttScopeRows(rows){
+  const allRows = rows || getBalanceOttRows();
+  const recorrido = String(S.balanceOttRecorrido || '').trim();
+  if (!recorrido) return allRows;
+  return allRows.filter(row => String(row['RECORRIDO'] || '').trim() === recorrido);
+}
+
+function getBalanceOttRecorridos(rows){
+  return [...new Set((rows || [])
+    .map(row => String(row['RECORRIDO'] || '').trim())
+    .filter(v => v && v.toLowerCase() !== 'nan'))].sort((a, b) => a.localeCompare(b, 'es'));
+}
+
+function renderBalanceOttFilter(rows){
+  const select = document.getElementById('balance-recorrido-filter');
+  if (!select) return;
+  const recorridos = getBalanceOttRecorridos(rows);
+  if (S.balanceOttRecorrido && !recorridos.includes(S.balanceOttRecorrido)) {
+    S.balanceOttRecorrido = '';
+  }
+  select.innerHTML = ['<option value="">Todos los recorridos</option>', ...recorridos.map(v => `<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`)].join('');
+  select.value = S.balanceOttRecorrido;
+}
+
+function applyBalanceOttFilter(){
+  const selectPeriodo = document.getElementById('balance-periodo-filter');
+  const selectRecorrido = document.getElementById('balance-recorrido-filter');
+  S.balanceOttPeriodo = selectPeriodo ? selectPeriodo.value : 'todos';
+  S.balanceOttRecorrido = selectRecorrido ? selectRecorrido.value : '';
+  
+  const baseRows = getBalanceOttRows();
+  const scopeRows = getBalanceOttScopeRows(baseRows);
+  const payload = buildBalanceOttData(scopeRows, baseRows);
+  
+  console.log('📊 CAMBIO FILTRO:', {periodo: S.balanceOttPeriodo, recorrido: S.balanceOttRecorrido, otts: payload.items.length, costo: payload.totalCost});
+  
+  renderBalanceOttChart(payload);
+}
+
+function buildBalanceOttData(data, baseRows){
+  const scopeRows = (data && data.length) ? data : (baseRows && baseRows.length) ? baseRows : [];
+  const base = (baseRows && baseRows.length) ? baseRows : scopeRows;
+  
+  if (!scopeRows.length || !base.length) {
+    return { items: [], totalCost: 0, totalVehicles: 0 };
+  }
+  
+  const byOtt = new Map();
+  const visibleOtts = new Set();
+  let totalCost = 0;
+  let totalVehicles = new Set();
+
+  scopeRows.forEach(row => {
+    const ott = String(row['OTT'] || '').trim();
+    if (!ott || ott.toLowerCase() === 'nan') return;
+    visibleOtts.add(ott);
+  });
+
+  if (!visibleOtts.size) {
+    return { items: [], totalCost: 0, totalVehicles: 0 };
+  }
+
+  base.forEach(row => {
+    const ott = String(row['OTT'] || '').trim();
+    if (!ott || ott.toLowerCase() === 'nan' || !visibleOtts.has(ott)) return;
+    const cost = extractTarifaNum(row['TARIFA']);
+    const veh = String(row['VEHICULO'] || '').trim();
+    totalCost += cost;
+    if (veh && veh.toLowerCase() !== 'nan') totalVehicles.add(veh);
+
+    if (!byOtt.has(ott)) byOtt.set(ott, { ott, cost: 0, rows: 0, vehicles: new Set() });
+    const item = byOtt.get(ott);
+    item.cost += cost;
+    item.rows += 1;
+    if (veh && veh.toLowerCase() !== 'nan') item.vehicles.add(veh);
+  });
+
+  const totalVehCount = Math.max(1, totalVehicles.size);
+  const items = [...byOtt.values()]
+    .map(item => {
+      const vehiclesCount = item.vehicles ? item.vehicles.size : 0;
+      return {
+        ott: item.ott,
+        cost: item.cost,
+        rows: item.rows,
+        vehiclesCount: vehiclesCount,
+        pctFacturacion: totalCost > 0 ? (item.cost / totalCost) * 100 : 0,
+        pctVehiculos: totalVehCount > 0 ? (vehiclesCount / totalVehCount) * 100 : 0,
+      };
+    })
+    .sort((a, b) => b.cost - a.cost || a.ott.localeCompare(b.ott, 'es'));
+
+  return { items, totalCost, totalVehicles: totalVehicles.size };
+}
+
+function renderBalanceOttChart(payload){
+  const chart = document.getElementById('balance-chart');
+  const summary = document.getElementById('balance-summary');
+  if (!chart || !summary) return;
+
+  const items = payload?.items || [];
+  const totalCost = payload?.totalCost || 0;
+  const totalVehicles = payload?.totalVehicles || 0;
+
+  if (!items.length) {
+    summary.innerHTML = '';
+    chart.innerHTML = '<div class="balance-empty">No hay OTTs con costo para mostrar.</div>';
+    return;
+  }
+
+  const vehicleSet = new Set();
+  (S.viewData || []).forEach(row => {
+    const veh = String(row['VEHICULO'] || '').trim();
+    if (veh && veh.toLowerCase() !== 'nan') vehicleSet.add(veh);
+  });
+
+  const equityScore = items.length ? Math.round(100 - (items.reduce((sum, item) => sum + Math.abs(item.pctFacturacion - item.pctVehiculos), 0) / items.length)) : 0;
+
+  summary.innerHTML = [
+    `<div class="balance-chip"><span>OTTs</span><strong>${items.length}</strong></div>`,
+    `<div class="balance-chip"><span>Vehículos únicos</span><strong>${totalVehicles}</strong></div>`,
+    `<div class="balance-chip"><span>Costo total</span><strong>${formatMoney(totalCost)}</strong></div>`,
+    `<div class="balance-chip"><span>Equidad</span><strong>${equityScore}%</strong></div>`,
+  ].join('');
+
+  const width = items.length <= 5 ? Math.max(900, items.length * 240) : Math.max(1400, items.length * 200);
+  const height = 420;
+  let leftMargin = 58;
+  if (items.length <= 5) leftMargin = 0;
+  else if (items.length <= 10) leftMargin = 20;
+  const margin = { top: 28, right: 34, bottom: 94, left: leftMargin };
+  const plotW = width - margin.left - margin.right;
+  const plotH = height - margin.top - margin.bottom;
+  const barSlot = plotW / items.length;
+  const barWidth = Math.max(20, Math.min(60, barSlot * 0.35));
+  const barGap = barWidth * 0.4;
+  const rawMaxPct = Math.max(...items.map(item => Math.max(item.pctFacturacion, item.pctVehiculos)), 1);
+  const maxPct = Math.max(10, Math.ceil(rawMaxPct / 5) * 5);
+  const yFor = pct => margin.top + plotH - (pct / maxPct) * plotH;
+  const gridStep = maxPct <= 20 ? 2 : maxPct <= 50 ? 5 : 10;
+  const gridTicks = [];
+  for (let tick = 0; tick <= maxPct; tick += gridStep) gridTicks.push(tick);
+
+  const bars = items.map((item, i) => {
+    const xCenter = margin.left + i * barSlot + barSlot / 2;
+    const x1 = xCenter - (barWidth + barGap / 2);
+    const x2 = xCenter + barGap / 2;
+    const barH1 = (item.pctFacturacion / maxPct) * plotH;
+    const barH2 = (item.pctVehiculos / maxPct) * plotH;
+    const y1 = margin.top + plotH - barH1;
+    const y2 = margin.top + plotH - barH2;
+    
+    const desvio = Math.abs(item.pctFacturacion - item.pctVehiculos);
+    const yTop = Math.min(y1, y2) - 8;
+    const yMid = (y1 + y2) / 2;
+    
+    let lineaDesvio = '';
+    if (barH1 !== barH2) {
+      lineaDesvio = `<line x1="${(x1 + barWidth/2).toFixed(2)}" y1="${y1.toFixed(2)}" x2="${(x2 + barWidth/2).toFixed(2)}" y2="${y2.toFixed(2)}" stroke="#ef476f" stroke-width="2" stroke-dasharray="4 2" />`;
+      lineaDesvio += `<text x="${xCenter.toFixed(2)}" y="${yTop.toFixed(2)}" text-anchor="middle" font-size="9" fill="#ef476f" font-weight="700">Δ${desvio.toFixed(0)}%</text>`;
+    }
+    
+    return `
+      <g>
+        <title>${escapeHtml(item.ott)} | Facturación: ${item.pctFacturacion.toFixed(1)}% | Vehículos: ${item.pctVehiculos.toFixed(1)}% | Desvío: ${desvio.toFixed(1)}% | ${formatMoney(item.cost)}</title>
+        <rect x="${x1.toFixed(2)}" y="${y1.toFixed(2)}" width="${barWidth.toFixed(2)}" height="${Math.max(barH1, 12).toFixed(2)}" rx="10" fill="#007ACC" />
+        <rect x="${x2.toFixed(2)}" y="${y2.toFixed(2)}" width="${barWidth.toFixed(2)}" height="${Math.max(barH2, 12).toFixed(2)}" rx="10" fill="#06D6A0" />
+        ${lineaDesvio}
+        <text x="${xCenter.toFixed(2)}" y="${(margin.top + plotH + 20).toFixed(2)}" text-anchor="middle" font-size="12" font-weight="800" fill="#073642">${escapeHtml(item.ott)}</text>
+        <text x="${xCenter.toFixed(2)}" y="${(margin.top + plotH + 38).toFixed(2)}" text-anchor="middle" font-size="10" fill="#64748B">F:${item.pctFacturacion.toFixed(0)}% V:${item.pctVehiculos.toFixed(0)}%</text>
+      </g>`;
+  }).join('');
+
+  const equityLine = '';
+
+  const grid = gridTicks.map(tick => {
+    const y = yFor(tick);
+    return `
+      <g>
+        <line x1="${margin.left}" y1="${y.toFixed(2)}" x2="${width - margin.right}" y2="${y.toFixed(2)}" stroke="#E2E8F0" stroke-width="1" />
+        <text x="${margin.left - 8}" y="${(y + 4).toFixed(2)}" text-anchor="end" font-size="11" fill="#64748B">${tick}%</text>
+      </g>`;
+  }).join('');
+
+  chart.innerHTML = `
+    <svg viewBox="0 0 ${width} ${height}" width="100%" height="${height}" role="img" aria-label="Balance OTT">
+      <defs>
+        <linearGradient id="balanceGradient" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2A9D8F" />
+          <stop offset="100%" stop-color="#007ACC" />
+        </linearGradient>
+      </defs>
+      ${grid}
+      <line x1="${margin.left}" y1="${margin.top}" x2="${margin.left}" y2="${margin.top + plotH}" stroke="#CBD5E1" stroke-width="1.5" />
+      <line x1="${margin.left}" y1="${margin.top + plotH}" x2="${width - margin.right}" y2="${margin.top + plotH}" stroke="#CBD5E1" stroke-width="1.5" />
+      ${bars}
+      ${equityLine}
+    </svg>
+  `;
+}
+
+function openBalanceOttModal(){
+  if (!S.balanceOttPeriodo) S.balanceOttPeriodo = 'mes';
+  if (!S.balanceOttRecorrido) S.balanceOttRecorrido = '';
+  
+  const selectPeriodo = document.getElementById('balance-periodo-filter');
+  const selectRecorrido = document.getElementById('balance-recorrido-filter');
+  if (selectPeriodo) selectPeriodo.value = S.balanceOttPeriodo;
+  
+  renderBalanceOttFilter(S.fullData || S.viewData || []);
+  
+  const baseRows = getBalanceOttRows();
+  const scopeRows = getBalanceOttScopeRows(baseRows);
+  renderBalanceOttChart(buildBalanceOttData(scopeRows, baseRows));
+  openModal('modal-balance-ott');
 }
 
 function formatViaje(v){
@@ -1716,7 +2085,7 @@ function updateMetrics(data){
   document.getElementById('m-ott').textContent = ottSet.size;
   document.getElementById('m-veh').textContent = vehSet.size;
   const costo = data.reduce((s,r)=>s+extractTarifaNum(r['TARIFA']),0);
-  document.getElementById('m-costo').textContent = `$${costo.toLocaleString('es-CO').replace(/,/g,'.')}`;
+  document.getElementById('m-costo').textContent = formatMoney(costo);
   const fbe = data.reduce((s,r)=>s+(parseFloat(r['FBE'])||0),0);
   document.getElementById('m-fbe').textContent = fbe.toLocaleString('es-CO',{maximumFractionDigits:0});
 
@@ -1735,7 +2104,20 @@ function updateMetrics(data){
 
   document.getElementById('m-pend-asig').textContent =
     `🧑‍✈️ C: ${pct(pendConductor)}% | 🚚V: ${pct(pendVehiculo)}% | 💵T: ${pct(pendTarifa)}%`;
+
+  S.balanceOttRows = data;
+  S.balanceOttData = buildBalanceOttData(data, data);
+  const itemsGlobal = S.balanceOttData.items || [];
+  const promEquidad = itemsGlobal.length ? itemsGlobal.reduce((sum, item) => sum + Math.abs(item.pctFacturacion - item.pctVehiculos), 0) / itemsGlobal.length : 0;
+  const balanceLabel = document.getElementById('m-balance-ott');
+  if (balanceLabel) balanceLabel.textContent = `Balance OTT: ${(100 - promEquidad).toFixed(1)}%`;
+  if (document.getElementById('modal-balance-ott')?.classList.contains('open')) {
+    const baseRows = getBalanceOttRows();
+    const scopeRows = getBalanceOttScopeRows(baseRows);
+    renderBalanceOttChart(buildBalanceOttData(scopeRows, baseRows));
+  }
 }
+
 function sortBy(col){
   if (col === 'EDITAR') return;
   
