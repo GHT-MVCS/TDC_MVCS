@@ -182,8 +182,6 @@ textarea{resize:vertical;min-height:80px}
 .search-wrap { display: flex; align-items: center; background: rgba(255,255,255,.2); border-radius: 20px; padding: 4px 12px; gap: 6px; }
 .search-wrap input { background: transparent; border: none; color: #fff; font-family: var(--font); font-size: 13px; width: 160px; outline: none; }
 .search-wrap input::placeholder { color: rgba(255,255,255,.7); }
-.search-wrap-sm { padding: 3px 10px; }
-.search-wrap-sm input { width: 90px; font-size: 12px; }
 .filter-info { color: #fff; font-size: 11px; font-weight: 600; padding: 2px 10px; background: rgba(255,255,255,.15); border-radius: 20px; max-width: 400px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .tdc-metrics { display: flex; align-items: center; padding: 6px 16px 10px; flex-wrap: wrap; gap: 16px; background: var(--primary); }
 .metric { color: #fff; font-size: 13px; font-weight: 700; }
@@ -193,7 +191,7 @@ textarea{resize:vertical;min-height:80px}
 .tdc-table-wrap { flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden; padding: 0 16px; }
 .table-scroll { flex: 1; overflow: auto; border-radius: 12px; background: var(--card); border: 1px solid var(--border); }
 thead { position: sticky; top: 0; z-index: 15; }
-table { border-collapse: collapse; width: 100%; min-width: 100%; table-layout: fixed; }
+table { border-collapse: collapse; width: 100%; min-width: 100%; }
 thead th {
   background: var(--primary); color: #fff; padding: 12px 16px; font-size: 12px;
   font-weight: 700; white-space: nowrap; position: sticky; top: 0; z-index: 10;
@@ -208,7 +206,7 @@ thead th .resizer:hover { background: rgba(255,255,255,0.3); }
 tbody td {
   padding: 10px 12px; font-size: 12px; border-bottom: 1px solid var(--border);
   vertical-align: top; word-wrap: break-word; word-break: break-word;
-  white-space: normal; overflow-wrap: anywhere; line-height: 1.4;
+  white-space: normal; max-width: 300px; min-width: 80px; line-height: 1.4;
 }
 tbody tr:hover td { background: #C4E7FF; }
 tbody td:first-child { font-weight: 600; background-color: rgba(0,122,204,0.03); }
@@ -659,11 +657,6 @@ body.resizing * { cursor: col-resize !important; }
           <input id="tdc-search" placeholder="Buscar..." oninput="quickSearch(this.value)">
           <button class="btn-ghost btn" style="padding:2px 6px;font-size:12px" onclick="clearSearch()">✖</button>
         </div>
-        <div class="search-wrap search-wrap-sm" title="Filtra solo en columna HORA C sobre resultados visibles">
-          <span style="color:#fff;font-size:12px">🕒</span>
-          <input id="tdc-horac-search" placeholder="Hora C" oninput="quickSearchHoraC(this.value)">
-          <button class="btn-ghost btn" style="padding:2px 5px;font-size:11px" onclick="clearHoraCSearch()">✖</button>
-        </div>
         <button class="btn btn-accent btn-sm" onclick="openFilters()">🔍 Filtros</button>
         <button class="btn btn-outline btn-sm" onclick="leaveTdc()">← Cerrar Sesión</button>
         <span id="last-update" style="color:rgba(255,255,255,0.7);font-size:10px;font-weight:600;white-space:nowrap;">⏱ Sin actualizar</span>
@@ -677,7 +670,6 @@ body.resizing * { cursor: col-resize !important; }
       <span class="metric">🚚 OTT: <span id="m-ott">0</span> — Vehículos: <span id="m-veh">0</span></span>
       <span class="metric gold">🛒 Costo: <span id="m-costo">$0</span></span>
       <span class="metric">💰 FBE: <span id="m-fbe">0</span></span>
-      <span class="metric">Pend Asig: <span id="m-pend-asig">🧑‍✈️ C: 0% | 🚚V: 0% | 💵T: 0%</span></span>
     </div>
   </div>
   <div class="tdc-table-wrap">
@@ -825,31 +817,28 @@ const ALL_COLS = [
   "PRODUCTO","# PIEZAS","FBE","PESO","FECHA E","HORA E",
   "RECORRIDO","OPERACION","TIPO V","OTT","CONDUCTOR","VEHICULO",
   "ORDEN R","Zona Entrega","Contacto Entrega","HORA C","HORA D",
-  "TARIFA","TIPO DE VIAJE","ESTADO DE VIAJE","OBSERVACIONES","CENTRO DE C",
-  "FECHA MOD"
+  "TARIFA","TIPO DE VIAJE","ESTADO DE VIAJE","OBSERVACIONES","CENTRO DE C"
 ];
 const VIS_COLS = [
   "ID","FECHA S","SOLICITANTE","ORIGEN","DESTINO","FACTURAR A",
   "PRODUCTO","# PIEZAS","FBE","PESO","FECHA E","HORA E",
   "TIPO V","OTT","CONDUCTOR","VEHICULO","ORDEN R","HORA C","HORA D",
-  "TARIFA","TIPO DE VIAJE","ESTADO DE VIAJE","FECHA MOD"
+  "TARIFA","TIPO DE VIAJE","ESTADO DE VIAJE"
 ];
 const COL_ICONS = {
   "ID":"🆔","FECHA S":"📅","SOLICITANTE":"👤","ORIGEN":"📍","DESTINO":"📍",
   "FACTURAR A":"💰","PRODUCTO":"📦","# PIEZAS":"🔢","FBE":"💵","PESO":"⚖️",
   "FECHA E":"📅","HORA E":"⏰","TIPO V":"🚛","OTT":"🔖","CONDUCTOR":"👨",
   "VEHICULO":"🚚","ORDEN R":"📋","HORA C":"⏰","HORA D":"⏰","TARIFA":"💲",
-  "TIPO DE VIAJE":"🚅","ESTADO DE VIAJE":"✅","FECHA MOD":"🕘","EDITAR":"✏️"
+  "TIPO DE VIAJE":"🚅","ESTADO DE VIAJE":"✅","EDITAR":"✏️"
 };
-const COL_LABELS = {
-  "ESTADO DE VIAJE": "ESTADO"
-};
+// FIX #3: FECHA S ancho aumentado a 160 para mostrar fecha + hora completos
 const COL_WIDTHS = {
-  "EDITAR":90,"ID":60,"FECHA S":95,"SOLICITANTE":114,"ORIGEN":85,"DESTINO":87,
-  "FACTURAR A":110,"PRODUCTO":104,"# PIEZAS":82,"FBE":58,"PESO":70,
-  "FECHA E":110,"HORA E":83,"TIPO V":80,"OTT":55,"CONDUCTOR":110,
-  "VEHICULO":90,"ORDEN R":85,"HORA C":79,"HORA D":79,"TARIFA":76,
-  "TIPO DE VIAJE":113,"ESTADO DE VIAJE":110,"FECHA MOD":100
+  "ID":70,"FECHA S":160,"SOLICITANTE":130,"ORIGEN":100,"DESTINO":100,
+  "FACTURAR A":130,"PRODUCTO":130,"# PIEZAS":85,"FBE":80,"PESO":85,
+  "FECHA E":105,"HORA E":85,"TIPO V":80,"OTT":90,"CONDUCTOR":140,
+  "VEHICULO":120,"ORDEN R":100,"TARIFA":100,"TIPO DE VIAJE":130,
+  "ESTADO DE VIAJE":130,"HORA C":85,"HORA D":85,"EDITAR":85
 };
 const TDC_COL_MAP = {
   'ID':'entry.1748172575','FECHA S':'entry.489320488','SOLICITANTE':'entry.2000551577',
@@ -932,10 +921,10 @@ function extractTarifaNum(v){
 function formatViaje(v){
   const vl=String(v).toLowerCase().replace(/\s/g,'');
   if(vl.includes('compartidom')||vl.includes('compartido m')) return '📦 CompartidoM';
-  if(vl.includes('idayvuelta')||vl.includes('ida y vuelta')) return '🔁Ida y Vuelta';
-  if(vl.includes('recorrido')) return '⏭️Recorrido';
-  if(vl.includes('compartido')) return '🔀Compartido';
-  if(vl.includes('otro')) return '⤴️Otro';
+  if(vl.includes('idayvuelta')||vl.includes('ida y vuelta')) return '🔁 Ida y Vuelta';
+  if(vl.includes('recorrido')) return '⏭️ Recorrido';
+  if(vl.includes('compartido')) return '🔀 Compartido';
+  if(vl.includes('otro')) return '⤴️ Otro';
   return v;
 }
 
@@ -1495,13 +1484,7 @@ async function openTdc(username){
     S.currentFilters = {};
     S.sortCol = null;  // Reset ordenamiento
     S.sortAsc = true;
-
-    // Prefiltro por FECHA E = hoy al primer ingreso en TdC
-    const today = new Date();
-    const todayStr = `${today.getDate().toString().padStart(2, '0')}/${(today.getMonth()+1).toString().padStart(2, '0')}/${today.getFullYear()}`;
-    S.currentFilters['FECHA_E'] = todayStr;
-    S.viewData = applyStoredFilters(S.fullData);
-
+    
     goView('tdc');
     renderTable();
     updateMetrics(S.viewData);
@@ -1549,7 +1532,8 @@ async function refreshTdc(){
     
     // Re-aplicar filtros y orden
     S.viewData = applyStoredFilters(S.fullData);
-    S.viewData = applyVisibleSearches(S.viewData);
+    const q = document.getElementById('tdc-search').value.trim().toLowerCase();
+    if(q) S.viewData = S.viewData.filter(r => Object.values(r).some(v => String(v).toLowerCase().includes(q)));
     
     // Re-aplicar ordenamiento si existe
     if(S.sortCol) {
@@ -1589,12 +1573,11 @@ function renderTable(){
 
   thead.innerHTML = `<tr>${cols.map(c => {
     const ic = COL_ICONS[c] || '';
-    const label = COL_LABELS[c] || c;
     const arrow = S.sortCol === c ? (S.sortAsc ? '▲' : '▼') : '';
     const width = COL_WIDTHS[c] || 120;
-    return `<th style="width:${width}px;min-width:${width}px;max-width:${width}px;position:relative;overflow:visible;padding:0;" data-col="${c}" title="${c}">
-      <span class="th-content" style="cursor:pointer;display:flex;align-items:center;white-space:nowrap;padding:12px 6px;gap:2px;font-size:11px;line-height:1;height:100%;">
-        ${ic}${label}<span class="sort-arrow" style="margin-left:2px;flex-shrink:0;">${arrow}</span>
+    return `<th style="min-width:${width}px;width:${width}px;position:relative;" data-col="${c}">
+      <span class="th-content" style="cursor:pointer;display:inline-block;">
+        ${ic} ${c} <span class="sort-arrow">${arrow}</span>
       </span>
       <div class="resizer" data-col="${c}"></div>
     </th>`;
@@ -1626,18 +1609,9 @@ function renderTable(){
 
     const tdEdit = document.createElement('td');
     tdEdit.className = 'edit-btn-cell';
-    tdEdit.style.width = (COL_WIDTHS['EDITAR'] || 90) + 'px';
-    tdEdit.style.minWidth = (COL_WIDTHS['EDITAR'] || 90) + 'px';
-    tdEdit.style.maxWidth = (COL_WIDTHS['EDITAR'] || 90) + 'px';
-    tdEdit.style.overflow = 'hidden';
-    tdEdit.style.padding = '8px 4px';
     const btn = document.createElement('button');
     btn.className = 'edit-cell-btn';
     btn.textContent = '✏️ Editar';
-    btn.style.width = '100%';
-    btn.style.padding = '6px 4px';
-    btn.style.fontSize = '11px';
-    btn.style.minHeight = 'auto';
     btn.onclick = () => openFullEdit(viewIdx);
     tdEdit.appendChild(btn);
     tr.appendChild(tdEdit);
@@ -1658,26 +1632,12 @@ function renderTable(){
           // Si solo tiene fecha sin hora, la deja como está
         }
       }
-      else if (col === 'FECHA MOD') {
-        if (val && val.trim() !== '') {
-          const partes = val.trim().split(/\s+/);
-          if (partes.length >= 2) {
-            const fecha = partes[0];
-            const horaParts = partes[1].split(':');
-            const hora = `${horaParts[0] || '00'}:${horaParts[1] || '00'}`;
-            val = `${fecha} ${hora}`;
-          }
-        }
-      }
       else if (col === 'FBE' && !isNaN(parseFloat(val))) val = String(Math.round(parseFloat(val)));
       else if (col === 'TARIFA') val = formatTarifa(val);
       else if (col === 'TIPO V') { const n = parseInt(val); val = !isNaN(n) ? String(n) : val; }
       td.textContent = val || '';
       td.title = val || '';
-      const w = (COL_WIDTHS[col] || 80) + 'px';
-      td.style.width = w;
-      td.style.minWidth = w;
-      td.style.maxWidth = w;
+      td.style.minWidth = (COL_WIDTHS[col] || 80) + 'px';
       
       // AGREGAR DOBLE CLICK PARA EDITAR CELDA
       td.ondblclick = (function(viewIdx, colName) {
@@ -1719,22 +1679,6 @@ function updateMetrics(data){
   document.getElementById('m-costo').textContent = `$${costo.toLocaleString('es-CO').replace(/,/g,'.')}`;
   const fbe = data.reduce((s,r)=>s+(parseFloat(r['FBE'])||0),0);
   document.getElementById('m-fbe').textContent = fbe.toLocaleString('es-CO',{maximumFractionDigits:0});
-
-  const isBlank = (v) => {
-    const t = String(v || '').trim().toLowerCase();
-    return !t || t === 'nan';
-  };
-
-  const activeRows = data.filter(r => !String(r['ESTADO DE VIAJE'] || '').toLowerCase().includes('cancelado'));
-  const totalActive = activeRows.length;
-  const pct = (n) => totalActive ? Math.round((n / totalActive) * 100) : 0;
-
-  const pendConductor = activeRows.filter(r => isBlank(r['CONDUCTOR'])).length;
-  const pendVehiculo = activeRows.filter(r => isBlank(r['VEHICULO'])).length;
-  const pendTarifa = activeRows.filter(r => isBlank(r['TARIFA'])).length;
-
-  document.getElementById('m-pend-asig').textContent =
-    `🧑‍✈️ C: ${pct(pendConductor)}% | 🚚V: ${pct(pendVehiculo)}% | 💵T: ${pct(pendTarifa)}%`;
 }
 function sortBy(col){
   if (col === 'EDITAR') return;
@@ -1820,8 +1764,8 @@ function sortBy(col){
       return S.sortAsc ? numA - numB : numB - numA;
     }
     
-    // FECHA S y FECHA MOD - formato "24/04/2026 17:40:59"
-    if (col === 'FECHA S' || col === 'FECHA MOD') {
+    // FECHA S - formato "24/04/2026 17:40:59"
+    if (col === 'FECHA S') {
       function parseFechaS(fechaStr) {
         const parts = String(fechaStr).split(' ');
         if (parts.length < 1) return NaN;
@@ -1895,94 +1839,15 @@ function sortBy(col){
 }
 
 function quickSearch(q){
-  S.viewData = applyVisibleSearches(applyStoredFilters(S.fullData));
+  const lq = q.toLowerCase().trim();
+  if (!lq) S.viewData = applyStoredFilters(S.fullData);
+  else {
+    const base = applyStoredFilters(S.fullData);
+    S.viewData = base.filter(r=>Object.values(r).some(v=>String(v).toLowerCase().includes(lq)));
+  }
   renderTable(); updateMetrics(S.viewData);
 }
 function clearSearch(){ document.getElementById('tdc-search').value=''; quickSearch(''); }
-function quickSearchHoraC(){ quickSearch(document.getElementById('tdc-search').value || ''); }
-function clearHoraCSearch(){
-  const el = document.getElementById('tdc-horac-search');
-  if (el) el.value = '';
-  quickSearch(document.getElementById('tdc-search').value || '');
-}
-
-function parseHoraToken(value){
-  const text = String(value || '').trim().toLowerCase().replace(/\s+/g, '');
-  if (!text) return null;
-
-  const normalized = text.replace(/[h\.]/g, ':');
-
-  let m = normalized.match(/^(\d{1,2})$/);
-  if (m) {
-    const hour = parseInt(m[1], 10);
-    if (hour >= 0 && hour <= 23) return { hour, minute: null };
-    return null;
-  }
-
-  m = normalized.match(/^(\d{1,2}):(\d{1,2})$/);
-  if (m) {
-    const hour = parseInt(m[1], 10);
-    const minute = parseInt(m[2], 10);
-    if (hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59) return { hour, minute };
-    return null;
-  }
-
-  m = normalized.match(/^(\d{1,2})(\d{2})$/);
-  if (m) {
-    const hour = parseInt(m[1], 10);
-    const minute = parseInt(m[2], 10);
-    if (hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59) return { hour, minute };
-  }
-
-  return null;
-}
-
-function parseHoraCell(value){
-  const text = String(value || '').trim().toLowerCase();
-  if (!text) return null;
-
-  let m = text.match(/(\d{1,2}):(\d{1,2})(?::\d{1,2})?/);
-  if (!m) m = text.match(/(\d{1,2})\s*h\s*(\d{1,2})?/);
-  if (!m) m = text.match(/^(\d{1,2})$/);      // 8 / 08
-  if (!m) m = text.match(/^(\d{1,2})(\d{2})$/); // 800 / 0830
-  if (!m) return null;
-
-  const hour = parseInt(m[1], 10);
-  const minute = parseInt(m[2] || '0', 10);
-  if (isNaN(hour) || isNaN(minute) || hour < 0 || hour > 23 || minute < 0 || minute > 59) return null;
-  return { hour, minute };
-}
-
-function matchesHoraC(cellValue, queryValue){
-  const query = String(queryValue || '').trim().toLowerCase();
-  if (!query) return true;
-
-  const queryToken = parseHoraToken(query);
-  const cellToken = parseHoraCell(cellValue);
-
-  if (queryToken && cellToken) {
-    if (queryToken.minute === null) return cellToken.hour === queryToken.hour;
-    return cellToken.hour === queryToken.hour && cellToken.minute === queryToken.minute;
-  }
-
-  return String(cellValue || '').toLowerCase().includes(query);
-}
-
-function applyVisibleSearches(baseData){
-  let filtered = [...baseData];
-
-  const q = (document.getElementById('tdc-search')?.value || '').trim().toLowerCase();
-  if (q) {
-    filtered = filtered.filter(r => Object.values(r).some(v => String(v).toLowerCase().includes(q)));
-  }
-
-  const horaCQ = (document.getElementById('tdc-horac-search')?.value || '').trim().toLowerCase();
-  if (horaCQ) {
-    filtered = filtered.filter(r => matchesHoraC(r['HORA C'] || '', horaCQ));
-  }
-
-  return filtered;
-}
 
 // ─── FILTERS ─────────────────────────────────────────────────────────────────
 const MONTH_NAMES_ES = [
@@ -2233,7 +2098,9 @@ function msApply(){
 }
 
 function applyFilters(){
-  S.viewData = applyVisibleSearches(applyStoredFilters(S.fullData));
+  S.viewData = applyStoredFilters(S.fullData);
+  const q = document.getElementById('tdc-search').value.trim().toLowerCase();
+  if(q) S.viewData = S.viewData.filter(r=>Object.values(r).some(v=>String(v).toLowerCase().includes(q)));
   renderTable(); updateMetrics(S.viewData);
   closeModal('modal-filters');
   updateFilterInfoBar();
@@ -2328,7 +2195,7 @@ function openCellEdit(rowIdx, col){
   }
   else if(col==='PRODUCTO'){ html=buildSelect('cell-val', S.productosList, current); }
   else if(col==='ESTADO DE VIAJE'){ html=buildSelect('cell-val',['⚪ Programado','🟠 Cargando','🟡 Cargado','🟣 Transito','🟢 Finalizado','🔴 Cancelado'],current); }
-  else if(col==='TIPO DE VIAJE'){ html=buildSelect('cell-val',['⏭️Recorrido','🔁Ida y Vuelta','🔀Compartido','📦CompartidoM','⤴️Otro'],current); }
+  else if(col==='TIPO DE VIAJE'){ html=buildSelect('cell-val',['⏭️ Recorrido','🔁 Ida y Vuelta','🔀 Compartido','📦 CompartidoM','⤴️ Otro'],current); }
   else if(col==='TIPO V'){ html=buildSelect('cell-val',['1 > 30 FBE','2 < 60 FBE','3 < 220 FBE','4 350 FBE'],current); }
   else if(col==='TARIFA'){ html=`<input id="cell-val" type="number" value="${current.replace(/[$.,]/g,'')}" style="width:100%">`; }
   else if(col==='HORA E'||col==='HORA C'||col==='HORA D'){ html=`<input id="cell-val" type="time" value="${current.substring(0,5)}" style="width:100%">`; }
@@ -2379,7 +2246,7 @@ function openFullEdit(viewIdx){
     else if(col==='PRODUCTO'){ input=makeSelect(S.productosList, current); }
     else if(col==='CONDUCTOR'||col==='VEHICULO'){ input=document.createElement('input');input.value=current; }
     else if(col==='ESTADO DE VIAJE'){ input=makeSelect(['⚪ Programado','🟠 Cargando','🟡 Cargado','🟣 Transito','🟢 Finalizado','🔴 Cancelado'],current); }
-    else if(col==='TIPO DE VIAJE'){ input=makeSelect(['⏭️Recorrido','🔁Ida y Vuelta','🔀Compartido','📦 CompartidoM','⤴️ Otro'],current); }
+    else if(col==='TIPO DE VIAJE'){ input=makeSelect(['⏭️ Recorrido','🔁 Ida y Vuelta','🔀 Compartido','📦 CompartidoM','⤴️ Otro'],current); }
     else if(col==='TIPO V'){ input=makeSelect(['1 > 30 FBE','2 < 60 FBE','3 < 220 FBE','4 350 FBE'],current); }
     else if(col==='TARIFA'){ input=document.createElement('input');input.type='number';input.value=current.replace(/[$.,]/g,''); }
     else if(col==='HORA E'||col==='HORA C'||col==='HORA D'){
@@ -2521,7 +2388,8 @@ async function _doBgRefresh() {
 
     // Re-aplicar filtros
     S.viewData = applyStoredFilters(S.fullData);
-    S.viewData = applyVisibleSearches(S.viewData);
+    const q = (document.getElementById('tdc-search').value || '').trim().toLowerCase();
+    if (q) S.viewData = S.viewData.filter(r => Object.values(r).some(v => String(v).toLowerCase().includes(q)));
 
     // Re-aplicar orden
     if (S.sortCol) {

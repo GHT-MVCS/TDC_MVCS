@@ -825,21 +825,20 @@ const ALL_COLS = [
   "PRODUCTO","# PIEZAS","FBE","PESO","FECHA E","HORA E",
   "RECORRIDO","OPERACION","TIPO V","OTT","CONDUCTOR","VEHICULO",
   "ORDEN R","Zona Entrega","Contacto Entrega","HORA C","HORA D",
-  "TARIFA","TIPO DE VIAJE","ESTADO DE VIAJE","OBSERVACIONES","CENTRO DE C",
-  "FECHA MOD"
+  "TARIFA","TIPO DE VIAJE","ESTADO DE VIAJE","OBSERVACIONES","CENTRO DE C"
 ];
 const VIS_COLS = [
   "ID","FECHA S","SOLICITANTE","ORIGEN","DESTINO","FACTURAR A",
   "PRODUCTO","# PIEZAS","FBE","PESO","FECHA E","HORA E",
   "TIPO V","OTT","CONDUCTOR","VEHICULO","ORDEN R","HORA C","HORA D",
-  "TARIFA","TIPO DE VIAJE","ESTADO DE VIAJE","FECHA MOD"
+  "TARIFA","TIPO DE VIAJE","ESTADO DE VIAJE"
 ];
 const COL_ICONS = {
   "ID":"🆔","FECHA S":"📅","SOLICITANTE":"👤","ORIGEN":"📍","DESTINO":"📍",
   "FACTURAR A":"💰","PRODUCTO":"📦","# PIEZAS":"🔢","FBE":"💵","PESO":"⚖️",
   "FECHA E":"📅","HORA E":"⏰","TIPO V":"🚛","OTT":"🔖","CONDUCTOR":"👨",
   "VEHICULO":"🚚","ORDEN R":"📋","HORA C":"⏰","HORA D":"⏰","TARIFA":"💲",
-  "TIPO DE VIAJE":"🚅","ESTADO DE VIAJE":"✅","FECHA MOD":"🕘","EDITAR":"✏️"
+  "TIPO DE VIAJE":"🚅","ESTADO DE VIAJE":"✅","EDITAR":"✏️"
 };
 const COL_LABELS = {
   "ESTADO DE VIAJE": "ESTADO"
@@ -849,7 +848,7 @@ const COL_WIDTHS = {
   "FACTURAR A":110,"PRODUCTO":104,"# PIEZAS":82,"FBE":58,"PESO":70,
   "FECHA E":110,"HORA E":83,"TIPO V":80,"OTT":55,"CONDUCTOR":110,
   "VEHICULO":90,"ORDEN R":85,"HORA C":79,"HORA D":79,"TARIFA":76,
-  "TIPO DE VIAJE":113,"ESTADO DE VIAJE":110,"FECHA MOD":100
+  "TIPO DE VIAJE":113,"ESTADO DE VIAJE":110
 };
 const TDC_COL_MAP = {
   'ID':'entry.1748172575','FECHA S':'entry.489320488','SOLICITANTE':'entry.2000551577',
@@ -932,10 +931,10 @@ function extractTarifaNum(v){
 function formatViaje(v){
   const vl=String(v).toLowerCase().replace(/\s/g,'');
   if(vl.includes('compartidom')||vl.includes('compartido m')) return '📦 CompartidoM';
-  if(vl.includes('idayvuelta')||vl.includes('ida y vuelta')) return '🔁Ida y Vuelta';
-  if(vl.includes('recorrido')) return '⏭️Recorrido';
-  if(vl.includes('compartido')) return '🔀Compartido';
-  if(vl.includes('otro')) return '⤴️Otro';
+  if(vl.includes('idayvuelta')||vl.includes('ida y vuelta')) return '🔁 Ida y Vuelta';
+  if(vl.includes('recorrido')) return '⏭️ Recorrido';
+  if(vl.includes('compartido')) return '🔀 Compartido';
+  if(vl.includes('otro')) return '⤴️ Otro';
   return v;
 }
 
@@ -1658,17 +1657,6 @@ function renderTable(){
           // Si solo tiene fecha sin hora, la deja como está
         }
       }
-      else if (col === 'FECHA MOD') {
-        if (val && val.trim() !== '') {
-          const partes = val.trim().split(/\s+/);
-          if (partes.length >= 2) {
-            const fecha = partes[0];
-            const horaParts = partes[1].split(':');
-            const hora = `${horaParts[0] || '00'}:${horaParts[1] || '00'}`;
-            val = `${fecha} ${hora}`;
-          }
-        }
-      }
       else if (col === 'FBE' && !isNaN(parseFloat(val))) val = String(Math.round(parseFloat(val)));
       else if (col === 'TARIFA') val = formatTarifa(val);
       else if (col === 'TIPO V') { const n = parseInt(val); val = !isNaN(n) ? String(n) : val; }
@@ -1820,8 +1808,8 @@ function sortBy(col){
       return S.sortAsc ? numA - numB : numB - numA;
     }
     
-    // FECHA S y FECHA MOD - formato "24/04/2026 17:40:59"
-    if (col === 'FECHA S' || col === 'FECHA MOD') {
+    // FECHA S - formato "24/04/2026 17:40:59"
+    if (col === 'FECHA S') {
       function parseFechaS(fechaStr) {
         const parts = String(fechaStr).split(' ');
         if (parts.length < 1) return NaN;
@@ -2328,7 +2316,7 @@ function openCellEdit(rowIdx, col){
   }
   else if(col==='PRODUCTO'){ html=buildSelect('cell-val', S.productosList, current); }
   else if(col==='ESTADO DE VIAJE'){ html=buildSelect('cell-val',['⚪ Programado','🟠 Cargando','🟡 Cargado','🟣 Transito','🟢 Finalizado','🔴 Cancelado'],current); }
-  else if(col==='TIPO DE VIAJE'){ html=buildSelect('cell-val',['⏭️Recorrido','🔁Ida y Vuelta','🔀Compartido','📦CompartidoM','⤴️Otro'],current); }
+  else if(col==='TIPO DE VIAJE'){ html=buildSelect('cell-val',['⏭️ Recorrido','🔁 Ida y Vuelta','🔀 Compartido','📦 CompartidoM','⤴️ Otro'],current); }
   else if(col==='TIPO V'){ html=buildSelect('cell-val',['1 > 30 FBE','2 < 60 FBE','3 < 220 FBE','4 350 FBE'],current); }
   else if(col==='TARIFA'){ html=`<input id="cell-val" type="number" value="${current.replace(/[$.,]/g,'')}" style="width:100%">`; }
   else if(col==='HORA E'||col==='HORA C'||col==='HORA D'){ html=`<input id="cell-val" type="time" value="${current.substring(0,5)}" style="width:100%">`; }
@@ -2379,7 +2367,7 @@ function openFullEdit(viewIdx){
     else if(col==='PRODUCTO'){ input=makeSelect(S.productosList, current); }
     else if(col==='CONDUCTOR'||col==='VEHICULO'){ input=document.createElement('input');input.value=current; }
     else if(col==='ESTADO DE VIAJE'){ input=makeSelect(['⚪ Programado','🟠 Cargando','🟡 Cargado','🟣 Transito','🟢 Finalizado','🔴 Cancelado'],current); }
-    else if(col==='TIPO DE VIAJE'){ input=makeSelect(['⏭️Recorrido','🔁Ida y Vuelta','🔀Compartido','📦 CompartidoM','⤴️ Otro'],current); }
+    else if(col==='TIPO DE VIAJE'){ input=makeSelect(['⏭️ Recorrido','🔁 Ida y Vuelta','🔀 Compartido','📦 CompartidoM','⤴️ Otro'],current); }
     else if(col==='TIPO V'){ input=makeSelect(['1 > 30 FBE','2 < 60 FBE','3 < 220 FBE','4 350 FBE'],current); }
     else if(col==='TARIFA'){ input=document.createElement('input');input.type='number';input.value=current.replace(/[$.,]/g,''); }
     else if(col==='HORA E'||col==='HORA C'||col==='HORA D'){
