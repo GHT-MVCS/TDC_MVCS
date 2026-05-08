@@ -1008,6 +1008,42 @@ function formatLocalDisplayDate(isoDate){
   return `📆 ${day}/${month}/${year}`;
 }
 
+function normalizeExcelTime(value){
+  if (value === null || value === undefined || value === '') return '';
+
+  const toHHMM = (num) => {
+    if (isNaN(num)) return '';
+    const minutesInDay = 24 * 60;
+    const totalMinutes = Math.round((num % 1) * minutesInDay);
+    const safeMinutes = ((totalMinutes % minutesInDay) + minutesInDay) % minutesInDay;
+    const hh = String(Math.floor(safeMinutes / 60)).padStart(2, '0');
+    const mm = String(safeMinutes % 60).padStart(2, '0');
+    return `${hh}:${mm}`;
+  };
+
+  if (typeof value === 'number') {
+    return toHHMM(value);
+  }
+
+  const text = String(value).trim();
+  if (!text) return '';
+
+  const hourMatch = text.match(/^(\d{1,2}):(\d{2})(?::\d{2})?$/);
+  if (hourMatch) {
+    const hh = String(Math.min(23, parseInt(hourMatch[1], 10))).padStart(2, '0');
+    const mm = String(Math.min(59, parseInt(hourMatch[2], 10))).padStart(2, '0');
+    return `${hh}:${mm}`;
+  }
+
+  if (/^\d+(?:[.,]\d+)?$/.test(text)) {
+    const asNum = Number(text.replace(',', '.'));
+    const normalized = toHHMM(asNum);
+    if (normalized) return normalized;
+  }
+
+  return text;
+}
+
 async function openEai(username){
   showLoading('Abriendo formulario EAI...');
   try{ await loadNodosData(); }catch(e){ console.error("Error loading nodos:", e); }
@@ -1295,12 +1331,16 @@ async function loadExcel(input){
     const solicitante=document.getElementById('eai-solicitante').value||S.username;
     S.excelRows=rows.slice(1).filter(r=>r.some(c=>c!=='')).map(r=>{
       const row={solicitante};
-      expected.forEach(e=>{ row[e.col]=colIdx[e.col]!==undefined?String(r[colIdx[e.col]]||''):''; });
+      expected.forEach(e=>{
+        const rawVal = colIdx[e.col] !== undefined ? r[colIdx[e.col]] : '';
+        row[e.col] = rawVal === null || rawVal === undefined ? '' : String(rawVal).trim();
+      });
       if(row.fecha&&typeof row.fecha==='string'&&row.fecha.includes('/')){
       } else if(row.fecha&&!isNaN(Number(row.fecha))){
         const d=XLSX.SSF.parse_date_code(Number(row.fecha));
         row.fecha=`${String(d.d).padStart(2,'0')}/${String(d.m).padStart(2,'0')}/${d.y}`;
       }
+      row.hora = normalizeExcelTime(row.hora);
       return row;
     });
     const cols=['solicitante','origen','destino','piezas','largo','ancho','alto','peso','facturar','fecha','hora','producto','operacion','recorrido','obs','centro','zona','contacto'];
