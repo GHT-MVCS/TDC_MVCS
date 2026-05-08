@@ -1912,7 +1912,15 @@ function parseHoraToken(value){
 
   const normalized = text.replace(/[h\.]/g, ':');
 
-  let m = normalized.match(/^(\d{1,2})$/);
+  // Caso: "08:" → "08:00"
+  let m = normalized.match(/^(\d{1,2}):$/);
+  if (m) {
+    const hour = parseInt(m[1], 10);
+    if (hour >= 0 && hour <= 23) return { hour, minute: 0 };
+    return null;
+  }
+
+  m = normalized.match(/^(\d{1,2})$/);
   if (m) {
     const hour = parseInt(m[1], 10);
     if (hour >= 0 && hour <= 23) return { hour, minute: null };
