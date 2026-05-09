@@ -1301,10 +1301,10 @@ function openBalanceOttModal(){
 function formatViaje(v){
   const vl=String(v).toLowerCase().replace(/\s/g,'');
   if(vl.includes('compartidom')||vl.includes('compartido m')) return '📦 CompartidoM';
-  if(vl.includes('idayvuelta')||vl.includes('ida y vuelta')) return '🔁Ida y Vuelta';
-  if(vl.includes('recorrido')) return '⏭️Recorrido';
-  if(vl.includes('compartido')) return '🔀Compartido';
-  if(vl.includes('otro')) return '⤴️Otro';
+  if(vl.includes('idayvuelta')||vl.includes('ida y vuelta')) return '🔁 Ida y Vuelta';
+  if(vl.includes('recorrido')) return '⏭️ Recorrido';
+  if(vl.includes('compartido')) return '🔀 Compartido';
+  if(vl.includes('otro')) return '⤴️ Otro';
   return v;
 }
 
