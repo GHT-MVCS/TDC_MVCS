@@ -622,10 +622,7 @@ body.resizing * { cursor: col-resize !important; }
       </div>
       <div class="field-row">
         <div class="field-group"><label>Zona Entrega</label>
-          <div class="searchable-wrap">
-            <input id="eai-zona" placeholder="Escriba o seleccione..." autocomplete="off" onclick="toggleDropdown('dd-zona')" onfocus="filterDropdown('dd-zona',this.value,['Poscosecha','Almacen','Poscosecha y Almacen'])" oninput="filterDropdown('dd-zona',this.value,['Poscosecha','Almacen','Poscosecha y Almacen'])">
-            <div class="dropdown-list" id="dd-zona"></div>
-          </div>
+          <select id="eai-zona"><option>Poscosecha</option><option>Almacen</option><option>Poscosecha y Almacen</option></select>
         </div>
         <div class="field-group"><label>Contacto Entrega</label><input id="eai-contacto" placeholder="Contacto Entrega"></div>
       </div>
@@ -633,15 +630,15 @@ body.resizing * { cursor: col-resize !important; }
     <div class="eai-section">
       <div class="section-title">📦 DIMENSIONES Y PESO</div>
       <div class="field-row">
-        <div class="field-group"><label>📊 N° Piezas</label><input id="eai-piezas" type="number" min="1" step="any" placeholder="N° Piezas" oninput="sanitizeEaiNumericField(this)" onblur="validateEaiNumericField(this)"></div>
-        <div class="field-group"><label>📏 Largo (cm)</label><input id="eai-largo" type="number" min="1" step="any" placeholder="Largo" oninput="sanitizeEaiNumericField(this)" onblur="validateEaiNumericField(this)"></div>
+        <div class="field-group"><label>📊 N° Piezas</label><input id="eai-piezas" type="number" min="0" placeholder="N° Piezas"></div>
+        <div class="field-group"><label>📏 Largo (cm)</label><input id="eai-largo" type="number" min="0" placeholder="Largo"></div>
       </div>
       <div class="field-row">
-        <div class="field-group"><label>📏 Ancho (cm)</label><input id="eai-ancho" type="number" min="1" step="any" placeholder="Ancho" oninput="sanitizeEaiNumericField(this)" onblur="validateEaiNumericField(this)"></div>
-        <div class="field-group"><label>📏 Alto (cm)</label><input id="eai-alto" type="number" min="1" step="any" placeholder="Alto" oninput="sanitizeEaiNumericField(this)" onblur="validateEaiNumericField(this)"></div>
+        <div class="field-group"><label>📏 Ancho (cm)</label><input id="eai-ancho" type="number" min="0" placeholder="Ancho"></div>
+        <div class="field-group"><label>📏 Alto (cm)</label><input id="eai-alto" type="number" min="0" placeholder="Alto"></div>
       </div>
       <div class="field-row">
-        <div class="field-group"><label>⚖️ Peso (KG)</label><input id="eai-peso" type="number" min="1" step="any" placeholder="Peso KG" oninput="sanitizeEaiNumericField(this)" onblur="validateEaiNumericField(this)"></div>
+        <div class="field-group"><label>⚖️ Peso (KG)</label><input id="eai-peso" type="number" min="0" placeholder="Peso KG"></div>
         <div class="field-group"><label>📦 Producto</label>
           <div class="searchable-wrap">
             <input id="eai-producto" placeholder="Seleccione o escriba..." autocomplete="off" onfocus="toggleDropdown('dd-producto')" onclick="toggleDropdown('dd-producto')" oninput="filterDropdown('dd-producto',this.value,S.productosList)" onblur="validateEaiProducto()">
@@ -883,8 +880,6 @@ const S = {
   username: '',
   usersEai: {},
   usersTdc: {},
-  loginUsersLoaded: false,
-  loginUsersLoading: null,
   nodosList: [],
   facturarList: [],
   productosList: [...PRODUCTS_LIST],
@@ -970,66 +965,18 @@ function sheetUrl(gid){
   return corsProxy + encodeURIComponent(base);
 }
 
-async function fetchWithRetry(url, { retries = 4, timeoutMs = 12000, baseDelayMs = 600 } = {}) {
-  let lastError = null;
+async function fetchCSV(gid, retries = 3) {
   for (let i = 0; i < retries; i++) {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), timeoutMs);
     try {
-      const response = await fetch(url, { signal: controller.signal });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      return response;
+      const url = sheetUrl(gid);
+      const r = await fetch(url);
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const text = await r.text();
+      return parseCSV(text);
     } catch (error) {
-      lastError = error;
-      if (i === retries - 1) break;
-      const delay = baseDelayMs * Math.pow(2, i);
-      await new Promise(resolve => setTimeout(resolve, delay));
-    } finally {
-      clearTimeout(timer);
+      if (i === retries - 1) throw error;
+      await new Promise(resolve => setTimeout(resolve, 1000));
     }
-  }
-  throw lastError || new Error('Error de red');
-}
-
-async function fetchCSV(gid, retries = 4, timeoutMs = 12000) {
-  const url = sheetUrl(gid);
-  const response = await fetchWithRetry(url, { retries, timeoutMs });
-  const text = await response.text();
-  return parseCSV(text);
-}
-
-async function loadLoginUsers(force = false) {
-  if (S.loginUsersLoaded && !force) return;
-  if (S.loginUsersLoading) return S.loginUsersLoading;
-
-  S.loginUsersLoading = (async () => {
-    const rows = await fetchCSV(GID_NODOS, 5, 15000);
-    const usersEai = {};
-    const usersTdc = {};
-
-    rows.forEach(r => {
-      if (r.length > 11) {
-        const u = (r[10] || '').trim().toUpperCase();
-        const p = (r[11] || '').trim();
-        if (u && p && u !== 'NAN' && u !== 'USUARIO' && u !== 'USER-SOLICITANTE') usersEai[u] = p;
-      }
-      if (r.length > 13) {
-        const u = (r[12] || '').trim().toUpperCase();
-        const p = (r[13] || '').trim();
-        if (u && p && u !== 'NAN' && u !== 'USUARIO') usersTdc[u] = p;
-      }
-    });
-
-    S.usersEai = usersEai;
-    S.usersTdc = usersTdc;
-    S.loginUsersLoaded = true;
-    return rows;
-  })();
-
-  try {
-    return await S.loginUsersLoading;
-  } finally {
-    S.loginUsersLoading = null;
   }
 }
 
@@ -1393,7 +1340,6 @@ function goLogin(profile){
   document.getElementById('login-user').value = '';
   document.getElementById('login-pass').value = '';
   goView('login');
-  void loadLoginUsers().catch(() => {});
 }
 
 async function doLogin(){
@@ -1402,7 +1348,20 @@ async function doLogin(){
   if (!user || !pass) { alert('Ingrese usuario y contraseña'); return; }
   showLoading('Verificando credenciales...');
   try {
-    await loadLoginUsers();
+    const rows = await fetchCSV(GID_NODOS);
+    S.usersEai = {}; S.usersTdc = {};
+    rows.forEach(r => {
+      if (r.length > 11) {
+        const u = (r[10] || '').trim().toUpperCase();
+        const p = (r[11] || '').trim();
+        if (u && p && u !== 'NAN' && u !== 'USUARIO' && u !== 'USER-SOLICITANTE') S.usersEai[u] = p;
+      }
+      if (r.length > 13) {
+        const u = (r[12] || '').trim().toUpperCase();
+        const p = (r[13] || '').trim();
+        if (u && p && u !== 'NAN' && u !== 'USUARIO') S.usersTdc[u] = p;
+      }
+    });
     hideLoading();
     if (S.profile === 'EAI') {
       if (S.usersEai[user] && S.usersEai[user] === pass) { S.username = user; await openEai(user); }
@@ -1473,7 +1432,6 @@ async function openEai(username){
   populateDropdown('dd-facturar', S.facturarList);
   populateDropdown('dd-origen',   S.nodosList);
   populateDropdown('dd-destino',  S.nodosList);
-  populateDropdown('dd-zona', ['Poscosecha','Almacen','Poscosecha y Almacen']);
   populateDropdown('dd-producto', S.productosList);
   const fechaPicker = document.getElementById('eai-fecha-picker');
   const fechaBtn = document.getElementById('eai-fecha-btn');
@@ -1483,8 +1441,6 @@ async function openEai(username){
   fechaPicker.max = '2099-12-31';
   fechaPicker.value = today;
   if (fechaBtn) fechaBtn.textContent = formatLocalDisplayDate(today);
-  const eaiZonaFieldOpen = document.getElementById('eai-zona');
-  if (eaiZonaFieldOpen && !eaiZonaFieldOpen.value) eaiZonaFieldOpen.value = '';
   
   if (!fechaPicker.dataset.eaiFechaEvents) {
     const handleFechaChange = () => {
@@ -1564,8 +1520,7 @@ async function openEai(username){
   ['eai-facturar','eai-origen','eai-destino','eai-contacto','eai-piezas','eai-largo',
    'eai-ancho','eai-alto','eai-peso','eai-producto','eai-hora','eai-centro','eai-obs']
     .forEach(id=>{ const el = document.getElementById(id); if(el) el.value = ''; });
-  const eaiZonaFieldReset = document.getElementById('eai-zona');
-  if (eaiZonaFieldReset) eaiZonaFieldReset.value = '';
+  document.getElementById('eai-zona').selectedIndex = 0;
   document.getElementById('eai-operacion').selectedIndex = 0;
   document.getElementById('eai-recorrido').selectedIndex = 0;
   hideLoading();
@@ -1647,44 +1602,7 @@ function filterDropdown(ddId, query, list){
 }
 function toggleDropdown(ddId){
   const dd=document.getElementById(ddId);
-  if(dd) dd.classList.add('open');
-}
-function sanitizeEaiNumericField(input){
-  if(!input) return;
-  const value = input.value.trim();
-  if(!value) return;
-  if(/^0+(?:[.,]0+)?$/.test(value)) input.value = '';
-}
-function validateEaiNumericField(input){
-  if(!input) return false;
-  const value = input.value.trim();
-  if(!value){
-    input.setCustomValidity('');
-    return false;
-  }
-  const num = Number(value.replace(',', '.'));
-  const valid = Number.isFinite(num) && num >= 1;
-  input.setCustomValidity(valid ? '' : 'Debe ser igual o mayor a 1');
-  if(!valid) input.reportValidity();
-  return valid;
-}
-function validateEaiNumericFields(fieldIds){
-  const labels = {
-    'eai-piezas':'N° Piezas',
-    'eai-largo':'Largo',
-    'eai-ancho':'Ancho',
-    'eai-alto':'Alto',
-    'eai-peso':'Peso KG',
-  };
-  for(const id of fieldIds){
-    const input = document.getElementById(id);
-    if(!validateEaiNumericField(input)){
-      alert(`El campo '${labels[id] || id}' debe ser mayor a 1.`);
-      if(input) input.focus();
-      return false;
-    }
-  }
-  return true;
+  if(dd) dd.classList.toggle('open');
 }
 function selectDropdown(ddId, el){
   const dd=document.getElementById(ddId);
@@ -1721,7 +1639,6 @@ function submitEai(){
     alert('Seleccione un producto válido de la lista.');
     return;
   }
-  if(!validateEaiNumericFields(['eai-piezas','eai-largo','eai-ancho','eai-alto','eai-peso'])) return;
   const fechaHoy = getLocalIsoDate();
   const fechaSeleccionada = g('eai-fecha-picker');
   if (!fechaSeleccionada || fechaSeleccionada < fechaHoy) {
@@ -1755,7 +1672,7 @@ function submitEai(){
 }
 
 function resetEaiForm(){
-  ['eai-facturar','eai-origen','eai-destino','eai-zona','eai-contacto','eai-piezas','eai-largo',
+  ['eai-facturar','eai-origen','eai-destino','eai-contacto','eai-piezas','eai-largo',
    'eai-ancho','eai-alto','eai-peso','eai-producto','eai-hora','eai-centro','eai-obs']
     .forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
 }
@@ -1825,11 +1742,6 @@ async function submitExcel(){
     const r=S.excelRows[i];
     const required=['origen','destino','piezas','largo','ancho','alto','peso','facturar','fecha','hora','producto','operacion','recorrido','centro','zona','contacto'];
     for(const k of required){ if(!r[k]||!String(r[k]).trim()){ alert(`Campo '${k}' vacío en fila ${i+1}`); return; } }
-    const numericFields=['piezas','largo','ancho','alto','peso'];
-    for(const k of numericFields){
-      const num = Number(String(r[k]).replace(',', '.'));
-      if(!Number.isFinite(num) || num < 1){ alert(`Campo '${k}' debe ser igual o mayor a 1 en fila ${i+1}`); return; }
-    }
   }
   closeModal('modal-excel');
   showLoading(`Enviando ${S.excelRows.length} registros...`);
@@ -3163,7 +3075,7 @@ async function loadSecureConfig() {
         showLoading('Cargando configuración...');
         console.log('🔄 Cargando configuración...');
         
-    const response = await fetchWithRetry(PROXY_URL + '?t=' + Date.now(), { retries: 4, timeoutMs: 15000 });
+        const response = await fetch(PROXY_URL + '?t=' + Date.now());
         
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         
