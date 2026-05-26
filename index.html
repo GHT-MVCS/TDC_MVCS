@@ -1625,7 +1625,7 @@ body.resizing *{cursor:col-resize !important;}
       <span class="metric gold">🛒 Costo: <strong id="m-costo">$0</strong></span>
       <span class="metric">💰 FBE: <strong id="m-fbe">0</strong></span>
       <span class="metric" title="Pendiente Conductor, Vehículo y Tarifa">Pend: <strong id="m-pend-asig"> C: 0% | V: 0% | T: 0%</strong></span>
-      <span class="metric" title="Pendiente por finalizar">📢 E: <strong id="m-estado">0%</strong></span>
+      <span class="metric" title="Pendiente por finalizar">Pend Fin.: <strong id="m-estado">✅ 0%</strong></span>
       <span class="metric metric-action" id="m-balance-ott" role="button" tabindex="0"
         onclick="openBalanceOttModal()"
         onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openBalanceOttModal();}">
@@ -2869,26 +2869,19 @@ async function loadProductosData(){
 async function loadBloquesData(){
   if(Object.keys(S.bloquesDict).length>0) return;
   const rows=await fetchCSV(GID_BLOQUES);
+  const bloquesDict = {};
   rows.forEach(r=>{
     const cells = r.map(v => String(v || '').trim());
-    if (!cells.length) return;
-    const joined = cells.join(' ').toLowerCase();
-    if (joined.includes('bloque') && joined.includes('prefijo')) return;
-    const candidates = [
-      [cells[1], cells[2]],
-      [cells[0], cells[1]],
-      [cells[0], cells[2]],
-    ];
-    for (const [rawBloque, rawPrefijo] of candidates) {
-      const bl = String(rawBloque || '').trim();
-      const pr = String(rawPrefijo || '').trim();
-      if (!bl || !pr) continue;
-      if (/^bloque$/i.test(bl) || /^pref/i.test(pr)) continue;
-      if (!S.bloquesDict[bl]) S.bloquesDict[bl] = [];
-      if (!S.bloquesDict[bl].includes(pr)) S.bloquesDict[bl].push(pr);
-      break;
-    }
+    if (cells.length < 3) return;
+    const bloque = cells[1];
+    const prefijo = cells[2];
+    if (!bloque || !prefijo) return;
+    if (/^(analista|eai|bloque|prefijo|#)$/i.test(bloque)) return;
+    if (/^(analista|eai|bloque|prefijo)$/i.test(prefijo)) return;
+    if (!bloquesDict[bloque]) bloquesDict[bloque] = [];
+    if (!bloquesDict[bloque].includes(prefijo)) bloquesDict[bloque].push(prefijo);
   });
+  S.bloquesDict = bloquesDict;
 }
 
 async function loadOttData(){
@@ -3785,7 +3778,8 @@ function updateMetrics(data){
   document.getElementById('m-pend-asig').textContent =
     `🧑‍✈️C: ${pct(pendConductor)}% |🚚V: ${pct(pendVehiculo)}% |💵T: ${pct(pendTarifa)}%`;
   if (estadoLabel) {
-    estadoLabel.textContent = `${pct(pendientesEstado)}%`;
+    const pendientePct = pct(pendientesEstado);
+    estadoLabel.textContent = `${pendientePct === 0 ? '✅' : '❗'} ${pendientePct}%`;
   }
   S.balanceOttRows = activeRows;
   // El chip siempre muestra el mes en curso para referencia rápida
