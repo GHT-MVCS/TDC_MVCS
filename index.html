@@ -1132,7 +1132,26 @@ td.edit-btn-cell{text-align:center;vertical-align:middle;white-space:nowrap;}
   background:linear-gradient(135deg,#0f172a 0%, #1d4ed8 100%);
   border-bottom:1px solid rgba(255,255,255,.08);
 }
-#modal-informe-ope .modal-header h3{color:#fff;}
+#modal-informe-ope .modal-header h3{
+  color:#fff;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+#modal-informe-ope .informe-ope-header-meta{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:5px 10px;
+  border-radius:999px;
+  background:rgba(255,255,255,.92);
+  color:#0f172a;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.2px;
+  white-space:nowrap;
+}
 #modal-informe-ope .balance-chip span,
 #modal-informe-ope .balance-chip strong,
 #modal-informe-ope .balance-filter-wrap label,
@@ -1140,6 +1159,135 @@ td.edit-btn-cell{text-align:center;vertical-align:middle;white-space:nowrap;}
 #modal-informe-ope .balance-chart-head p,
 #modal-informe-ope .balance-empty{
   color:#000;
+}
+#modal-informe-ope .informe-ope-comparison-table-wrap{
+  width:100%;
+  overflow-x:auto;
+}
+#modal-informe-ope .informe-ope-comparison-table{
+  width:max-content;
+  min-width:100%;
+  border-collapse:separate;
+  border-spacing:0 6px;
+}
+#modal-informe-ope .informe-ope-comparison-table thead th{
+  position:sticky;
+  top:0;
+  background:#eaf0ff;
+  color:#0f172a;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.6px;
+  text-transform:uppercase;
+  padding:6px 8px;
+  border-bottom:1px solid rgba(148,163,184,.24);
+  white-space:nowrap;
+  text-align:center;
+}
+#modal-informe-ope .informe-ope-comparison-table tbody td{
+  background:linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  border-top:1px solid rgba(148,163,184,.18);
+  border-bottom:1px solid rgba(148,163,184,.18);
+  padding:6px 8px;
+  font-size:12px;
+  color:#0f172a;
+  white-space:nowrap;
+  text-align:center;
+}
+#modal-informe-ope .informe-ope-comparison-table tbody td:first-child{
+  font-weight:900;
+  text-align:left;
+  border-left:1px solid rgba(148,163,184,.18);
+  border-radius:10px 0 0 10px;
+}
+#modal-informe-ope .informe-ope-comparison-table tbody td:last-child{
+  border-right:1px solid rgba(148,163,184,.18);
+  border-radius:0 10px 10px 0;
+}
+#modal-informe-ope .station-cell{
+  min-width:72px;
+}
+#modal-informe-ope .trip-cell{
+  min-width:260px;
+}
+#modal-informe-ope .trip-breakdown-mini{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:4px 8px;
+}
+#modal-informe-ope .trip-breakdown-mini div{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  font-size:10px;
+  color:#334155;
+  line-height:1.1;
+}
+#modal-informe-ope .trip-breakdown-mini strong{
+  font-size:10px;
+  font-weight:800;
+  color:#0f172a;
+  text-align:right;
+}
+#modal-informe-ope .informe-ope-route-block{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  width:100%;
+}
+#modal-informe-ope .informe-ope-route-title{
+  display:inline-flex;
+  align-self:flex-start;
+  align-items:center;
+  padding:6px 12px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#0f172a 0%, #1d4ed8 100%);
+  color:#fff;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.8px;
+}
+#modal-informe-ope .informe-ope-route-summary{
+  width:100%;
+}
+#modal-informe-ope .balance-chip-compact{
+  min-width:112px;
+  padding:8px 10px;
+}
+#modal-informe-ope .balance-chip-compact strong{
+  font-size:14px;
+}
+#modal-informe-ope .balance-chip-trip{
+  min-width:320px;
+  padding:8px 10px 10px;
+}
+#modal-informe-ope .balance-chip-trip span{
+  margin-bottom:6px;
+}
+#modal-informe-ope .trip-breakdown{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:8px 10px;
+}
+#modal-informe-ope .trip-breakdown-item{
+  background:rgba(15,23,42,.04);
+  border:1px solid rgba(148,163,184,.22);
+  border-radius:12px;
+  padding:8px 9px;
+}
+#modal-informe-ope .trip-breakdown-item span{
+  display:block;
+  font-size:10px;
+  font-weight:700;
+  line-height:1.2;
+  letter-spacing:.2px;
+  margin:0 0 4px;
+}
+#modal-informe-ope .trip-breakdown-item strong{
+  display:block;
+  font-size:12px;
+  font-weight:800;
+  margin:0;
 }
 #modal-informe-ope .balance-summary-row{
   flex-direction:column;
@@ -1783,7 +1931,7 @@ body.resizing *{cursor:col-resize !important;}
 
 <div class="modal-bg" id="modal-informe-ope">
   <div class="modal">
-    <div class="modal-header"><h3>📍 Informe Ope</h3><button class="modal-close" onclick="closeModal('modal-informe-ope')">×</button></div>
+    <div class="modal-header"><h3>📍 Informe Operación MVCS <span id="informe-ope-header-meta" class="informe-ope-header-meta"></span></h3><button class="modal-close" onclick="closeModal('modal-informe-ope')">×</button></div>
     <div class="modal-body">
       <div class="balance-wrap">
         <div class="balance-summary-row">
@@ -1792,7 +1940,7 @@ body.resizing *{cursor:col-resize !important;}
             <div class="balance-filter-wrap">
               <label for="informe-ope-periodo-filter">📅 Período</label>
               <select id="informe-ope-periodo-filter" onchange="applyInformeOpeFilter()">
-                <option value="dia-1">📅 Día -1 (ayer)</option>
+                <option value="dia-1">📅 Día 0 (hoy)</option>
                 <option value="mes">📅 Mes en curso</option>
                 <option value="semana">📅 Última semana</option>
                 <option value="año">📅 Año en curso</option>
@@ -3207,9 +3355,7 @@ function getInformeOpePeriodRange(){
     return y + m + day;
   };
   if (periodo === 'dia-1') {
-    const ayer = new Date(hoy);
-    ayer.setDate(ayer.getDate() - 1);
-    const key = toYYYYMMDD(ayer);
+    const key = toYYYYMMDD(hoy);
     return { start: key, end: key };
   }
   if (periodo === 'semana') {
@@ -3330,6 +3476,21 @@ function selectInformeOpeRecorrido(value){
   applyInformeOpeFilter();
 }
 
+function updateInformeOpeHeaderMeta(){
+  const meta = document.getElementById('informe-ope-header-meta');
+  if (!meta) return;
+  const periodoLabels = {
+    'dia-1': 'Día 0',
+    'mes': 'Mes en curso',
+    'semana': 'Semana en curso',
+    'año': 'Año en curso',
+    'todos': 'Todos',
+  };
+  const periodoText = periodoLabels[S.informeOpePeriodo || 'semana'] || String(S.informeOpePeriodo || 'semana');
+  const estacionText = S.informeOpeRecorrido ? S.informeOpeRecorrido : 'Todas';
+  meta.textContent = `Período: ${periodoText} · Estación: ${estacionText}`;
+}
+
 function applyInformeOpeFilter(){
   const selectPeriodo = document.getElementById('informe-ope-periodo-filter');
   const selectRecorrido = document.getElementById('informe-ope-recorrido-filter');
@@ -3340,12 +3501,28 @@ function applyInformeOpeFilter(){
   renderInformeOpeBoard(buildInformeOpeData(scopeRows, baseRows));
 }
 
+function normalizeTripType(value){
+  const text = String(value || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  if (text.includes('compartidom') || text.includes('compartido m')) return 'compartidom';
+  if (text.includes('compartido')) return 'compartido';
+  if (text.includes('ida y vuelta') || text.includes('idayvuelta')) return 'idayvuelta';
+  if (text.includes('punto a punto') || text.includes('puntopunto')) return 'puntopunto';
+  if (text.includes('recorrido')) return 'recorrido';
+  if (text.includes('otro')) return 'otro';
+  return '';
+}
+
+function getRecorridoPrefix(value){
+  return String(value || '').trim().toUpperCase().replace(/\s+/g, '').slice(0, 3);
+}
+
 function buildInformeOpeData(data, baseRows){
   const scopeRows = (data && data.length) ? data : (baseRows && baseRows.length) ? baseRows : [];
   const base = (baseRows && baseRows.length) ? baseRows : scopeRows;
-  if (!scopeRows.length || !base.length) return { totalServices: 0, totalVehicles: 0, totalOtt: 0, totalKm: 0, totalCost: 0, totalOperationMinutes: 0, diaMinus1: 0, dia0: 0, chartData: buildInformeOpeChartData([]) };
+  if (!scopeRows.length || !base.length) return { totalServices: 0, totalVehicles: 0, totalOtt: 0, totalKm: 0, totalCost: 0, totalOperationMinutes: 0, diaMinus1: 0, dia0: 0, tripTypes: { compartido: 0, otro: 0, idayvuelta: 0, puntopunto: 0 }, chartData: buildInformeOpeChartData([]) };
   const ottSet = new Set();
   const vehSet = new Set();
+  const tripTypes = { compartido: 0, recorrido: 0, idayvuelta: 0, puntopunto: 0 };
   let totalKm = 0;
   let totalCost = 0;
   let totalOperationMinutes = 0;
@@ -3356,6 +3533,11 @@ function buildInformeOpeData(data, baseRows){
     const veh = String(row['VEHICULO'] || '').trim();
     if (ott && ott.toLowerCase() !== 'nan') ottSet.add(ott);
     if (veh && veh.toLowerCase() !== 'nan') vehSet.add(veh);
+    const tripKey = normalizeTripType(row['TIPO DE VIAJE']);
+    if (tripKey === 'compartido' || tripKey === 'compartidom' || tripKey === 'otro') tripTypes.compartido += 1;
+    else if (tripKey === 'recorrido') tripTypes.recorrido += 1;
+    else if (tripKey === 'idayvuelta') tripTypes.idayvuelta += 1;
+    else if (tripKey === 'puntopunto') tripTypes.puntopunto += 1;
     totalKm += extractKmNum(row['KM']);
     totalCost += extractTarifaNum(row['TARIFA']);
     totalOperationMinutes += extractOperationMinutes(row);
@@ -3363,6 +3545,9 @@ function buildInformeOpeData(data, baseRows){
     if (dia === -1) diaMinus1 += 1;
     if (dia === 0) dia0 += 1;
   });
+  const chartRows = (S.informeOpePeriodo || 'dia-1') === 'dia-1'
+    ? getInformeOpeReferenceRows(S.informeOpeRows || [])
+    : scopeRows;
   return {
     totalServices: scopeRows.length,
     totalVehicles: vehSet.size,
@@ -3372,7 +3557,9 @@ function buildInformeOpeData(data, baseRows){
     totalOperationMinutes,
     diaMinus1,
     dia0,
-    chartData: buildInformeOpeChartData(scopeRows),
+    tripTypes,
+    rows: scopeRows,
+    chartData: buildInformeOpeChartData(chartRows),
   };
 }
 
@@ -3393,6 +3580,56 @@ function formatCostPerKm(totalCost, totalKm){
   if (!km) return '$0/km';
   const value = Number(totalCost || 0) / km;
   return `$${value.toLocaleString('es-CO', { maximumFractionDigits: 0 })}/km`;
+}
+
+function buildTripBreakdownMini(payload){
+  const totalServices = payload?.totalServices || 0;
+  const tripTypes = payload?.tripTypes || { compartido: 0, recorrido: 0, idayvuelta: 0, puntopunto: 0 };
+  const pctTrip = count => totalServices > 0 ? (count * 100) / totalServices : 0;
+  return `
+    <div class="trip-breakdown-mini">
+      <div>🔀 Compartido <strong>${formatCountValue(tripTypes.compartido)} · ${formatPctValue(pctTrip(tripTypes.compartido))}</strong></div>
+      <div>⏭️ Recorrido <strong>${formatCountValue(tripTypes.recorrido)} · ${formatPctValue(pctTrip(tripTypes.recorrido))}</strong></div>
+      <div>🔁 Ida y Vuelta <strong>${formatCountValue(tripTypes.idayvuelta)} · ${formatPctValue(pctTrip(tripTypes.idayvuelta))}</strong></div>
+      <div>📍 Punto a Punto <strong>${formatCountValue(tripTypes.puntopunto)} · ${formatPctValue(pctTrip(tripTypes.puntopunto))}</strong></div>
+    </div>`;
+}
+
+function buildInformeOpeComparisonSummary(bogPayload, mdePayload){
+  const rows = [
+    ['BOG', bogPayload],
+    ['MDE', mdePayload],
+  ];
+  const headerCells = ['ESTACIÓN', 'SERVICIOS', 'VEHÍCULOS', 'OTT', 'KM', 'COSTO', 'COSTO/KM', 'TIEMPO', 'SOLICITUD -1', 'SOLICITUD 0', 'TIPO DE VIAJE'];
+  return `
+    <div class="informe-ope-comparison-table-wrap">
+      <table class="informe-ope-comparison-table">
+        <thead>
+          <tr>${headerCells.map(h => `<th>${h}</th>`).join('')}</tr>
+        </thead>
+        <tbody>
+          ${rows.map(([station, payload]) => {
+            const totalServices = payload?.totalServices || 0;
+            const pctDiaMinus1 = totalServices > 0 ? ((payload?.diaMinus1 || 0) * 100) / totalServices : 0;
+            const pctDia0 = totalServices > 0 ? ((payload?.dia0 || 0) * 100) / totalServices : 0;
+            return `
+              <tr>
+                <td class="station-cell">${station}</td>
+                <td>${formatCountValue(payload?.totalServices || 0)}</td>
+                <td>${formatCountValue(payload?.totalVehicles || 0)}</td>
+                <td>${formatCountValue(payload?.totalOtt || 0)}</td>
+                <td>${formatKmValue(payload?.totalKm || 0)}</td>
+                <td>${formatMoney(payload?.totalCost || 0)}</td>
+                <td>${formatCostPerKm(payload?.totalCost || 0, payload?.totalKm || 0)}</td>
+                <td>${formatDurationMinutes(payload?.totalOperationMinutes || 0)}</td>
+                <td>${formatCountValue(payload?.diaMinus1 || 0)} · ${formatPctValue(pctDiaMinus1)}</td>
+                <td>${formatCountValue(payload?.dia0 || 0)} · ${formatPctValue(pctDia0)}</td>
+                <td class="trip-cell">${buildTripBreakdownMini(payload)}</td>
+              </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>`;
 }
 
 function formatDurationMinutes(totalMinutes){
@@ -3432,10 +3669,8 @@ function getInformeOpeDayLabel(dateKey){
 function getInformeOpeMonthlyReferenceRange(){
   const end = new Date();
   const start = new Date(end);
-  const previousMonthLastDay = new Date(end.getFullYear(), end.getMonth(), 0).getDate();
-  start.setDate(1);
-  start.setMonth(start.getMonth() - 1);
-  start.setDate(Math.min(end.getDate(), previousMonthLastDay));
+  const day = start.getDay() || 7;
+  start.setDate(start.getDate() - (day - 1));
   const toYYYYMMDD = (d) => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
   return { start: parseInt(toYYYYMMDD(start), 10), end: parseInt(toYYYYMMDD(end), 10) };
 }
@@ -3481,13 +3716,22 @@ function buildInformeOpeChartData(rows){
   const totalServices = days.reduce((sum, day) => sum + day.services, 0);
   const referenceRows = getInformeOpeReferenceRows(S.informeOpeRows || []);
   const referenceDays = [...new Set(referenceRows.map(row => getInformeOpeDateKey(row)).filter(key => key))];
-  const referenceTotalCost = referenceRows.reduce((sum, row) => sum + extractTarifaNum(row['TARIFA']), 0);
-  const referenceTotalKm = referenceRows.reduce((sum, row) => sum + extractKmNum(row['KM']), 0);
-  const referenceTotalServices = referenceRows.length;
-  const costAvg = referenceTotalKm > 0 ? referenceTotalCost / referenceTotalKm : 0;
-  const servicesAvg = referenceDays.length > 0 ? referenceTotalServices / referenceDays.length : 0;
-  const kmAvg = referenceDays.length > 0 ? referenceTotalKm / referenceDays.length : 0;
-  return { days, totalCost, totalKm, totalServices, costAvg, servicesAvg, kmAvg };
+  const referenceDayMetrics = referenceDays.map(key => {
+    const rowsForDay = referenceRows.filter(row => getInformeOpeDateKey(row) === key);
+    const totalCostForDay = rowsForDay.reduce((sum, row) => sum + extractTarifaNum(row['TARIFA']), 0);
+    const totalKmForDay = rowsForDay.reduce((sum, row) => sum + extractKmNum(row['KM']), 0);
+    return {
+      costPerKm: totalKmForDay > 0 ? totalCostForDay / totalKmForDay : 0,
+      services: rowsForDay.length,
+    };
+  });
+  const costAvg = referenceDayMetrics.length > 0
+    ? referenceDayMetrics.reduce((sum, day) => sum + day.costPerKm, 0) / referenceDayMetrics.length
+    : 0;
+  const servicesAvg = referenceDayMetrics.length > 0
+    ? referenceDayMetrics.reduce((sum, day) => sum + day.services, 0) / referenceDayMetrics.length
+    : 0;
+  return { days, totalCost, totalKm, totalServices, costAvg, servicesAvg };
 }
 
 function renderInformeOpeChart(chartData){
@@ -3543,8 +3787,8 @@ function renderInformeOpeChart(chartData){
   return `
     <div class="informe-ope-chart-wrap">
       <div class="informe-ope-chart-legend">
-        <span class="informe-ope-chart-legend-item"><span class="informe-ope-chart-dot" style="background:#2563eb"></span>Costo/KM prom. último mes ${formatMoney(chartData.costAvg)}</span>
-        <span class="informe-ope-chart-legend-item"><span class="informe-ope-chart-dot" style="background:#16a34a"></span>Servicios prom. último mes ${formatCountValue(chartData.servicesAvg)}</span>
+        <span class="informe-ope-chart-legend-item"><span class="informe-ope-chart-dot" style="background:#2563eb"></span>Costo/KM prom. diario semana en curso ${formatMoney(chartData.costAvg)}</span>
+        <span class="informe-ope-chart-legend-item"><span class="informe-ope-chart-dot" style="background:#16a34a"></span>Servicios prom. diario semana en curso ${formatCountValue(chartData.servicesAvg)}</span>
       </div>
       <div class="informe-ope-chart-shell">
         <svg class="informe-ope-chart-svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" role="img" aria-label="Gráfico operativo del período filtrado">
@@ -3568,31 +3812,22 @@ function renderInformeOpeBoard(payload){
   const summary = document.getElementById('informe-ope-summary');
   const note = document.getElementById('informe-ope-note');
   if (!summary || !note) return;
-  const totalServices = payload?.totalServices || 0;
-  const totalVehicles = payload?.totalVehicles || 0;
-  const totalOtt = payload?.totalOtt || 0;
-  const totalKm = payload?.totalKm || 0;
-  const totalCost = payload?.totalCost || 0;
-  const totalOperationMinutes = payload?.totalOperationMinutes || 0;
-  const diaMinus1 = payload?.diaMinus1 || 0;
-  const dia0 = payload?.dia0 || 0;
-  const pctDiaMinus1 = totalServices > 0 ? (diaMinus1 * 100) / totalServices : 0;
-  const pctDia0 = totalServices > 0 ? (dia0 * 100) / totalServices : 0;
-  summary.innerHTML = [
-    `<div class="balance-chip"><span>Servicios</span><strong>${formatCountValue(totalServices)}</strong></div>`,
-    `<div class="balance-chip"><span>Vehículos</span><strong>${formatCountValue(totalVehicles)}</strong></div>`,
-    `<div class="balance-chip"><span>OTT</span><strong>${formatCountValue(totalOtt)}</strong></div>`,
-    `<div class="balance-chip"><span>KM </span><strong>${formatKmValue(totalKm)}</strong></div>`,
-    `<div class="balance-chip"><span>Costo</span><strong>${formatMoney(totalCost)}</strong></div>`,
-    `<div class="balance-chip"><span>Costo/KM</span><strong>${formatCostPerKm(totalCost, totalKm)}</strong></div>`,
-    `<div class="balance-chip"><span>Tiempo operación HH:MM</span><strong>${formatDurationMinutes(totalOperationMinutes)}</strong></div>`,
-    `<div class="balance-chip"><span>Solicitud -1</span><strong>${formatCountValue(diaMinus1)} · ${formatPctValue(pctDiaMinus1)}</strong></div>`,
-    `<div class="balance-chip"><span>Solicitud 0</span><strong>${formatCountValue(dia0)} · ${formatPctValue(pctDia0)}</strong></div>`,
-  ].join('');
+  updateInformeOpeHeaderMeta();
+  const rows = payload?.rows || [];
+  const grouped = rows.reduce((acc, row) => {
+    const prefix = getRecorridoPrefix(row['RECORRIDO']);
+    if (!prefix) return acc;
+    if (!acc[prefix]) acc[prefix] = [];
+    acc[prefix].push(row);
+    return acc;
+  }, {});
+  const bogPayload = buildInformeOpeData(grouped.BOG || [], rows);
+  const mdePayload = buildInformeOpeData(grouped.MDE || [], rows);
+  summary.innerHTML = buildInformeOpeComparisonSummary(bogPayload, mdePayload);
   const periodoLabels = {
-    'dia-1': 'Día -1 (ayer)',
+    'dia-1': 'Día 0 (hoy)',
     'mes': 'Mes en curso',
-    'semana': 'Última semana',
+    'semana': 'Semana en curso',
     'año': 'Año en curso',
     'todos': 'Todos los registros',
   };
@@ -3612,13 +3847,9 @@ async function openInformeOpeModal(){
     if (selectPeriodo) selectPeriodo.value = S.informeOpePeriodo;
     renderInformeOpeFilter(S.informeOpeRows || []);
     let baseRows = getInformeOpeRows();
-    if (!baseRows.length && (S.informeOpeRows || []).length) {
-      S.informeOpePeriodo = 'todos';
-      if (selectPeriodo) selectPeriodo.value = 'todos';
-      baseRows = getInformeOpeRows();
-    }
     const scopeRows = getInformeOpeScopeRows(baseRows);
     renderInformeOpeBoard(buildInformeOpeData(scopeRows, baseRows));
+    updateInformeOpeHeaderMeta();
   } catch (e) {
     if (note) note.textContent = 'Error cargando Informe Ope: ' + e.message;
     console.error('Error cargando Informe Ope:', e);
