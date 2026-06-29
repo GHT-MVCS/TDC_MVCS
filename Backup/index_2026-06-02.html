@@ -432,40 +432,6 @@ textarea{resize:vertical;min-height:90px;line-height:1.6;}
 .forgot a:hover{text-decoration:underline;}
 
 /* ══════════════════════════════════════
-   VIEW: HUBS (EAI / TDC)
-══════════════════════════════════════ */
-#view-eai-hub,
-#view-tdc-hub{
-  align-items:center;justify-content:center;
-  background:
-    radial-gradient(ellipse 70% 60% at 10% 10%, rgba(59,130,246,.18) 0%, transparent 70%),
-    radial-gradient(ellipse 65% 55% at 90% 90%, rgba(20,184,166,.15) 0%, transparent 75%),
-    var(--ink);
-}
-.hub-card{
-  max-width:560px;width:100%;
-  background:rgba(25,32,51,.92);
-  backdrop-filter:blur(20px);
-  border-radius:28px;
-  border:1px solid rgba(255,255,255,.1);
-  padding:34px;
-  box-shadow:var(--shadow-lg),0 0 60px rgba(0,0,0,.35);
-}
-.hub-head h2{font-family:var(--font-display);font-size:26px;margin-bottom:6px;color:var(--text);}
-.hub-head p{font-size:13px;color:var(--text3);margin-bottom:20px;}
-.hub-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.hub-option{
-  border:1px solid var(--line2);
-  border-radius:16px;
-  padding:18px;
-  background:rgba(255,255,255,.03);
-  display:flex;flex-direction:column;gap:8px;
-}
-.hub-option h3{font-size:17px;color:var(--text);}
-.hub-option p{font-size:12px;color:var(--text3);line-height:1.4;min-height:34px;}
-.hub-footer{display:flex;justify-content:flex-end;margin-top:18px;}
-
-/* ══════════════════════════════════════
    VIEW: EAI FORM
 ══════════════════════════════════════ */
 #view-eai{overflow:hidden}
@@ -845,46 +811,15 @@ td.edit-btn-cell{text-align:center;vertical-align:middle;white-space:nowrap;}
   font-size:15px;font-weight:700;letter-spacing:-.2px;
 }
 .modal-close{
-  background:rgba(0,0,0,.15);
-  border:1px solid rgba(0,0,0,.2);
+  background:#fff;
+  border:1px solid rgba(148,163,184,.35);
   border-radius:8px;
-  color:#0f172a;font-size:16px;
+  color:#64748b;font-size:16px;
   cursor:pointer;width:30px;height:30px;
   display:flex;align-items:center;justify-content:center;
   transition:all .15s;
 }
-.modal-header .modal-close{
-  background:rgba(239,68,68,.8);
-  border-color:rgba(220,38,38,.9);
-  color:#fff;
-}
-.modal-header .modal-close:hover{
-  background:#dc2626;
-  color:#fff;
-  border-color:#b91c1c;
-  transform:scale(1.08);
-}
-.modal-close:hover{background:rgba(239,68,68,.15);color:#dc2626;border-color:rgba(239,68,68,.3);}
-#modal-edit .modal-header .modal-close,
-#modal-filters .modal-header .modal-close,
-#modal-multiselect .modal-header .modal-close,
-#modal-balance-ott .modal-header .modal-close,
-#modal-informe-ope .modal-header .modal-close{
-  background:rgba(239,68,68,.8) !important;
-  border-color:rgba(220,38,38,.9) !important;
-  color:#fff !important;
-}
-
-#modal-edit .modal-header .modal-close:hover,
-#modal-filters .modal-header .modal-close:hover,
-#modal-multiselect .modal-header .modal-close:hover,
-#modal-balance-ott .modal-header .modal-close:hover,
-#modal-informe-ope .modal-header .modal-close:hover{
-  background:#dc2626 !important;
-  color:#fff !important;
-  border-color:#b91c1c !important;
-  transform:scale(1.08);
-}
+.modal-close:hover{background:rgba(239,68,68,.15);color:var(--red);border-color:rgba(239,68,68,.3);}
 .modal-body{padding:22px;overflow-y:auto;flex:1;background:#fff;}
 #modal-balance-ott .modal-body{padding:14px;}
 .modal-footer{
@@ -1137,7 +1072,6 @@ td.edit-btn-cell{text-align:center;vertical-align:middle;white-space:nowrap;}
 /* Balance OTT */
 #modal-balance-ott .modal{width:min(1220px,96vw);}
 .balance-wrap{display:flex;flex-direction:column;gap:14px;}
-#modal-informe-ope .balance-wrap{gap:6px;}
 .balance-summary-row{
   display:flex;align-items:flex-end;
   justify-content:space-between;
@@ -1193,8 +1127,8 @@ td.edit-btn-cell{text-align:center;vertical-align:middle;white-space:nowrap;}
 .balance-empty{padding:40px;text-align:center;color:var(--text3);font-size:13px;}
 
 #modal-informe-ope .modal{
-  width:min(1600px,99vw);
-  max-height:99vh;
+  width:min(1460px,98vw);
+  max-height:98vh;
 }
 #modal-informe-ope .modal-body{padding:18px 20px 20px;}
 #modal-informe-ope .modal-header{
@@ -1244,11 +1178,11 @@ td.edit-btn-cell{text-align:center;vertical-align:middle;white-space:nowrap;}
   top:0;
   background:#eaf0ff;
   color:#0f172a;
-  font-size:11px;
+  font-size:10px;
   font-weight:900;
   letter-spacing:.6px;
   text-transform:uppercase;
-  padding:8px 10px;
+  padding:6px 8px;
   border-bottom:1px solid rgba(148,163,184,.24);
   white-space:nowrap;
   text-align:center;
@@ -1257,14 +1191,11 @@ td.edit-btn-cell{text-align:center;vertical-align:middle;white-space:nowrap;}
   background:linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
   border-top:1px solid rgba(148,163,184,.18);
   border-bottom:1px solid rgba(148,163,184,.18);
-  padding:8px 10px;
-  font-size:13px;
+  padding:6px 8px;
+  font-size:12px;
   color:#0f172a;
   white-space:nowrap;
   text-align:center;
-}
-#modal-informe-ope .informe-ope-comparison-table tbody td.station-cell{
-  font-size:14px;
 }
 #modal-informe-ope .informe-ope-comparison-table tbody td:first-child{
   font-weight:900;
@@ -1280,23 +1211,23 @@ td.edit-btn-cell{text-align:center;vertical-align:middle;white-space:nowrap;}
   min-width:72px;
 }
 #modal-informe-ope .trip-cell{
-  min-width:300px;
+  min-width:260px;
 }
 #modal-informe-ope .trip-breakdown-mini{
   display:grid;
   grid-template-columns:repeat(2, minmax(0, 1fr));
-  gap:6px 10px;
+  gap:4px 8px;
 }
 #modal-informe-ope .trip-breakdown-mini div{
   display:flex;
   justify-content:space-between;
   gap:8px;
-  font-size:12px;
+  font-size:10px;
   color:#334155;
   line-height:1.1;
 }
 #modal-informe-ope .trip-breakdown-mini strong{
-  font-size:13px;
+  font-size:10px;
   font-weight:800;
   color:#0f172a;
   text-align:right;
@@ -1339,7 +1270,7 @@ td.edit-btn-cell{text-align:center;vertical-align:middle;white-space:nowrap;}
 #modal-informe-ope .trip-breakdown{
   display:grid;
   grid-template-columns:repeat(2, minmax(0, 1fr));
-  gap:10px 12px;
+  gap:8px 10px;
 }
 #modal-informe-ope .trip-breakdown-item{
   background:rgba(15,23,42,.04);
@@ -1349,7 +1280,7 @@ td.edit-btn-cell{text-align:center;vertical-align:middle;white-space:nowrap;}
 }
 #modal-informe-ope .trip-breakdown-item span{
   display:block;
-  font-size:12px;
+  font-size:10px;
   font-weight:700;
   line-height:1.2;
   letter-spacing:.2px;
@@ -1357,7 +1288,7 @@ td.edit-btn-cell{text-align:center;vertical-align:middle;white-space:nowrap;}
 }
 #modal-informe-ope .trip-breakdown-item strong{
   display:block;
-  font-size:14px;
+  font-size:12px;
   font-weight:800;
   margin:0;
 }
@@ -1371,47 +1302,29 @@ td.edit-btn-cell{text-align:center;vertical-align:middle;white-space:nowrap;}
   overflow-x:auto;
   padding-bottom:4px;
 }
-#modal-informe-ope .informe-ope-controls{
+#modal-informe-ope .balance-summary-row > div:last-child{
   width:100%;
   justify-content:flex-start;
-  display:flex;
-  flex-direction:row;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-top:4px;
 }
-#modal-informe-ope .informe-ope-controls > .balance-filter-wrap{
-  flex:0 0 220px;
-}
-#modal-informe-ope .informe-ope-controls select,
-#modal-informe-ope .informe-ope-controls input{
-  font-size:13px;
-}
-#modal-informe-ope .informe-ope-controls select,
-#modal-informe-ope .informe-ope-controls input{
-  font-size:13px;
+#modal-informe-ope .balance-summary-row > div:last-child > .balance-filter-wrap{
+  flex:1 1 240px;
 }
 #modal-informe-ope .balance-summary::-webkit-scrollbar{height:6px;}
 #modal-informe-ope .balance-summary::-webkit-scrollbar-thumb{background:#94a3b8;border-radius:999px;}
-#modal-informe-ope .balance-chart-card{  
+#modal-informe-ope .balance-chart-card{
+  min-height:480px;
   display:flex;
   flex-direction:column;
-  padding:10px 14px 14px;
 }
 #modal-informe-ope .balance-chart-card .balance-chart-head{
-  margin-bottom:0px;
-}
-#modal-informe-ope .balance-chart-head h4{
-  font-size:17px;
-}
-#modal-informe-ope .balance-chart-head p{
-  font-size:13px;
+  margin-bottom:10px;
 }
 #modal-informe-ope .informe-ope-chart-wrap{
+  flex:1;
   display:flex;
   flex-direction:column;
-  gap:4px;
+  gap:8px;
+  min-height:0;
 }
 #modal-informe-ope .informe-ope-chart-legend{
   display:flex;
@@ -1419,14 +1332,13 @@ td.edit-btn-cell{text-align:center;vertical-align:middle;white-space:nowrap;}
   flex-wrap:wrap;
   align-items:center;
   font-size:11px;
-  color: #0f172a;
+  color:#334155;
 }
 #modal-informe-ope .informe-ope-chart-legend-item{
   display:flex;
   align-items:center;
   gap:6px;
   font-weight:700;
-  color:#070c18;
   background:#fff;
   border:1px solid rgba(148,163,184,.25);
   border-radius:999px;
@@ -1445,9 +1357,8 @@ td.edit-btn-cell{text-align:center;vertical-align:middle;white-space:nowrap;}
   border-radius:18px;
   background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);
   padding:12px;
-  padding-bottom:20px;
   overflow-x:auto;
-  overflow-y:visible;
+  overflow-y:hidden;
 }
 #modal-informe-ope .informe-ope-chart-svg{
   min-width:100%;
@@ -1616,18 +1527,16 @@ td.edit-btn-cell{text-align:center;vertical-align:middle;white-space:nowrap;}
   .field-row{flex-direction:column;}
   .edit-grid{grid-template-columns:1fr;}
   .actor-card,.login-card{padding:32px 24px;}
-  .hub-card{padding:24px 20px;}
-  .hub-grid{grid-template-columns:1fr;}
   .eai-body{padding:20px 20px;}
   .eai-footer{padding:14px 20px;}
 }
 
 /* ══ VIEW STACKING FIX ══ */
-#view-actor,#view-login,#view-eai-hub,#view-tdc-hub,#view-tdc,#view-eai{
+#view-actor,#view-login,#view-tdc,#view-eai{
   position:fixed;top:0;left:0;width:100%;height:100%;
   z-index:10;display:none;
 }
-#view-actor.active,#view-login.active,#view-eai-hub.active,#view-tdc-hub.active,#view-tdc.active,#view-eai.active{
+#view-actor.active,#view-login.active,#view-tdc.active,#view-eai.active{
   display:flex;z-index:20;
 }
 #view-actor{
@@ -1733,33 +1642,9 @@ body.resizing *{cursor:col-resize !important;}
 </div>
 
 <!-- ════════════════════ VIEW: EAI FORM ════════════════════ -->
-<div id="view-eai-hub" class="view">
-  <div class="hub-card">
-    <div class="hub-head">
-      <h2>🌱 EAI 1</h2>
-      <p>Seleccione el módulo con el que desea trabajar.</p>
-    </div>
-    <div class="hub-grid">
-      <div class="hub-option">
-        <h3>Reservas MVCS</h3>
-        <p>Formulario actual de solicitudes de transporte.</p>
-        <button class="btn btn-primary" onclick="openEaiMvcs()">Abrir MVCS</button>
-      </div>
-      <div class="hub-option">
-        <h3>ERC</h3>
-        <p>Especificaciones de la red y la carga.</p>
-        <button class="btn btn-accent" onclick="openErcModule('eai')">Abrir ERC</button>
-      </div>
-    </div>
-    <div class="hub-footer">
-      <button class="btn btn-outline" onclick="logoutToActor()">← Cerrar sesión</button>
-    </div>
-  </div>
-</div>
-
 <div id="view-eai" class="view">
   <div class="eai-header">
-    <button class="btn btn-ghost" onclick="goView('eai-hub')">← Menú</button>
+    <button class="btn btn-ghost" onclick="goView('actor');logoutEai()">← Volver</button>
     <h1>Solicitud de Transporte MVCS</h1>
     <div style="width:80px"></div>
   </div>
@@ -1793,7 +1678,7 @@ body.resizing *{cursor:col-resize !important;}
         </div>
       </div>
       <div class="field-row">
-        <div class="field-group"><label>Zona Entrega Origen</label>
+        <div class="field-group"><label>Zona Entrega</label>
           <div class="searchable-wrap">
             <input id="eai-zona" placeholder="Escriba o seleccione..." autocomplete="off" onclick="toggleDropdown('dd-zona')" onfocus="filterDropdown('dd-zona',this.value,['Poscosecha','Almacen','Poscosecha y Almacen'])" oninput="filterDropdown('dd-zona',this.value,['Poscosecha','Almacen','Poscosecha y Almacen'])">
             <div class="dropdown-list" id="dd-zona"></div>
@@ -1826,13 +1711,13 @@ body.resizing *{cursor:col-resize !important;}
       <div class="section-title">📅 Programación</div>
       <div class="field-row">
         <div class="field-group">
-          <label>FECHA ENTREGA</label>
+          <label>Fecha</label>
           <div class="eai-date-wrap">
             <button id="eai-fecha-btn" type="button" class="btn btn-outline eai-date-trigger">📆 Seleccionar fecha</button>
             <input id="eai-fecha-picker" class="eai-date-picker" type="date" inputmode="none" autocomplete="off">
           </div>
         </div>
-        <div class="field-group"><label>Hora entrega(HH:MM 24h)</label><input id="eai-hora" type="time" placeholder="HH:MM"></div>
+        <div class="field-group"><label>Hora (HH:MM 24h)</label><input id="eai-hora" type="time" placeholder="HH:MM"></div>
       </div>
       <div class="field-row">
         <div class="field-group"><label>Tipo de Operación</label>
@@ -1862,30 +1747,6 @@ body.resizing *{cursor:col-resize !important;}
 </div>
 
 <!-- ════════════════════ VIEW: TDC ════════════════════ -->
-<div id="view-tdc-hub" class="view">
-  <div class="hub-card">
-    <div class="hub-head">
-      <h2>📊 Torre de Control</h2>
-      <p>Seleccione el módulo con el que desea trabajar.</p>
-    </div>
-    <div class="hub-grid">
-      <div class="hub-option">
-        <h3>Programación MVCS</h3>
-        <p>Tablero actual de gestión y programación de servicios.</p>
-        <button class="btn btn-primary" onclick="openTdcMvcs()">Abrir MVCS</button>
-      </div>
-      <div class="hub-option">
-        <h3>ERC</h3>
-        <p>Módulo separado para construir la operación ERC por fuera del index.</p>
-        <button class="btn btn-accent" onclick="openErcModule('tdc')">Abrir ERC</button>
-      </div>
-    </div>
-    <div class="hub-footer">
-      <button class="btn btn-outline" onclick="logoutToActor()">← Cerrar sesión</button>
-    </div>
-  </div>
-</div>
-
 <div id="view-tdc" class="view">
   <div class="tdc-header">
     <div class="tdc-header-top">
@@ -1925,11 +1786,6 @@ body.resizing *{cursor:col-resize !important;}
         onclick="openInformeOpeModal()"
         onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openInformeOpeModal();}">
         Informe MVCS 📍
-      </span>
-      <span class="metric metric-action" id="m-informe-eai" role="button" tabindex="0"
-        onclick="openInformeEaiModal()"
-        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openInformeEaiModal();}">
-        Informe EAI 🌱
       </span>
     </div>
   </div>
@@ -2083,37 +1939,31 @@ body.resizing *{cursor:col-resize !important;}
       <div class="balance-wrap">
         <div class="balance-summary-row">
           <div class="balance-summary" id="informe-ope-summary"></div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <div class="balance-filter-wrap">
+              <label for="informe-ope-periodo-filter">📅 Período</label>
+              <select id="informe-ope-periodo-filter" onchange="applyInformeOpeFilter()">
+                <option value="dia-1">📅 Día 0 (hoy)</option>
+                <option value="mes">📅 Mes en curso</option>
+                <option value="semana">📅 Última semana</option>
+                <option value="año">📅 Año en curso</option>
+                <option value="todos">📋 Todos los registros</option>
+              </select>
+            </div>
+            <div class="balance-filter-wrap">
+              <label for="informe-ope-recorrido-filter">🔎 Recorrido</label>
+              <div class="searchable-wrap">
+                <input id="informe-ope-recorrido-filter" placeholder="Todos los recorridos" autocomplete="off" onclick="toggleDropdown('dd-informe-ope-recorrido')" onfocus="filterInformeOpeRecorrido(this.value)" oninput="filterInformeOpeRecorrido(this.value)">
+                <div class="dropdown-list" id="dd-informe-ope-recorrido"></div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="balance-chart-card">
-          <div class="balance-chart-head" style="display:flex;flex-direction:row;align-items:center;gap:20px;flex-wrap:wrap;">
-            <div style="flex:0 0 auto;">
-              <h4 style="white-space:nowrap;">Tendencia operativa</h4>
-              <p style="font-size:11px;color:#475569;margin-top:2px;max-width:260px;">
-                Barras = servicios (azul día -1, verde día 0). Línea azul = costo/km.
-              </p>
-            </div>
-            <div style="display:flex;flex-direction:row;align-items:flex-end;gap:12px;flex-wrap:wrap;flex:1;justify-content:flex-end;">
-              <div class="balance-filter-wrap" style="min-width:160px;flex:0 0 auto;">
-                <label for="informe-ope-periodo-filter">📅 Período</label>
-                <select id="informe-ope-periodo-filter" onchange="applyInformeOpeFilter()">
-                  <option value="dia0">📅 Día 0 (hoy)</option>
-                  <option value="dia-1">📅 Día -1 (ayer)</option>
-                  <option value="mes">📅 Mes en curso</option>
-                  <option value="semana">📅 Última semana</option>
-                  <option value="año">📅 Año en curso</option>
-                  <option value="todos">📋 Todos los registros</option>
-                </select>
-              </div>
-              <div class="balance-filter-wrap" style="min-width:180px;flex:0 0 auto;">
-                <label for="informe-ope-recorrido-filter">🔎 Recorrido</label>
-                <div class="searchable-wrap">
-                  <input id="informe-ope-recorrido-filter" placeholder="Todos los recorridos" autocomplete="off"
-                    onclick="toggleDropdown('dd-informe-ope-recorrido')"
-                    onfocus="filterInformeOpeRecorrido(this.value)"
-                    oninput="filterInformeOpeRecorrido(this.value)">
-                  <div class="dropdown-list" id="dd-informe-ope-recorrido"></div>
-                </div>
-              </div>
+          <div class="balance-chart-head">
+            <div>
+              <h4>Tendencia operativa</h4>
+              <p>Gráfico del período filtrado. La línea azul muestra costo/km y la verde muestra servicios.</p>
             </div>
           </div>
           <div id="informe-ope-note" class="balance-empty">Cargando datos...</div>
@@ -2126,53 +1976,7 @@ body.resizing *{cursor:col-resize !important;}
   </div>
 </div>
 
-<div class="modal-bg" id="modal-informe-eai">
-  <div class="modal">
-    <div class="modal-header" style="background:linear-gradient(135deg,#0f172a 0%,#1d4ed8 100%);border-bottom:1px solid rgba(255,255,255,.08);">
-      <h3 style="color:#fff;display:flex;align-items:center;gap:10px;">
-        🌱 Informe EAI
-        <span id="informe-eai-header-meta" style="display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.92);color:#0f172a;font-size:11px;font-weight:700;letter-spacing:.2px;white-space:nowrap;"></span>
-      </h3>
-      <button class="modal-close" onclick="closeModal('modal-informe-eai')" style="background:rgba(239,68,68,.8);border-color:rgba(220,38,38,.9);color:#fff;">×</button>
-    </div>
-    <div class="modal-body" style="padding:18px 20px 20px;">
-      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;">
-        <div class="balance-filter-wrap" style="min-width:160px;flex:0 0 auto;">
-          <label for="informe-eai-periodo-filter">📅 Período</label>
-          <select id="informe-eai-periodo-filter" onchange="applyInformeEaiFilter()">
-            <option value="dia0">📅 Día 0 (hoy)</option>
-            <option value="dia-1">📅 Día -1 (ayer)</option>
-            <option value="semana">📅 Última semana</option>
-            <option value="mes">📅 Mes en curso</option>
-            <option value="año">📅 Año en curso</option>
-            <option value="todos">📋 Todos</option>
-          </select>
-        </div>
-        <div class="balance-filter-wrap" style="min-width:180px;flex:0 0 auto;">
-          <label for="informe-eai-recorrido-filter">🔎 Recorrido</label>
-          <div class="searchable-wrap">
-            <input id="informe-eai-recorrido-filter" placeholder="Todos los recorridos" autocomplete="off"
-              onclick="toggleDropdown('dd-informe-eai-recorrido')"
-              onfocus="filterInformeEaiRecorrido(this.value)"
-              oninput="filterInformeEaiRecorrido(this.value)">
-            <div class="dropdown-list" id="dd-informe-eai-recorrido"></div>
-          </div>
-        </div>
-        <div style="margin-top:18px;">
-          <input id="informe-eai-search" type="text" placeholder="🔎 Buscar solicitante..."
-            oninput="filterInformeEaiTable(this.value)"
-            style="border:1px solid rgba(148,163,184,.35);border-radius:12px;padding:9px 14px;font-family:DM Sans,sans-serif;font-size:13px;background:#fff;color:#0f172a;outline:none;min-width:200px;">
-        </div>
-      </div>
-      <div id="informe-eai-table-wrap" style="overflow-x:auto;border-radius:14px;border:1px solid rgba(148,163,184,.24);">
-        <div class="balance-empty">Cargando datos...</div>
-      </div>
-    </div>
-    <div class="modal-footer" style="background:linear-gradient(180deg,#f8fbff 0%,#eef4ff 100%);border-top:1px solid rgba(148,163,184,.22);">
-      <button class="btn btn-outline btn-sm" onclick="closeModal('modal-informe-eai')">Cerrar</button>
-    </div>
-  </div>
-</div>
+<!-- ════════════════════ JAVASCRIPT (100% ORIGINAL) ════════════════════ -->
 <script>
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
 let CONFIG_SECURE = null;
@@ -3063,44 +2867,13 @@ async function doLogin(){
     await loadLoginUsers();
     hideLoading();
     if (S.profile === 'EAI') {
-      if (S.usersEai[user] && S.usersEai[user] === pass) { S.username = user; openEaiHub(); }
+      if (S.usersEai[user] && S.usersEai[user] === pass) { S.username = user; await openEai(user); }
       else alert('Credenciales incorrectas para EAI');
     } else if (S.profile === 'OTT') {
-      if (S.usersTdc[user] && S.usersTdc[user] === pass) { S.username = user; openTdcHub(); }
+      if (S.usersTdc[user] && S.usersTdc[user] === pass) { S.username = user; await openTdc(user); }
       else alert('Credenciales incorrectas para TdC');
     } else { alert('Perfil no válido'); }
   } catch (error) { hideLoading(); alert('Error: ' + error.message); }
-}
-
-function openEaiHub(){ goView('eai-hub'); }
-function openTdcHub(){ goView('tdc-hub'); }
-
-function openEaiMvcs(){
-  if (!S.username) { alert('Sesión no encontrada. Inicie sesión nuevamente.'); goView('login'); return; }
-  openEai(S.username);
-}
-
-function openTdcMvcs(){
-  if (!S.username) { alert('Sesión no encontrada. Inicie sesión nuevamente.'); goView('login'); return; }
-  openTdc(S.username);
-}
-
-function openErcModule(scope){
-  const target = scope === 'eai' ? 'eai-erc.html' : 'tdc-erc.html';
-  const params = new URLSearchParams({
-    from: 'index',
-    profile: S.profile || '',
-    user: S.username || ''
-  });
-  window.location.href = `${target}?${params.toString()}`;
-}
-
-function logoutToActor(){
-  stopBgRefresh();
-  stopEaiReminders();
-  S.username = '';
-  S.profile = '';
-  goView('actor');
 }
 
 // ─── EAI FORM ─────────────────────────────────────────────────────────────────
@@ -3576,7 +3349,7 @@ function parseInformeOpeRows(rows){
 
 function getInformeOpePeriodRange(){
   const hoy = new Date();
-  const periodo = S.informeOpePeriodo || 'dia0';
+  const periodo = S.informeOpePeriodo || 'dia-1';
   if (periodo === 'todos') return { start: null, end: null };
   const toYYYYMMDD = (d) => {
     const y = d.getFullYear();
@@ -3584,14 +3357,8 @@ function getInformeOpePeriodRange(){
     const day = String(d.getDate()).padStart(2, '0');
     return y + m + day;
   };
-  if (periodo === 'dia0') {
-    const key = toYYYYMMDD(hoy);
-    return { start: key, end: key };
-  }
   if (periodo === 'dia-1') {
-    const ayer = new Date(hoy);
-    ayer.setDate(ayer.getDate() - 1);
-    const key = toYYYYMMDD(ayer);
+    const key = toYYYYMMDD(hoy);
     return { start: key, end: key };
   }
   if (periodo === 'semana') {
@@ -3630,22 +3397,6 @@ function getInformeOpeRows(){
     const estado = String(row['ESTADO DE VIAJE'] || '').toLowerCase();
     return !estado.includes('cancelado');
   });
-  if ((S.informeOpePeriodo || 'dia0') === 'dia-1') {
-      // Para el BOARD/SUMMARY: solo ayer
-      // Para el CHART: los últimos 7 días se manejan en buildInformeOpeData
-      // Aquí devolvemos solo ayer para los chips de resumen
-      const ayer = new Date(); ayer.setDate(ayer.getDate() - 1);
-      const yKey = (() => {
-        const y = ayer.getFullYear();
-        const m = String(ayer.getMonth() + 1).padStart(2, '0');
-        const d = String(ayer.getDate()).padStart(2, '0');
-        return parseInt(`${y}${m}${d}`, 10);
-      })();
-      return filteredByStatus.filter(row => {
-        const key = getInformeOpeDateKey(row);
-        return key === yKey;
-      });
-    }
   const range = getInformeOpePeriodRange();
   if (range.start === null || range.end === null) return filteredByStatus;
   const start = parseInt(range.start, 10);
@@ -3656,7 +3407,7 @@ function getInformeOpeRows(){
     if (!parsedEntrega) return null;
     return parseInt(`${parsedEntrega.year}${parsedEntrega.month}${parsedEntrega.day}`, 10);
   };
-  if ((S.informeOpePeriodo || 'dia0') === 'dia0') {
+  if ((S.informeOpePeriodo || 'dia-1') === 'dia-1') {
     const today = new Date();
     const y = today.getFullYear();
     const m = String(today.getMonth() + 1).padStart(2, '0');
@@ -3731,26 +3482,14 @@ function selectInformeOpeRecorrido(value){
 function updateInformeOpeHeaderMeta(){
   const meta = document.getElementById('informe-ope-header-meta');
   if (!meta) return;
-  const periodo = S.informeOpePeriodo || 'semana';
-  let periodoText = '';
-  if (periodo === 'dia-1') {
-    const ayer = new Date(); ayer.setDate(ayer.getDate() - 1);
-    const days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
-    const months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-    const dayName = days[ayer.getDay()] || '';
-    const dayNum = String(ayer.getDate()).padStart(2,'0');
-    const monthName = months[ayer.getMonth()] || '';
-    periodoText = `${dayName} ${dayNum} de ${monthName} (ayer)`;
-  } else {
-    const periodoLabels = {
-      'dia0': 'Día 0',
-      'mes': 'Mes en curso',
-      'semana': 'Ultima semana',
-      'año': 'Año en curso',
-      'todos': 'Todos',
-    };
-    periodoText = periodoLabels[periodo] || String(periodo);
-  }
+  const periodoLabels = {
+    'dia-1': 'Día 0',
+    'mes': 'Mes en curso',
+    'semana': 'Semana en curso',
+    'año': 'Año en curso',
+    'todos': 'Todos',
+  };
+  const periodoText = periodoLabels[S.informeOpePeriodo || 'semana'] || String(S.informeOpePeriodo || 'semana');
   const estacionText = S.informeOpeRecorrido ? S.informeOpeRecorrido : 'Todas';
   meta.textContent = `Período: ${periodoText} · Estación: ${estacionText}`;
 }
@@ -3760,15 +3499,9 @@ function applyInformeOpeFilter(){
   const selectRecorrido = document.getElementById('informe-ope-recorrido-filter');
   S.informeOpePeriodo = selectPeriodo ? selectPeriodo.value : 'semana';
   S.informeOpeRecorrido = selectRecorrido ? selectRecorrido.value : '';
-
-  const allActiveRows = (S.informeOpeRows || []).filter(row =>
-    !String(row['ESTADO DE VIAJE'] || '').toLowerCase().includes('cancelado')
-  );
-
   const baseRows = getInformeOpeRows();
   const scopeRows = getInformeOpeScopeRows(baseRows);
-
-  renderInformeOpeBoard(buildInformeOpeData(scopeRows, allActiveRows));
+  renderInformeOpeBoard(buildInformeOpeData(scopeRows, baseRows));
 }
 
 function normalizeTripType(value){
@@ -3815,21 +3548,9 @@ function buildInformeOpeData(data, baseRows){
     if (dia === -1) diaMinus1 += 1;
     if (dia === 0) dia0 += 1;
   });
-  let chartRows;
-    if ((S.informeOpePeriodo || '') === 'dia-1') {
-      chartRows = getInformeOpeLastWeekRows(base);
-      const recorrido = String(S.informeOpeRecorrido || '').trim();
-      if (recorrido) {
-        chartRows = chartRows.filter(row => String(row['RECORRIDO'] || '').trim() === recorrido);
-      }
-    } else if ((S.informeOpePeriodo || '') === 'dia0') {
-      chartRows = getInformeOpeWeekRows(base);
-    } else {
-      chartRows = scopeRows;
-    }
-// Para el chart de dia-1 y dia0, usar slotW dinámico basado en cantidad de puntos
-  const chartDays = buildInformeOpeChartData(chartRows);
-
+  const chartRows = (S.informeOpePeriodo || 'dia-1') === 'dia-1'
+    ? getInformeOpeWeekRows(S.informeOpeRows || [])
+    : scopeRows;
   return {
     totalServices: scopeRows.length,
     totalVehicles: vehSet.size,
@@ -3841,7 +3562,7 @@ function buildInformeOpeData(data, baseRows){
     dia0,
     tripTypes,
     rows: scopeRows,
-    chartData: chartDays,
+    chartData: buildInformeOpeChartData(chartRows),
   };
 }
 
@@ -3944,10 +3665,9 @@ function getInformeOpeDayLabel(dateKey){
   const month = parseInt(text.slice(4, 6), 10) - 1;
   const day = parseInt(text.slice(6, 8), 10);
   const date = new Date(year, month, day);
-  const fullDays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
-  const dayStr   = String(day).padStart(2, '0');
+  const shortDays = ['Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vie', 'Sab'];
   const monthStr = String(date.getMonth() + 1).padStart(2, '0');
-  return `${fullDays[date.getDay()] || ''} ${dayStr}/${monthStr}`;
+  return `${shortDays[date.getDay()] || ''} ${day}/${monthStr}`;
 }
 
 function getInformeOpeMonthlyReferenceRange(){
@@ -3981,20 +3701,6 @@ function getInformeOpeWeekRows(rows){
   });
 }
 
-function getInformeOpeLastWeekRows(rows){
-  const sourceRows = (rows || []).filter(row => !String(row['ESTADO DE VIAJE'] || '').toLowerCase().includes('cancelado'));
-  const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-  const start = new Date(yesterday);
-  start.setDate(start.getDate() - 6);
-  const toYYYYMMDD = (dd) => `${dd.getFullYear()}${String(dd.getMonth() + 1).padStart(2,'0')}${String(dd.getDate()).padStart(2,'0')}`;
-  const range = { start: parseInt(toYYYYMMDD(start), 10), end: parseInt(toYYYYMMDD(yesterday), 10) };
-  return sourceRows.filter(row => {
-    const key = getInformeOpeDateKey(row);
-    return key && key >= range.start && key <= range.end;
-  });
-}
-
 function getInformeOpeReferenceRows(rows){
   const sourceRows = (rows || []).filter(row => !String(row['ESTADO DE VIAJE'] || '').toLowerCase().includes('cancelado'));
   const range = getInformeOpeMonthlyReferenceRange();
@@ -4004,337 +3710,135 @@ function getInformeOpeReferenceRows(rows){
   });
 }
 
-function buildInformeOpeChartData(rows) {
-  const periodoActual = S.informeOpePeriodo || 'dia0';
-  const agruparPorSemana = periodoActual === 'año';
-
-  // ---- Función para obtener clave de agrupación (día o semana) ----
-  const groupKeyFn = agruparPorSemana
-    ? (row) => {
-        const dk = getInformeOpeDateKey(row);
-        if (!dk) return null;
-        const text = String(dk);
-        if (text.length !== 8) return null;
-        const d = new Date(parseInt(text.slice(0,4),10), parseInt(text.slice(4,6),10)-1, parseInt(text.slice(6,8),10));
-        const jan4 = new Date(d.getFullYear(), 0, 4);
-        const startOfWeek1 = new Date(jan4);
-        startOfWeek1.setDate(jan4.getDate() - ((jan4.getDay() + 6) % 7));
-        const diffMs = d - startOfWeek1;
-        const weekNum = Math.floor(diffMs / (7 * 86400000)) + 1;
-        return `${d.getFullYear()}-W${String(weekNum).padStart(2,'0')}`;
-      }
-    : (row) => getInformeOpeDateKey(row);
-
-  const labelFn = agruparPorSemana
-    ? (key) => { const [year, w] = key.split('-W'); return `Sem ${parseInt(w,10)} '${year.slice(2)}`; }
-    : (key) => getInformeOpeDayLabel(key);
-
-  // Agrupar filas
-  const allKeys = [...new Set((rows || []).map(groupKeyFn).filter(k => k))].sort((a,b) => String(a).localeCompare(String(b)));
-  if (!allKeys.length) return { days: [], totalCost: 0, totalKm: 0, totalServices: 0, costAvg: 0, servicesAvg: 0 };
-
-  const buckets = new Map(allKeys.map(key => [key, { key, rows: [] }]));
+function buildInformeOpeChartData(rows){
+  const dayKeys = [...new Set((rows || [])
+    .map(row => getInformeOpeDateKey(row))
+    .filter(key => key))].sort((a, b) => a - b);
+  if (!dayKeys.length) return { days: [], totalCost: 0, totalKm: 0, totalServices: 0, costAvg: 0, servicesAvg: 0 };
+  const buckets = new Map(dayKeys.map(key => [key, { key, rows: [] }]));
   (rows || []).forEach(row => {
-    const key = groupKeyFn(row);
-    if (key && buckets.has(key)) buckets.get(key).rows.push(row);
+    const key = getInformeOpeDateKey(row);
+    if (!key || !buckets.has(key)) return;
+    buckets.get(key).rows.push(row);
   });
-
-  // Jornada laboral en minutos (7 horas)
-  const JORNADA_MINS = 7 * 60;
-
-  const days = allKeys.map(key => {
+  const days = dayKeys.map(key => {
     const bucket = buckets.get(key) || { rows: [] };
     const totalCost = bucket.rows.reduce((sum, row) => sum + extractTarifaNum(row['TARIFA']), 0);
-    const totalKm   = bucket.rows.reduce((sum, row) => sum + extractKmNum(row['KM']), 0);
-    const services  = bucket.rows.length;
-
-    // --- Ocupación: suma de minutos operados / (días únicos * JORNADA_MINS) ---
-    const uniqueDaysSet = new Set();
-    let totalOpMinutes = 0;
-    bucket.rows.forEach(row => {
-      const start = parseHoraCell(row['HORA C'] || '');
-      const end   = parseHoraCell(row['HORA D'] || '');
-      if (start && end) {
-        let mins = (end.hour * 60 + end.minute) - (start.hour * 60 + start.minute);
-        if (mins < 0) mins += 24 * 60;
-        totalOpMinutes += mins;
-      }
-      const dateKey = getInformeOpeDateKey(row);
-      if (dateKey) uniqueDaysSet.add(dateKey);
-    });
-    const uniqueDays = uniqueDaysSet.size || 1;
-    const occupation = (totalOpMinutes / (uniqueDays * JORNADA_MINS)) * 100;
-
+    const totalKm = bucket.rows.reduce((sum, row) => sum + extractKmNum(row['KM']), 0);
+    const services = bucket.rows.length;
     const costPerKm = totalKm > 0 ? totalCost / totalKm : 0;
-    const diaMinus1Count = bucket.rows.filter(r => parseInt(String(r['DIA SOLICITUD']||'').replace(/[^0-9-]/g,''),10) === -1).length;
-    const dia0Count      = bucket.rows.filter(r => parseInt(String(r['DIA SOLICITUD']||'').replace(/[^0-9-]/g,''),10) ===  0).length;
-
     return {
       key,
-      label: labelFn(key),
+      label: getInformeOpeDayLabel(key),
       totalCost,
       totalKm,
       services,
       costPerKm,
-      diaMinus1: diaMinus1Count,
-      dia0:      dia0Count,
-      occupation,
-      hasData:   bucket.rows.length > 0,
+      hasData: bucket.rows.length > 0,
     };
   });
-
-  const totalCost     = days.reduce((sum, d) => sum + d.totalCost, 0);
-  const totalKm       = days.reduce((sum, d) => sum + d.totalKm, 0);
-  const totalServices = days.reduce((sum, d) => sum + d.services, 0);
-
-  // Referencia del último mes (para promedios)
+  const totalCost = days.reduce((sum, day) => sum + day.totalCost, 0);
+  const totalKm = days.reduce((sum, day) => sum + day.totalKm, 0);
+  const totalServices = days.reduce((sum, day) => sum + day.services, 0);
   const referenceRows = getInformeOpeReferenceRows(S.informeOpeRows || []);
-  const referenceDays = [...new Set(referenceRows.map(row => getInformeOpeDateKey(row)).filter(k => k))];
+  const referenceDays = [...new Set(referenceRows.map(row => getInformeOpeDateKey(row)).filter(key => key))];
   const referenceDayMetrics = referenceDays.map(key => {
     const rowsForDay = referenceRows.filter(row => getInformeOpeDateKey(row) === key);
-    const totalCostDay = rowsForDay.reduce((sum, row) => sum + extractTarifaNum(row['TARIFA']), 0);
-    const totalKmDay   = rowsForDay.reduce((sum, row) => sum + extractKmNum(row['KM']), 0);
-    return { costPerKm: totalKmDay > 0 ? totalCostDay / totalKmDay : 0, services: rowsForDay.length };
+    const totalCostForDay = rowsForDay.reduce((sum, row) => sum + extractTarifaNum(row['TARIFA']), 0);
+    const totalKmForDay = rowsForDay.reduce((sum, row) => sum + extractKmNum(row['KM']), 0);
+    return {
+      costPerKm: totalKmForDay > 0 ? totalCostForDay / totalKmForDay : 0,
+      services: rowsForDay.length,
+    };
   });
-  const costAvg     = referenceDayMetrics.length ? referenceDayMetrics.reduce((s,d) => s + d.costPerKm, 0) / referenceDayMetrics.length : 0;
-  const servicesAvg = referenceDayMetrics.length ? referenceDayMetrics.reduce((s,d) => s + d.services,  0) / referenceDayMetrics.length : 0;
-
+  const costAvg = referenceDayMetrics.length > 0
+    ? referenceDayMetrics.reduce((sum, day) => sum + day.costPerKm, 0) / referenceDayMetrics.length
+    : 0;
+  const servicesAvg = referenceDayMetrics.length > 0
+    ? referenceDayMetrics.reduce((sum, day) => sum + day.services, 0) / referenceDayMetrics.length
+    : 0;
   return { days, totalCost, totalKm, totalServices, costAvg, servicesAvg };
 }
 
-function renderInformeOpeChart(chartData) {
+function renderInformeOpeChart(chartData){
   const days = chartData?.days || [];
   if (!days.length) {
     return `<div class="balance-empty">No hay datos suficientes para construir el gráfico.</div>`;
   }
-
-  // ── DIMENSIONES — el SVG SE AUTOAJUSTA al contenido, sin svgH fijo ─────────
-  const MIN_SLOT = 180;
-  const slotW    = Math.max(MIN_SLOT, Math.min(320, 1800 / Math.max(days.length, 1)));
-  const svgW     = Math.max(960, days.length * slotW + 300);
-
-  // Márgenes: top mínimo, bottom suficiente para etiquetas eje X
-  const PAD_TOP    = -10;   // solo espacio para S=NNN encima de barra más alta
-  const PAD_BOTTOM = -10;  // día + fecha + margen
-  const PAD_LEFT   = 140;
-  const PAD_RIGHT  = 150;
-
-  // plotH: altura real de las barras — cuanto más grande mejor
-  const PLOT_H = 520;
-  const svgH   = PAD_TOP + PLOT_H + PAD_BOTTOM;  // exacto, sin px de más
-
-  const barWidth = Math.max(56, Math.min(100, slotW * 0.55));
-
-  // Centro X de cada día — primer día empieza en PAD_LEFT + slotW/2
-  const xFor = (i) => {
-    if (days.length === 1) return PAD_LEFT + (svgW - PAD_LEFT - PAD_RIGHT) / 2;
-    const usableW = svgW - PAD_LEFT - PAD_RIGHT - slotW;
-    return PAD_LEFT + slotW / 2 + i * (usableW / (days.length - 1));
-  };
-
-  // ── ESCALA SERVICIOS: dinámica → barras llenan todo el PLOT_H ─────────────
-  const rawMax   = Math.max(...days.map(d => d.services), 1);
-  const SERV_MAX = Math.ceil(rawMax * 1.12 / 10) * 10;
-  const yServ    = v => PAD_TOP + PLOT_H - (Math.max(0, Math.min(v, SERV_MAX)) / SERV_MAX) * PLOT_H;
-
-  // ── ESCALA $/KM ────────────────────────────────────────────────────────────
-  const costMax  = Math.max(...days.map(d => d.costPerKm), chartData.costAvg || 0, 1);
-  const COST_MAX = Math.max(1000, Math.ceil(costMax * 1.15 / 1000) * 1000);
-  const yCost    = v => PAD_TOP + PLOT_H - (Math.max(0, Math.min(v, COST_MAX)) / COST_MAX) * PLOT_H;
-
-  // ── GRID ──────────────────────────────────────────────────────────────────
-  const gridStep = SERV_MAX <= 30 ? 5 : SERV_MAX <= 80 ? 10 : SERV_MAX <= 150 ? 20 : 25;
-  const ticks    = [];
-  for (let t = 0; t <= SERV_MAX; t += gridStep) ticks.push(t);
-
-  const X0   = PAD_LEFT;
-  const X1   = svgW - PAD_RIGHT;
-  const BASE = PAD_TOP + PLOT_H;
-
-  const gridLines = ticks.map(t => {
-    const y      = yServ(t);
-    const cVal   = (t / SERV_MAX) * COST_MAX;
-    return `<g>
-      <line x1="${X0}" y1="${y.toFixed(1)}" x2="${X1.toFixed(1)}" y2="${y.toFixed(1)}"
-            stroke="rgba(148,163,184,.18)" stroke-width="1.2" stroke-dasharray="6 4"/>
-      <text x="${(X0-14).toFixed(1)}" y="${(y+5).toFixed(1)}"
-            text-anchor="end" font-size="16" font-weight="700" fill="#1e293b">${formatMoney(cVal)}</text>
-      <text x="${(X1+14).toFixed(1)}" y="${(y+5).toFixed(1)}"
-            text-anchor="start" font-size="16" font-weight="700" fill="#1e293b">${t} serv</text>
-    </g>`;
+  const width = Math.max(980, days.length * 92);
+  const height = 300;
+  const pad = { top: 20, right: 64, bottom: 48, left: 64 };
+  const plotW = width - pad.left - pad.right;
+  const plotH = height - pad.top - pad.bottom;
+  const xStep = days.length > 1 ? plotW / (days.length - 1) : plotW;
+  const costMax = Math.max(...days.map(d => d.costPerKm), chartData.costAvg, 1);
+  const servMax = Math.max(...days.map(d => d.services), chartData.servicesAvg, 1);
+  const costScale = v => pad.top + plotH - ((Math.max(0, v) / costMax) * plotH);
+  const servScale = v => pad.top + plotH - ((Math.max(0, v) / servMax) * plotH);
+  const xFor = i => pad.left + i * xStep;
+  const pathFrom = (series, scale) => series.map((v, i) => `${i === 0 ? 'M' : 'L'} ${xFor(i).toFixed(2)} ${scale(v).toFixed(2)}`).join(' ');
+  const costSeries = days.map(d => d.costPerKm);
+  const servSeries = days.map(d => d.services);
+  const costPath = pathFrom(costSeries, costScale);
+  const servPath = pathFrom(servSeries, servScale);
+  const gridLines = [0, 0.25, 0.5, 0.75, 1].map(frac => {
+    const y = pad.top + plotH - plotH * frac;
+    const costVal = costMax * frac;
+    const servVal = servMax * frac;
+    return `
+      <g>
+        <line x1="${pad.left}" y1="${y.toFixed(2)}" x2="${(width - pad.right).toFixed(2)}" y2="${y.toFixed(2)}" stroke="rgba(148,163,184,.16)" stroke-width="1" />
+        <text x="${pad.left - 10}" y="${(y + 4).toFixed(2)}" text-anchor="end" font-size="11" fill="#334155">${formatMoney(costVal)}</text>
+        <text x="${width - pad.right + 10}" y="${(y + 4).toFixed(2)}" text-anchor="start" font-size="11" fill="#334155">${formatCountValue(servVal)}</text>
+      </g>`;
   }).join('');
-
-  // Promedios
-  const yAvgCost = yCost(chartData.costAvg || 0);
-  const yAvgServ = yServ(Math.min(chartData.servicesAvg || 0, SERV_MAX));
-
-  // Línea $/km
-  const linePath = days.map((d, i) =>
-    `${i === 0 ? 'M' : 'L'} ${xFor(i).toFixed(1)} ${yCost(d.costPerKm).toFixed(1)}`
-  ).join(' ');
-
-  // ── BARRAS ────────────────────────────────────────────────────────────────
-  const MIN_LABEL_H = 30;  // px mínimos para etiqueta dentro de segmento
-
-  const bars = days.map((day, i) => {
-    const cx     = xFor(i);
-    const bx     = cx - barWidth / 2;
-    const totalH = Math.max(day.services > 0 ? 6 : 0, (Math.min(day.services, SERV_MAX) / SERV_MAX) * PLOT_H);
-    const top    = BASE - totalH;
-    const rx     = Math.min(10, barWidth / 5);
-
-    const tot  = day.services || 1;
-    const pM1  = day.diaMinus1 / tot;
-    const p0   = day.dia0      / tot;
-    const pRst = Math.max(0, 1 - pM1 - p0);
-
-    const hM1  = totalH * pM1;
-    const h0   = totalH * p0;
-    const hRst = totalH * pRst;
-    const yM1  = top;
-    const y0   = top  + hM1;
-    const yRst = y0   + h0;
-
-    // Rectángulos
-    let r = '';
-    if (hRst > 0.5) r += `<rect x="${bx.toFixed(1)}" y="${yRst.toFixed(1)}" width="${barWidth.toFixed(1)}" height="${hRst.toFixed(1)}" fill="#bfdbfe"/>`;
-    if (h0   > 0.5) r += `<rect x="${bx.toFixed(1)}" y="${y0.toFixed(1)}"   width="${barWidth.toFixed(1)}" height="${h0.toFixed(1)}"   fill="#16a34a"/>`;
-    if (hM1  > 0.5) {
-      r += `<rect x="${bx.toFixed(1)}" y="${yM1.toFixed(1)}" width="${barWidth.toFixed(1)}" height="${(hM1+rx).toFixed(1)}" fill="#1d4ed8"/>`;
-      r += `<rect x="${bx.toFixed(1)}" y="${yM1.toFixed(1)}" width="${barWidth.toFixed(1)}" height="${hM1.toFixed(1)}"          fill="#1d4ed8" rx="${rx}" ry="${rx}"/>`;
-    }
-    if (totalH >= 4) r += `<rect x="${bx.toFixed(1)}" y="${top.toFixed(1)}" width="${barWidth.toFixed(1)}" height="${totalH.toFixed(1)}" fill="none" stroke="rgba(15,23,42,.08)" stroke-width="1.5" rx="${rx}" ry="${rx}"/>`;
-
-    // ── Etiquetas dentro / fuera según altura del segmento ──────────────────
-    let lbl = '';
-
-    // Segmento azul (día -1)
-    if (hM1 > 0.5) {
-      const txt = `-1=${Math.round(pM1*100)}%`;
-      if (hM1 >= MIN_LABEL_H) {
-        lbl += `<text x="${cx.toFixed(1)}" y="${(yM1+hM1/2+6).toFixed(1)}"
-          text-anchor="middle" font-size="15" font-weight="800" fill="#fff"
-          style="paint-order:stroke;stroke:#1d4ed8;stroke-width:3px">${txt}</text>`;
-      } else {
-        // fuera: encima de la barra total (ya que es el segmento más alto)
-        lbl += `<text x="${cx.toFixed(1)}" y="${(top-8).toFixed(1)}"
-          text-anchor="middle" font-size="14" font-weight="800" fill="#1d4ed8"
-          style="paint-order:stroke;stroke:#fff;stroke-width:3px">${txt}</text>`;
-      }
-    }
-
-    // Segmento verde (día 0)
-    if (h0 > 0.5) {
-      const txt = `0=${Math.round(p0*100)}%`;
-      if (h0 >= MIN_LABEL_H) {
-        lbl += `<text x="${cx.toFixed(1)}" y="${(y0+h0/2+6).toFixed(1)}"
-          text-anchor="middle" font-size="15" font-weight="800" fill="#fff"
-          style="paint-order:stroke;stroke:#16a34a;stroke-width:3px">${txt}</text>`;
-      } else {
-        // fuera: justo sobre el segmento azul claro
-        lbl += `<text x="${cx.toFixed(1)}" y="${(yRst-8).toFixed(1)}"
-          text-anchor="middle" font-size="14" font-weight="800" fill="#15803d"
-          style="paint-order:stroke;stroke:#fff;stroke-width:3px">${txt}</text>`;
-      }
-    }
-
-    // S=NNN — siempre encima de la barra, nunca solapado con ella
-    const sY = Math.max(PAD_TOP + 20, top - 14);
-    lbl += `<text x="${cx.toFixed(1)}" y="${sY.toFixed(1)}"
-      text-anchor="middle" font-size="18" font-weight="900" fill="#0f172a"
-      style="paint-order:stroke;stroke:#fff;stroke-width:4px">S=${day.services}</text>`;
-
-    // Eje X — día y fecha más grandes
-    const pts = day.label.split(' ');
-    const dayNum  = (pts[1] || '').split('/')[0] || '';
-    const dayAbbr = pts[0] || '';
-    const dateFull = pts[1] || '';
-    lbl += `<text x="${cx.toFixed(1)}" y="${(BASE+34).toFixed(1)}"
-      text-anchor="middle" font-size="20" font-weight="900" fill="#0f172a"
-      style="paint-order:stroke;stroke:#fff;stroke-width:3px">${escapeHtml(dayNum)} ${escapeHtml(dayAbbr)}</text>`;
-
-    return `<g><title>${escapeHtml(day.label)} | S=${day.services} | -1=${day.diaMinus1} | 0=${day.dia0}</title>${r}${lbl}</g>`;
+  const costAvgY = costScale(chartData.costAvg || 0);
+  const servAvgY = servScale(chartData.servicesAvg || 0);
+  const points = days.map((day, i) => {
+    const x = xFor(i);
+    const costY = costScale(day.costPerKm);
+    const servY = servScale(day.services);
+    const costLabelY = Math.max(pad.top + 12, costY - 12);
+    const servLabelY = Math.min(height - 12, servY + 20);
+    return `
+      <g>
+        <circle cx="${x.toFixed(2)}" cy="${costY.toFixed(2)}" r="4.5" fill="#2563eb" />
+        <circle cx="${x.toFixed(2)}" cy="${servY.toFixed(2)}" r="4.5" fill="#16a34a" />
+        <text x="${x.toFixed(2)}" y="${costLabelY.toFixed(2)}" text-anchor="middle" font-size="10" font-weight="700" fill="#2563eb" style="paint-order:stroke;stroke:#fff;stroke-width:3px">${formatMoney(day.costPerKm)}</text>
+        <text x="${x.toFixed(2)}" y="${servLabelY.toFixed(2)}" text-anchor="middle" font-size="10" font-weight="700" fill="#16a34a" style="paint-order:stroke;stroke:#fff;stroke-width:3px">${formatCountValue(day.services)}</text>
+        <text x="${x.toFixed(2)}" y="${(height - 16).toFixed(2)}" text-anchor="middle" font-size="11" font-weight="700" fill="#0f172a">${escapeHtml(day.label)}</text>
+        <title>${escapeHtml(day.label)} | Costo/km: ${formatMoney(day.costPerKm)} | Servicios: ${formatCountValue(day.services)} | Costo: ${formatMoney(day.totalCost)} | KM: ${formatKmValue(day.totalKm)}</title>
+      </g>`;
   }).join('');
-
-  // ── Puntos $/km ────────────────────────────────────────────────────────────
-  const dots = days.map((day, i) => {
-    const x    = xFor(i);
-    const y    = yCost(day.costPerKm);
-    const barT = BASE - (Math.min(day.services, SERV_MAX) / SERV_MAX) * PLOT_H;
-    // Si la línea está cerca de la barra → etiqueta abajo del punto
-    const lyUp = y - 16;
-    const lyDn = y + 26;
-    const ly   = (y > barT + 36) ? lyUp : lyDn;
-    return `<g>
-      <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="8" fill="#2563eb" stroke="#fff" stroke-width="2.5"/>
-      <text x="${x.toFixed(1)}" y="${ly.toFixed(1)}"
-        text-anchor="middle" font-size="13" font-weight="800" fill="#2563eb"
-        style="paint-order:stroke;stroke:#fff;stroke-width:3px">${formatMoney(day.costPerKm)}</text>
-    </g>`;
-  }).join('');
-
-  // ── Leyenda ────────────────────────────────────────────────────────────────
-  const avgCostLabel = `$/KM prom. diario último mes: ${formatMoney(chartData.costAvg)}`;
-  const avgServLabel = `Serv. prom. diario último mes: ${formatCountValue(chartData.servicesAvg)}`;
-
-  // El SVG define su propio height exacto → el contenedor se adapta automáticamente
   return `
-    <div style="overflow-x:auto;margin-top:0px;">
-      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px;font-size:13px;font-weight:700;color:#0f172a;">
-        <span style="display:flex;align-items:center;gap:7px;background:#fff;border:1px solid rgba(148,163,184,.25);border-radius:999px;padding:5px 12px;">
-          <span style="width:13px;height:13px;border-radius:50%;background:#1d4ed8;display:inline-block;flex-shrink:0;"></span>Día -1</span>
-        <span style="display:flex;align-items:center;gap:7px;background:#fff;border:1px solid rgba(148,163,184,.25);border-radius:999px;padding:5px 12px;">
-          <span style="width:13px;height:13px;border-radius:50%;background:#16a34a;display:inline-block;flex-shrink:0;"></span>Día 0</span>
-        <span style="display:flex;align-items:center;gap:7px;background:#fff;border:1px solid rgba(148,163,184,.25);border-radius:999px;padding:5px 12px;">
-          <span style="width:13px;height:13px;border-radius:50%;background:#2563eb;display:inline-block;flex-shrink:0;"></span>${avgCostLabel}</span>
-        <span style="display:flex;align-items:center;gap:7px;background:#fff;border:1px solid rgba(148,163,184,.25);border-radius:999px;padding:5px 12px;">
-          <span style="width:13px;height:13px;border-radius:50%;background:#16a34a;opacity:.6;display:inline-block;flex-shrink:0;"></span>${avgServLabel}</span>
+    <div class="informe-ope-chart-wrap">
+      <div class="informe-ope-chart-legend">
+        ${(() => {
+          const period = S.informeOpePeriodo || 'dia-1';
+          const labelMap = { 'dia-1': 'Semana en curso', 'semana': 'Semana en curso', 'mes': 'Mes corrido', 'año': 'Año en curso', 'todos': 'Período' };
+          const label = labelMap[period] || 'Período';
+          return `
+            <span class="informe-ope-chart-legend-item"><span class="informe-ope-chart-dot" style="background:#2563eb"></span>Costo/KM prom. diario ${label.toLowerCase()} ${formatMoney(chartData.costAvg)}</span>
+            <span class="informe-ope-chart-legend-item"><span class="informe-ope-chart-dot" style="background:#16a34a"></span>Servicios prom. diario ${label.toLowerCase()} ${formatCountValue(chartData.servicesAvg)}</span>
+          `;
+        })()}
       </div>
-      <div style="background:#fff;border-radius:18px;border:1px solid rgba(148,163,184,.18);overflow:hidden;">
-        <svg
-          viewBox="0 0 ${svgW} ${svgH}"
-          width="100%"
-          height="${svgH}"
-          preserveAspectRatio="xMidYMid meet"
-          style="display:block;min-width:${Math.min(svgW, 880)}px;"
-          role="img"
-          aria-label="Tendencia operativa ${days.length} días">
-
-          <defs>
-            <clipPath id="clip-bars">
-              <rect x="${X0}" y="${PAD_TOP - 30}" width="${X1 - X0}" height="${PLOT_H + 80}"/>
-            </clipPath>
-          </defs>
-
+      <div class="informe-ope-chart-shell">
+        <svg class="informe-ope-chart-svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" role="img" aria-label="Gráfico operativo del período filtrado">
           ${gridLines}
-
-          <!-- Ejes -->
-          <line x1="${X0}" y1="${PAD_TOP}" x2="${X0}" y2="${BASE}" stroke="#94a3b8" stroke-width="1.5"/>
-          <line x1="${X1.toFixed(1)}" y1="${PAD_TOP}" x2="${X1.toFixed(1)}" y2="${BASE}" stroke="#94a3b8" stroke-width="1.5"/>
-          <line x1="${X0}" y1="${BASE}" x2="${X1.toFixed(1)}" y2="${BASE}" stroke="#94a3b8" stroke-width="1.5"/>
-
-          <!-- Promedios -->
-          <line x1="${X0}" y1="${yAvgCost.toFixed(1)}" x2="${X1.toFixed(1)}" y2="${yAvgCost.toFixed(1)}"
-                stroke="#2563eb" stroke-dasharray="10 5" stroke-width="2.5" opacity=".85"/>
-          <line x1="${X0}" y1="${yAvgServ.toFixed(1)}" x2="${X1.toFixed(1)}" y2="${yAvgServ.toFixed(1)}"
-                stroke="#16a34a" stroke-dasharray="10 5" stroke-width="2.5" opacity=".85"/>
-
-          <!-- Barras -->
-          <g clip-path="url(#clip-bars)">${bars}</g>
-
-          <!-- Línea $/km -->
-          <path d="${linePath}" fill="none" stroke="#2563eb" stroke-width="3.5"
-                stroke-linecap="round" stroke-linejoin="round"/>
-          ${dots}
-
-          <!-- Títulos de ejes -->
-          <text x="${X0}" y="${PAD_TOP - 14}"
-                text-anchor="start" font-size="16" font-weight="800" fill="#0f172a">$/KM</text>
-          <text x="${(X1+14).toFixed(1)}" y="${PAD_TOP - 14}"
-                text-anchor="start" font-size="16" font-weight="800" fill="#0f172a">Servicios (0–${SERV_MAX})</text>
+          <line x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${pad.top + plotH}" stroke="rgba(15,23,42,.35)" stroke-width="1.5" />
+          <line x1="${width - pad.right}" y1="${pad.top}" x2="${width - pad.right}" y2="${pad.top + plotH}" stroke="rgba(15,23,42,.35)" stroke-width="1.5" />
+          <line x1="${pad.left}" y1="${costAvgY.toFixed(2)}" x2="${width - pad.right}" y2="${costAvgY.toFixed(2)}" stroke="#2563eb" stroke-dasharray="6 6" stroke-width="2" opacity="0.65" />
+          <line x1="${pad.left}" y1="${servAvgY.toFixed(2)}" x2="${width - pad.right}" y2="${servAvgY.toFixed(2)}" stroke="#16a34a" stroke-dasharray="6 6" stroke-width="2" opacity="0.65" />
+          <path d="${costPath}" fill="none" stroke="#2563eb" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="${servPath}" fill="none" stroke="#16a34a" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+          ${points}
+          <text x="${pad.left}" y="16" text-anchor="start" font-size="12" font-weight="700" fill="#334155">Costo/KM</text>
+          <text x="${width - pad.right}" y="16" text-anchor="end" font-size="12" font-weight="700" fill="#334155">Servicios</text>
         </svg>
       </div>
-    </div>`;
+    </div>
+  `;
 }
 
 function renderInformeOpeBoard(payload){
@@ -4354,17 +3858,14 @@ function renderInformeOpeBoard(payload){
   const mdePayload = buildInformeOpeData(grouped.MDE || [], rows);
   summary.innerHTML = buildInformeOpeComparisonSummary(bogPayload, mdePayload);
   const periodoLabels = {
-    'dia0': 'Día 0 (hoy)',
-    'dia-1': 'Ayer',
+    'dia-1': 'Día 0 (hoy)',
     'mes': 'Mes en curso',
-    'semana': 'Ultima Semana',
+    'semana': 'Semana en curso',
     'año': 'Año en curso',
     'todos': 'Todos los registros',
   };
   const recorridoLabel = S.informeOpeRecorrido ? S.informeOpeRecorrido : 'Todos los recorridos';
   note.className = '';
-  note.style.padding = '0';
-  note.style.textAlign = 'left';
   note.innerHTML = renderInformeOpeChart(payload?.chartData || buildInformeOpeChartData([]));
 }
 
@@ -4374,15 +3875,13 @@ async function openInformeOpeModal(){
   if (note) note.textContent = 'Cargando datos...';
   try {
     await loadInformeOpeData();
-    if (!S.informeOpePeriodo) S.informeOpePeriodo = 'dia-1';
-    const selecwtPeriodo = document.getElementById('informe-ope-periodo-filter');
+    if (!S.informeOpePeriodo) S.informeOpePeriodo = 'semana';
+    const selectPeriodo = document.getElementById('informe-ope-periodo-filter');
     if (selectPeriodo) selectPeriodo.value = S.informeOpePeriodo;
     renderInformeOpeFilter(S.informeOpeRows || []);
-// Para dia-1: summary usa solo ayer, pero chart necesita base completa sin filtro de fecha
-    const allActiveRows = (S.informeOpeRows || []).filter(row =>
-      !String(row['ESTADO DE VIAJE'] || '').toLowerCase().includes('cancelado')
-    );
-    applyInformeOpeFilter();
+    let baseRows = getInformeOpeRows();
+    const scopeRows = getInformeOpeScopeRows(baseRows);
+    renderInformeOpeBoard(buildInformeOpeData(scopeRows, baseRows));
     updateInformeOpeHeaderMeta();
   } catch (e) {
     if (note) note.textContent = 'Error cargando Informe Ope: ' + e.message;
@@ -4408,7 +3907,7 @@ async function openTdc(username){
   }catch(e){ hideLoading(); alert('Error cargando datos: '+e.message); }
 }
 
-function leaveTdc(){ stopBgRefresh(); goView('tdc-hub'); }
+function leaveTdc(){ stopBgRefresh(); goView('actor'); }
 
 async function refreshTdc(){
   stopBgRefresh();
@@ -4557,15 +4056,9 @@ function updateMetrics(data){
   const balanceLabel = document.getElementById('m-balance-ott');
   if (balanceLabel) balanceLabel.innerHTML = `Balance OTT: <strong>${(100 - promEquidad).toFixed(1)}%</strong>`;
   if (document.getElementById('modal-balance-ott')?.classList.contains('open')) {
-  const allActiveRows = (S.informeOpeRows || []).filter(row =>
-    !String(row['ESTADO DE VIAJE'] || '').toLowerCase().includes('cancelado')
-  );
-  const baseRows = getInformeOpeRows();
-  const scopeRows = getInformeOpeScopeRows(baseRows);
-  const baseForChart = S.informeOpePeriodo === 'dia-1'
-    ? getInformeOpeScopeRows(allActiveRows)
-    : baseRows;
-  renderInformeOpeBoard(buildInformeOpeData(scopeRows, baseForChart));
+    const baseRows = getBalanceOttRows();
+    const scopeRows = getBalanceOttScopeRows(baseRows);
+    renderBalanceOttChart(buildBalanceOttData(scopeRows, baseRows));
   }
 }
 
@@ -5006,7 +4499,7 @@ function openCellEdit(rowIdx, col){
   else if(col==='PRODUCTO'){ html=buildSelect('cell-val', S.productosList, current); }
   else if(col==='ESTADO DE VIAJE'){ html=buildSelect('cell-val',['⚪ Programado','🟠 Cargando','🟡 Cargado','🟣 Transito','🟢 Finalizado','🔴 Cancelado'],current); }
   else if(col==='TIPO DE VIAJE'){ html=buildSelect('cell-val',['⏭️ Recorrido','🔁 Ida y Vuelta','📍 Punto a Punto','🔀 Compartido','📦 CompartidoM','⤴️ Otro'],current); }
-  else if(col==='TIPO V'){ html=buildSelect('cell-val',['1 <= 30 FBE','2 <= 60 FBE','3 <= 220 FBE','4 <= 350 FBE', '5 <= 350 ESTACAS'],current); }
+  else if(col==='TIPO V'){ html=buildSelect('cell-val',['1 > 30 FBE','2 < 60 FBE','3 < 220 FBE','4 350 FBE'],current); }
   else if(col==='TARIFA'){ html=`<input id="cell-val" type="number" value="${current.replace(/[$.,]/g,'')}" style="width:100%">`; }
   else if(col==='HORA E'||col==='HORA C'||col==='HORA D'){ html=`<input id="cell-val" type="time" value="${normalizeTime(current)}" style="width:100%">`; }
   else{ html=`<input id="cell-val" value="${current}" style="width:100%">`; }
@@ -5316,23 +4809,6 @@ function onResizeMouseMove(e){
 }
 function onResizeMouseUp(){ currentColResize = null; document.body.classList.remove('resizing'); document.removeEventListener('mousemove', onResizeMouseMove); document.removeEventListener('mouseup', onResizeMouseUp); }
 
-function tryRestoreHubFromUrl(){
-  const params = new URLSearchParams(window.location.search);
-  const hub = (params.get('hub') || '').toLowerCase();
-  if (!hub) return false;
-
-  const profile = (params.get('profile') || '').toUpperCase();
-  const user = (params.get('user') || '').toUpperCase();
-  if (user) {
-    S.username = user;
-    S.profile = profile || (hub === 'eai' ? 'EAI' : 'OTT');
-  }
-
-  if (hub === 'eai') { goView('eai-hub'); return true; }
-  if (hub === 'tdc') { goView('tdc-hub'); return true; }
-  return false;
-}
-
 async function loadSecureConfig(){
   try {
     showLoading('Cargando configuración...');
@@ -5349,10 +4825,8 @@ async function loadSecureConfig(){
     window.CORS = config.CORS_PROXY;
     hideLoading();
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-    if (!tryRestoreHubFromUrl()) {
-      document.getElementById('view-actor').classList.add('active');
-      playViewIntro('actor');
-    }
+    document.getElementById('view-actor').classList.add('active');
+    playViewIntro('actor');
     document.getElementById('login-pass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
     document.getElementById('login-user').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('login-pass').focus(); });
   } catch (error) {
@@ -5361,260 +4835,7 @@ async function loadSecureConfig(){
     alert('Error de configuración: ' + error.message);
   }
 }
-// ─── INFORME EAI ──────────────────────────────────────────────────────────────
-const _ieai = {
-  periodo: 'dia-1',
-  recorrido: '',
-  recorridos: [],
-  sort: { key: 'services', asc: false },
-  allRows: [],
-};
 
-function _ieaiGetRows(onlyCanceled = false){
-  const src = (S.informeOpeRows || []).filter(r => {
-    const esCancelado = String(r['ESTADO DE VIAJE'] || '').toLowerCase().includes('cancelado');
-    return onlyCanceled ? esCancelado : !esCancelado;
-  });
-  const periodo = _ieai.periodo || 'dia-1';
-  let filtered;
-  if (periodo === 'todos') {
-    filtered = src;
-  } else {
-    const hoy = new Date();
-    const toKey = d => parseInt(`${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`,10);
-    let start, end;
-    if (periodo === 'dia0') { const k = toKey(hoy); start = k; end = k; }
-    else if (periodo === 'dia-1') { const y = new Date(hoy); y.setDate(y.getDate()-1); const k = toKey(y); start = k; end = k; }
-    else if (periodo === 'semana') { const s = new Date(hoy); s.setDate(s.getDate()-6); start = toKey(s); end = toKey(hoy); }
-    else if (periodo === 'mes') { const s = new Date(hoy.getFullYear(), hoy.getMonth(), 1); start = toKey(s); end = toKey(hoy); }
-    else if (periodo === 'año') { const s = new Date(hoy.getFullYear(), 0, 1); start = toKey(s); end = toKey(hoy); }
-    filtered = src.filter(r => {
-      const raw = String(r['FECHA E'] || r['FECHA S'] || '').split(' ')[0];
-      const p = parseDateParts(raw);
-      if (!p) return false;
-      const k = parseInt(`${p.year}${p.month}${p.day}`, 10);
-      return k >= start && k <= end;
-    });
-  }
-  const rec = (_ieai.recorrido || '').trim();
-  if (rec) filtered = filtered.filter(r => String(r['RECORRIDO'] || '').trim() === rec);
-  return filtered;
-}
-
-function _ieaiBuild(rows, cancelRows){
-  const map = new Map();
-  // conteo de activos
-  rows.forEach(r => {
-    const raw = String(r['SOLICITANTE'] || '').trim();
-    const key = raw.includes('-') ? raw.split('-')[0].trim() : raw;
-    if (!key || key.toLowerCase() === 'nan') return;
-    if (!map.has(key)) map.set(key, { name: key, services: 0, cost: 0, dm1: 0, d0: 0, kmCostDm1: 0, kmDm1: 0, kmCostD0: 0, kmD0: 0, cancelados: 0 });
-    const e = map.get(key);
-    e.services++;
-    e.cost += extractTarifaNum(r['TARIFA']);
-    const dia = parseInt(String(r['DIA SOLICITUD'] || '').replace(/[^0-9-]/g, ''), 10);
-    const km = extractKmNum(r['KM']);
-    const cost = extractTarifaNum(r['TARIFA']);
-    if (dia === -1) { e.dm1++; e.kmCostDm1 += cost; e.kmDm1 += km; }
-    if (dia === 0)  { e.d0++;  e.kmCostD0  += cost; e.kmD0  += km; }
-  });
-  // conteo de cancelados por EAI (segunda pasada independiente)
-  (cancelRows || []).forEach(r => {
-    const raw = String(r['SOLICITANTE'] || '').trim();
-    const key = raw.includes('-') ? raw.split('-')[0].trim() : raw;
-    if (!key || key.toLowerCase() === 'nan') return;
-    if (map.has(key)) map.get(key).cancelados++;
-  });
-  const total = rows.length || 1;
-  return [...map.values()].map(e => ({
-    ...e,
-    pct:       (e.services / total) * 100,
-    pctDm1:    e.services > 0 ? (e.dm1 / e.services) * 100 : 0,
-    pctD0:     e.services > 0 ? (e.d0  / e.services) * 100 : 0,
-    pctCancel: (e.services + e.cancelados) > 0 ? (e.cancelados / (e.services + e.cancelados)) * 100 : 0,
-    ckmDm1:    e.kmDm1 > 0 ? e.kmCostDm1 / e.kmDm1 : 0,
-    ckmD0:     e.kmD0  > 0 ? e.kmCostD0  / e.kmD0  : 0,
-  }));
-}
-function _ieaiSort(rows){
-  const { key, asc } = _ieai.sort;
-  return [...rows].sort((a, b) => {
-    const av = a[key]; const bv = b[key];
-    if (typeof av === 'number' && typeof bv === 'number') return asc ? av - bv : bv - av;
-    return asc ? String(av).localeCompare(String(bv), 'es') : String(bv).localeCompare(String(av), 'es');
-  });
-}
-
-function _ieaiSortBy(key){
-  if (_ieai.sort.key === key) _ieai.sort.asc = !_ieai.sort.asc;
-  else { _ieai.sort.key = key; _ieai.sort.asc = false; }
-  renderInformeEaiTable(_ieaiSort(_ieai.allRows));
-}
-
-function filterInformeEaiTable(q){
-  const query = String(q || '').trim().toLowerCase();
-  const rows = query
-    ? _ieai.allRows.filter(r => r.name.toLowerCase().includes(query))
-    : _ieai.allRows;
-  renderInformeEaiTable(_ieaiSort(rows));
-}
-
-function renderInformeEaiTable(rows){
-  const wrap = document.getElementById('informe-eai-table-wrap');
-  if (!wrap) return;
-  if (!rows.length) { wrap.innerHTML = '<div class="balance-empty">Sin datos para el período y filtros seleccionados.</div>'; return; }
-
-  const totalServices = rows.reduce((s, r) => s + r.services,   0);
-  const totalCost     = rows.reduce((s, r) => s + r.cost,       0);
-  const totalDm1      = rows.reduce((s, r) => s + r.dm1,        0);
-  const totalD0       = rows.reduce((s, r) => s + r.d0,         0);
-  const totalCancel   = rows.reduce((s, r) => s + r.cancelados, 0);
-  const totalConCancel = totalServices + totalCancel;
-
-  const cols = [
-    { key:'name',       label:'SOLICITANTE',  fmt: v => escapeHtml(v),                                                                                                       align:'left',   html:false },
-    { key:'services',   label:'# SERVICIOS',  fmt: v => formatCountValue(v),                                                                                                  align:'center', html:false },
-    { key:'cost',       label:'COSTO TOTAL',  fmt: v => formatMoney(v),                                                                                                       align:'right',  html:false },
-    { key:'pct',        label:'% SERVICIOS',  fmt: v => (Number(v)||0).toFixed(1)+'%',                                                                                        align:'center', html:false },
-    { key:'cancelados', label:'🔴 CANCEL #',  fmt: v => v > 0 ? `<span style="color:#dc2626;font-weight:800">${formatCountValue(v)}</span>` : '—',                           align:'center', html:true  },
-    { key:'pctCancel',  label:'% CANCEL',     fmt: v => v > 0 ? `<span style="color:#dc2626;font-weight:700">${(Number(v)||0).toFixed(1)}%</span>` : '—',                    align:'center', html:true  },
-    { key:'dm1',        label:'# DÍA -1',     fmt: v => formatCountValue(v),                                                                                                  align:'center', html:false },
-    { key:'pctDm1',     label:'% DÍA -1',     fmt: v => (Number(v)||0).toFixed(1)+'%',                                                                                        align:'center', html:false },
-    { key:'ckmDm1',     label:'$/KM DÍA -1',  fmt: v => v > 0 ? formatMoney(v) : '—',                                                                                        align:'right',  html:false },
-    { key:'d0',         label:'# DÍA 0',      fmt: v => formatCountValue(v),                                                                                                  align:'center', html:false },
-    { key:'pctD0',      label:'% DÍA 0',      fmt: v => (Number(v)||0).toFixed(1)+'%',                                                                                        align:'center', html:false },
-    { key:'ckmD0',      label:'$/KM DÍA 0',   fmt: v => v > 0 ? formatMoney(v) : '—',                                                                                        align:'right',  html:false },
-  ];
-
-  const thBase = [
-    'padding:9px 10px','font-size:10px','font-weight:900','text-transform:uppercase',
-    'letter-spacing:.5px','color:#fff','white-space:nowrap','cursor:pointer','user-select:none',
-    'border-right:1px solid rgba(255,255,255,.1)',
-  ].join(';');
-
-  const ths = cols.map(c => {
-    const active = _ieai.sort.key === c.key;
-    const arrow  = active ? (_ieai.sort.asc ? '▲' : '▼') : '⇅';
-    const bg     = active
-      ? 'background:linear-gradient(135deg,#1e3a8a,#2563eb)'
-      : 'background:linear-gradient(135deg,#0f172a,#1d4ed8)';
-    return `<th style="${thBase};${bg};text-align:${c.align}" onclick="_ieaiSortBy('${c.key}')" title="Ordenar por ${c.label}">
-      ${c.label}<br><span style="opacity:${active?1:.35};font-size:9px;font-weight:400">${arrow}</span>
-    </th>`;
-  }).join('');
-
-  const tdBase = [
-    'padding:8px 10px','font-size:12px','color:#0f172a','border-bottom:1px solid #e2e8f0',
-    'border-right:1px solid #e2e8f0','white-space:nowrap','font-family:DM Sans,sans-serif',
-    'background:#fff',
-  ].join(';');
-
-  const trs = rows.map((r, i) => {
-    const bg = i % 2 === 0 ? '#fff' : '#f8fbff';
-    const pctColor   = r.pct >= 20 ? '#dc2626' : r.pct >= 10 ? '#d97706' : '#16a34a';
-    const tds = cols.map(c => {
-      let extra = '';
-      if (c.key === 'pct')                      extra = `color:${pctColor};font-weight:700`;
-      if (c.key === 'pctDm1' || c.key === 'pctD0') extra = 'color:#1d4ed8;font-weight:700';
-      if (c.key === 'name')                     extra = 'font-weight:700';
-      const rendered = c.html ? c.fmt(r[c.key]) : escapeHtml(String(c.fmt(r[c.key])));
-      return `<td style="${tdBase};background:inherit;text-align:${c.align};${extra}">${rendered}</td>`;
-    }).join('');
-    return `<tr style="background:${bg}"
-      onmouseover="this.style.background='#dbeafe'"
-      onmouseout="this.style.background='${bg}'">${tds}</tr>`;
-  }).join('');
-
-  // Fila de totales
-  const tfBase = [
-    'padding:9px 10px','font-size:12px','font-weight:800','color:#0f172a',
-    'border-top:2px solid #3b82f6','border-right:1px solid #e2e8f0','white-space:nowrap',
-    'font-family:DM Sans,sans-serif',
-    'background:linear-gradient(135deg,#e0e7ff,#dbeafe)',
-  ].join(';');
-
-  const totalRow = `<tr style="background:linear-gradient(135deg,#e0e7ff,#dbeafe)">
-    <td style="${tfBase};text-align:left;font-weight:900">TOTAL</td>
-    <td style="${tfBase};text-align:center">${formatCountValue(totalServices)}</td>
-    <td style="${tfBase};text-align:right">${formatMoney(totalCost)}</td>
-    <td style="${tfBase};text-align:center">100%</td>
-    <td style="${tfBase};text-align:center;color:#dc2626">${formatCountValue(totalCancel)}</td>
-    <td style="${tfBase};text-align:center;color:#dc2626">${totalConCancel > 0 ? ((totalCancel / totalConCancel) * 100).toFixed(1)+'%' : '—'}</td>
-    <td style="${tfBase};text-align:center">${formatCountValue(totalDm1)}</td>
-    <td style="${tfBase};text-align:center">${totalServices > 0 ? ((totalDm1/totalServices)*100).toFixed(1)+'%' : '—'}</td>
-    <td style="${tfBase};text-align:right">—</td>
-    <td style="${tfBase};text-align:center">${formatCountValue(totalD0)}</td>
-    <td style="${tfBase};text-align:center">${totalServices > 0 ? ((totalD0/totalServices)*100).toFixed(1)+'%' : '—'}</td>
-    <td style="${tfBase};text-align:right">—</td>
-  </tr>`;
-
-  wrap.innerHTML = `<table style="border-collapse:collapse;width:100%;background:#fff;table-layout:auto">
-    <thead><tr style="position:sticky;top:0;z-index:5">${ths}</tr></thead>
-    <tbody>${trs}${totalRow}</tbody>
-  </table>`;
-}
-
-
-function filterInformeEaiRecorrido(query){
-  const dd = document.getElementById('dd-informe-eai-recorrido');
-  if (!dd) return;
-  const q = String(query || '').trim().toLowerCase();
-  const opts = [
-    `<div class="dropdown-item" onmousedown='event.preventDefault();selectInformeEaiRecorrido("");return false;'>Todos los recorridos</div>`,
-    ...(_ieai.recorridos || [])
-      .filter(v => !q || v.toLowerCase().includes(q))
-      .map(v => `<div class="dropdown-item" onmousedown='event.preventDefault();selectInformeEaiRecorrido(${JSON.stringify(v)});return false;'>${escapeHtml(v)}</div>`)
-  ].join('');
-  dd.innerHTML = opts;
-  dd.classList.add('open');
-}
-
-function selectInformeEaiRecorrido(value){
-  const input = document.getElementById('informe-eai-recorrido-filter');
-  if (input) input.value = value || '';
-  _ieai.recorrido = value || '';
-  applyInformeEaiFilter();
-}
-
-function applyInformeEaiFilter(){
-  const sel = document.getElementById('informe-eai-periodo-filter');
-  _ieai.periodo = sel ? sel.value : 'dia-1';
-  _ieai.recorrido = (document.getElementById('informe-eai-recorrido-filter') || {}).value || '';
-  const rows = _ieaiGetRows();
-  // cancelados del mismo período y recorrido
-  const cancelRows = _ieaiGetRows(true);
-  _ieai.allRows = _ieaiBuild(rows, cancelRows);
-  // Actualizar header meta
-  const meta = document.getElementById('informe-eai-header-meta');
-  if (meta) {
-    const labels = { 'dia0':'Hoy', 'dia-1':'Ayer', 'semana':'Última semana', 'mes':'Mes en curso', 'año':'Año', 'todos':'Todos' };
-    const rec = _ieai.recorrido || 'Todos los recorridos';
-    meta.textContent = `${labels[_ieai.periodo] || _ieai.periodo} · ${rec}`;
-  }
-  renderInformeEaiTable(_ieaiSort(_ieai.allRows));
-}
-
-async function openInformeEaiModal(){
-  openModal('modal-informe-eai');
-  const wrap = document.getElementById('informe-eai-table-wrap');
-  if (wrap) wrap.innerHTML = '<div class="balance-empty">Cargando datos...</div>';
-  try {
-    await loadInformeOpeData();
-    // Poblar recorridos disponibles
-    const src = (S.informeOpeRows || []).filter(r =>
-      !String(r['ESTADO DE VIAJE'] || '').toLowerCase().includes('cancelado')
-    );
-    _ieai.recorridos = [...new Set(src.map(r => String(r['RECORRIDO'] || '').trim()).filter(v => v && v.toLowerCase() !== 'nan'))].sort((a,b) => a.localeCompare(b,'es'));
-    const input = document.getElementById('informe-eai-recorrido-filter');
-    if (input) { input.value = _ieai.recorrido || ''; }
-    // Inicializar período
-    const sel = document.getElementById('informe-eai-periodo-filter');
-    if (sel) sel.value = _ieai.periodo || 'dia-1';
-    applyInformeEaiFilter();
-  } catch(e) {
-    if (wrap) wrap.innerHTML = `<div class="balance-empty">Error: ${e.message}</div>`;
-  }
-}
 loadSecureConfig();
 </script>
 </body>
